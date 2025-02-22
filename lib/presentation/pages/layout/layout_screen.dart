@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/presentation/bloc/cubit.dart';
 import 'package:mynt/presentation/bloc/state.dart';
 
@@ -12,23 +13,22 @@ class LayoutScreen extends StatelessWidget {
         create: (context) => MainCubit(),
         child: BlocBuilder<MainCubit, MainStates>(builder: (context, state) {
           var cubit = MainCubit.get(context);
-
           return Scaffold(
             body: IndexedStack(
-              index: _selectedIndex,
-              children: _screens,
+              index: cubit.currentIndex,
+              children: cubit.screens,
             ),
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-              selectedItemColor: const Color(0xFF0F525B),
-              unselectedItemColor: Colors.grey,
+              currentIndex: cubit.currentIndex,
+              onTap: cubit.changeBottomBar,
+              selectedItemColor: AppColors.primary,
+              unselectedItemColor: AppColors.text2,
               showUnselectedLabels: true,
               selectedLabelStyle:
-                  TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               unselectedLabelStyle:
-                  TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-              items: [
+                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              items: const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.dashboard_rounded), label: "Dashboard"),
                 BottomNavigationBarItem(
