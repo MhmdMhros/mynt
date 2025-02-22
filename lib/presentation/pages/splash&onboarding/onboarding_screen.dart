@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/presentation/pages/sign%20up/sign_up_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding1_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding2_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
-import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _skip() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LayoutScreen()),
+      MaterialPageRoute(builder: (context) => const SignupScreen()),
     );
   }
 
@@ -40,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const LayoutScreen()),
+        MaterialPageRoute(builder: (context) => const SignupScreen()),
       );
     }
   }
