@@ -10,17 +10,9 @@ class OnboardingPage2 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 30.h),
-        Center(
-          child: Image.asset(
-            'assets/images/onboarding2.gif',
-            width: 300.w,
-            height: 300.h,
-          ),
-        ),
-        SizedBox(height: 24.h),
+        SizedBox(height: 400.h),
         Text(
-          'Luxury Living with\nUltimate Flexibility',
+          'Maximize Your ROI with\nHassle-Free Management!',
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.w600,
@@ -29,7 +21,7 @@ class OnboardingPage2 extends StatelessWidget {
         ),
         SizedBox(height: 12.h),
         Text(
-          'Experience high-quality furnished units that combine comfort and elegance, with the freedom to rent starting from just one month.',
+          'Say goodbye to rent collection hassles and maintenance worries—Mynt handles everything for you!',
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
