@@ -17,6 +17,7 @@ class AppTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool? autoFocus;
   final bool? readOnly;
+  final bool isBorderEnabled;
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
@@ -44,6 +45,7 @@ class AppTextFormField extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.onTapOutside,
+    this.isBorderEnabled = true,
   });
 
   @override
@@ -62,44 +64,47 @@ class AppTextFormField extends StatelessWidget {
               horizontal: 16.w,
               vertical: 12.h,
             ),
-        focusedBorder: focusedBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                4.r,
-              ),
-            ),
-        enabledBorder: enabledBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                4.r,
-              ),
-            ),
+        focusedBorder: isBorderEnabled
+            ? (focusedBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    4.r,
+                  ),
+                ))
+            : InputBorder.none,
+        enabledBorder: isBorderEnabled
+            ? (enabledBorder ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    8.r,
+                  ),
+                ))
+            : InputBorder.none,
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.3,
           ),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.3,
           ),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
-        hintStyle: hintStyle ?? const TextStyle(color: AppColors.offWhite),
+        hintStyle: hintStyle ?? const TextStyle(color: AppColors.text2),
         hintText: hintText,
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
-        fillColor: backgroundColor ?? AppColors.dark,
+        fillColor: backgroundColor ?? AppColors.secondary,
         filled: true,
       ),
       obscureText: isObscureText ?? false,
       style: inputTextStyle,
       keyboardType: keyboardType ?? TextInputType.text,
-      cursorColor: AppColors.mainBlue,
-      cursorHeight: 20.h,
+      cursorColor: AppColors.primary,
       autofocus: autoFocus ?? false,
       readOnly: readOnly ?? false,
       focusNode: focusNode,
