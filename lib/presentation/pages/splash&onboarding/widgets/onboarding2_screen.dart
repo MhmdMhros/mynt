@@ -10,7 +10,7 @@ class OnboardingPage2 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 400.h),
+        SizedBox(height: 350.h),
         Text(
           'Maximize Your ROI with\nHassle-Free Management!',
           style: TextStyle(

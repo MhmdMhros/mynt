@@ -38,6 +38,7 @@ class EmailVerification extends StatelessWidget {
     );
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -175,7 +176,7 @@ class EmailVerification extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 150.h),
+            SizedBox(height: 124.h),
             AppTextButton(
               buttonText: 'Confirm',
               buttonHeight: 48.h,
@@ -189,7 +190,6 @@ class EmailVerification extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: 20.h),
           ],
         ),
       ),
