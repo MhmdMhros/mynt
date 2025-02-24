@@ -5,7 +5,6 @@ import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
-import 'package:mynt/presentation/pages/sign%20up/sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -62,7 +61,7 @@ class SignInScreen extends StatelessWidget {
               SizedBox(height: 16.h),
               Center(
                 child: Text(
-                  'Welcome to Mynt Hospitality Choose your Experience',
+                  'Welcome to Mynt Hospitality\nChoose your Experience',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18.sp,
@@ -143,22 +142,24 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 8.h),
-              AppTextButton(
-                buttonText: 'Create Account',
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LayoutScreen(),
-                    ),
-                  );
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AppTextButton(
+          buttonText: 'Sign In',
+          buttonHeight: 48.h,
+          backgroundColor: AppColors.primary,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LayoutScreen(),
+              ),
+            );
+          },
         ),
       ),
     );

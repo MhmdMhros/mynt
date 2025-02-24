@@ -14,7 +14,7 @@ class EmailVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultBorderColor = Colors.grey.shade300;
-    final focusedBorderColor = AppColors.primary;
+    const focusedBorderColor = AppColors.primary;
 
     final pinWidth = 56.w;
     final pinHeight = 56.h;
@@ -176,21 +176,23 @@ class EmailVerification extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 124.h),
-            AppTextButton(
-              buttonText: 'Confirm',
-              buttonHeight: 48.h,
-              backgroundColor: AppColors.primary,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CreatePassword(),
-                  ),
-                );
-              },
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AppTextButton(
+          buttonText: 'Confirm',
+          buttonHeight: 48.h,
+          backgroundColor: AppColors.primary,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CreatePassword(),
+              ),
+            );
+          },
         ),
       ),
     );

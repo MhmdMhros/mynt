@@ -81,22 +81,24 @@ class CreatePassword extends StatelessWidget {
                 prefixIcon: Icon(Icons.lock_clock_outlined),
                 suffixIcon: Icon(Icons.visibility_off_outlined),
               ),
-              SizedBox(height: 200.h),
-              AppTextButton(
-                buttonText: 'Create Account',
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LayoutScreen(),
-                    ),
-                  );
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AppTextButton(
+          buttonText: 'Create Account',
+          buttonHeight: 48.h,
+          backgroundColor: AppColors.primary,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LayoutScreen(),
+              ),
+            );
+          },
         ),
       ),
     );
