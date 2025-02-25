@@ -84,7 +84,7 @@ class DashBoardScreen extends StatelessWidget {
                           // Required Action Section
                           _buildSectionTitle("Required Action", () {}, true),
                           SizedBox(height: 10.h),
-                          _buildActionCard(),
+                          _buildActionCard(context),
 
                           SizedBox(height: 16.h),
 
@@ -262,7 +262,7 @@ class DashBoardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionCard() {
+  Widget _buildActionCard(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
@@ -300,18 +300,27 @@ class DashBoardScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.all(6.w),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF0F525B),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(8.r),
+                GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.all(6.w),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0F525B),
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                      size: 20.sp,
+                    ),
                   ),
-                  child: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Colors.white,
-                    size: 20.sp,
-                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BalanceDetailsScreen()),
+                    );
+                  },
                 ),
               ],
             ),

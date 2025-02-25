@@ -14,15 +14,19 @@ class RequiredActionsScreen extends StatelessWidget {
         "description": "Description of the required action goes here."
       },
       {
-        "title": "Oil Change 🛢️",
-        "date": "20 Mar 2025",
-        "description":
-            "Ensure the engine oil is changed for optimal performance."
+        "title": "Maintenance Service 🔧",
+        "date": "15 Feb 2025",
+        "description": "Description of the required action goes here."
       },
       {
-        "title": "Tire Rotation 🚗",
-        "date": "10 Apr 2025",
-        "description": "Rotate tires for even wear and longer tire life."
+        "title": "Maintenance Service 🔧",
+        "date": "15 Feb 2025",
+        "description": "Description of the required action goes here."
+      },
+      {
+        "title": "Maintenance Service 🔧",
+        "date": "15 Feb 2025",
+        "description": "Description of the required action goes here."
       },
     ];
 
@@ -63,7 +67,7 @@ class RequiredActionsScreen extends StatelessWidget {
   Widget _buildActionContainer(Map<String, String> action) {
     return Container(
       margin: EdgeInsets.only(bottom: 10.h),
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
@@ -117,6 +121,8 @@ class RequiredActionsScreen extends StatelessWidget {
               color: Colors.black87,
               fontFamily: "Montserrat",
             ),
+            maxLines: 2, // Limit to 2 lines
+            overflow: TextOverflow.ellipsis, // Show "..." if text overflows
           ),
         ],
       ),
