@@ -1,11 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/core/constants/app_colors.dart';
 
 class RequiredActionsScreen extends StatelessWidget {
   const RequiredActionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Required Actions Screen', style: TextStyle(fontSize: 24)));
+    List<Map<String, String>> actions = [
+      {
+        "title": "Maintenance Service 🔧",
+        "date": "15 Feb 2025",
+        "description": "Description of the required action goes here."
+      },
+      {
+        "title": "Oil Change 🛢️",
+        "date": "20 Mar 2025",
+        "description":
+            "Ensure the engine oil is changed for optimal performance."
+      },
+      {
+        "title": "Tire Rotation 🚗",
+        "date": "10 Apr 2025",
+        "description": "Rotate tires for even wear and longer tire life."
+      },
+    ];
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 30),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        title: const Text(
+          "Required Actions",
+          style: TextStyle(
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            color: AppColors.text1,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: ListView.builder(
+          itemCount: actions.length,
+          itemBuilder: (context, index) {
+            return _buildActionContainer(actions[index]);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionContainer(Map<String, String> action) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.all(10.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    action["title"]!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                      fontFamily: "Montserrat",
+                    ),
+                  ),
+                  Text(
+                    action["date"]!,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14.sp,
+                      fontFamily: "Montserrat",
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.all(6.w),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0F525B),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Colors.white,
+                  size: 20.sp,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            action["description"]!,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.black87,
+              fontFamily: "Montserrat",
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

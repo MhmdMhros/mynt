@@ -22,7 +22,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       },
       {
         "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
+            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
         "name": "Order Update",
         "description": "Your order #1234 has been shipped.",
         "timeAgo": "1 hour ago",
@@ -36,14 +36,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       },
       {
         "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
+            "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
         "name": "Reminder",
         "description": "Don't forget your appointment tomorrow at 10 AM.",
         "timeAgo": "Yesterday",
       },
       {
         "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
+            "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
         "name": "Reminder",
         "description": "Don't forget your appointment tomorrow at 10 AM.",
         "timeAgo": "Yesterday",
@@ -92,7 +92,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
         title: const Text(
           "Notifications",
-          style: TextStyle(color: AppColors.text1, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            color: AppColors.text1,
+          ),
         ),
         centerTitle: true,
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:mynt/core/constants/app_colors.dart';
 
 class NotificationWidget extends StatelessWidget {
   final String imageUrl;
@@ -35,8 +34,8 @@ class NotificationWidget extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: CachedNetworkImage(
               imageUrl: imageUrl,
-              width: 50,
-              height: 50,
+              width: 40,
+              height: 40,
               fit: BoxFit.cover,
               placeholder: (context, url) => Container(
                 width: 50,
@@ -58,57 +57,74 @@ class NotificationWidget extends StatelessWidget {
 
           // Notification Details & Delete Icon
           Expanded(
-            child: Row(
+            child: Stack(
+              alignment: Alignment.topRight, // Aligns delete icon to top-right
               children: [
                 // Notification Text
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            description,
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            timeAgo,
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        description,
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        timeAgo,
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
 
-                // Delete Icon
-                Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF9EBEC),
-                    borderRadius: BorderRadius.circular(
-                        8), // Optional for rounded corners
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.delete_outline_rounded,
-                        color: Colors.red,
-                        size: 18,
+                // Delete Icon Positioned at Top-Right
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF9EBEC),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.delete_outline_rounded,
+                          color: Colors.red,
+                          size: 18,
+                        ),
+                        onPressed: onDelete,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
                       ),
-                      onPressed: onDelete,
-                      padding: EdgeInsets.zero, // Ensures the icon is centered
-                      constraints:
-                          const BoxConstraints(), // Removes extra padding
                     ),
                   ),
                 ),
