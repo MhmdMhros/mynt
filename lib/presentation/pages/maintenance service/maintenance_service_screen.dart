@@ -5,6 +5,95 @@ import 'package:mynt/core/constants/app_colors.dart';
 
 class MaintenanceServiceScreen extends StatelessWidget {
   const MaintenanceServiceScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    List<String> imageUrls = [
+      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+    ];
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 30.w),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        title: Text(
+          "Maintenance Service",
+          style: TextStyle(
+            fontSize: 18.sp,
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            color: AppColors.text1,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildInfoContainer("Ticket #637893", [
+                    _buildInfoRow("Type", "Maintenance"),
+                    _buildInfoRow("Date", "18 Jan 2025"),
+                    _buildInfoRow("Time", "3:45 PM"),
+                  ]),
+                  _buildInfoContainer("Unit Details", [
+                    _buildInfoRow("Compound", "Festival"),
+                    _buildInfoRow("Unit ID", "12225"),
+                  ]),
+                  SizedBox(height: 10.h),
+                  Container(
+                    padding: EdgeInsets.all(16.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Description",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Montserrat",
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Divider(thickness: 1, color: Colors.grey),
+                        Text(
+                          "This is a detailed description of the maintenance service required.",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontFamily: "Montserrat",
+                              color: Colors.black87),
+                        ),
+                        SizedBox(height: 10.h),
+                        _buildImageRow(imageUrls),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          _buildBottomButtons(context),
+        ],
+      ),
+    );
+  }
 
   Widget _buildInfoRow(String title, String value) {
     return Padding(
@@ -87,7 +176,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: Icon(Icons.image, color: Colors.white),
+                    child: const Icon(Icons.image, color: Colors.white),
                   ),
                   errorWidget: (context, url, error) => Container(
                     width: 50.w,
@@ -96,101 +185,11 @@ class MaintenanceServiceScreen extends StatelessWidget {
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: Icon(Icons.error, color: Colors.white),
+                    child: const Icon(Icons.error, color: Colors.white),
                   ),
                 ),
               ))
           .toList(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<String> imageUrls = [
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
-    ];
-
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 30.w),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: AppColors.text1),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-        title: Text(
-          "Maintenance Service",
-          style: TextStyle(
-            fontSize: 18.sp,
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.w600,
-            color: AppColors.text1,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildInfoContainer("Ticket #637893", [
-                    _buildInfoRow("Type", "Maintenance"),
-                    _buildInfoRow("Date", "18 Jan 2025"),
-                    _buildInfoRow("Time", "3:45 PM"),
-                  ]),
-                  _buildInfoContainer("Unit Details", [
-                    _buildInfoRow("Compound", "Festival"),
-                    _buildInfoRow("Unit ID", "12225"),
-                  ]),
-                  SizedBox(height: 10.h),
-                  Container(
-                    padding: EdgeInsets.all(16.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Description",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Montserrat",
-                            color: Colors.black,
-                          ),
-                        ),
-                        Divider(thickness: 1, color: Colors.grey),
-                        Text(
-                          "This is a detailed description of the maintenance service required.",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontFamily: "Montserrat",
-                              color: Colors.black87),
-                        ),
-                        SizedBox(height: 10.h),
-                        _buildImageRow(imageUrls),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          _buildBottomButtons(context),
-        ],
-      ),
     );
   }
 
@@ -205,7 +204,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
             color: Colors.black12,
             blurRadius: 5.r, // Apply ScreenUtil
             spreadRadius: 2.r, // Apply ScreenUtil
-            offset: Offset(0, -2),
+            offset: const Offset(0, -2),
           ),
         ],
       ),

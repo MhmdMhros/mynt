@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
+import 'package:mynt/presentation/pages/news/news_screen.dart';
 import 'package:mynt/presentation/pages/required%20actions/required_actions_screen.dart';
+import 'package:mynt/presentation/pages/units/all_units_screen.dart';
 import 'package:mynt/presentation/pages/units/units_screen.dart';
 
 void main() {
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MaintenanceServiceScreen(),
+        home: const NewsScreen(),
       ),
     );
   }
