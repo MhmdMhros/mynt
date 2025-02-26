@@ -440,7 +440,7 @@ class DashBoardScreen extends StatelessWidget {
   }
 
   Widget _buildNewAds() {
-    final PageController _pageController = PageController();
+    final PageController pageController = PageController();
 
     final List<String> images = [
       "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
@@ -460,7 +460,7 @@ class DashBoardScreen extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10.r),
             child: PageView.builder(
-              controller: _pageController,
+              controller: pageController,
               itemCount: images.length,
               itemBuilder: (context, index) {
                 return CachedNetworkImage(
@@ -484,7 +484,7 @@ class DashBoardScreen extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         SmoothPageIndicator(
-          controller: _pageController,
+          controller: pageController,
           count: images.length,
           effect: JumpingDotEffect(
             dotHeight: 10.h,

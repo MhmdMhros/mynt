@@ -189,7 +189,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
     );
   }
 
-  Widget _buildRow(IconData icon, String label, String value,
+  Widget buildRow(IconData icon, String label, String value,
       [Color? valueColor]) {
     return Row(
       children: [
