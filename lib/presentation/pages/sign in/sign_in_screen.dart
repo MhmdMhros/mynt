@@ -19,6 +19,7 @@ class SignInScreen extends StatelessWidget {
             'Sign In',
             style: TextStyle(
               fontSize: 18.sp,
+              fontFamily: 'Montserrat',
               color: AppColors.text1,
             ),
           ),
@@ -53,6 +54,7 @@ class SignInScreen extends StatelessWidget {
                   'Sign In',
                   style: TextStyle(
                     fontSize: 18.sp,
+                    fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w600,
                     color: AppColors.text1,
                   ),
@@ -65,6 +67,7 @@ class SignInScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18.sp,
+                    fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w500,
                     color: AppColors.text2,
                   ),
@@ -75,6 +78,7 @@ class SignInScreen extends StatelessWidget {
                 'Email',
                 style: TextStyle(
                   fontSize: 14.sp,
+                  fontFamily: 'Montserrat',
                   color: AppColors.text1,
                   fontWeight: FontWeight.w600,
                 ),
@@ -89,6 +93,7 @@ class SignInScreen extends StatelessWidget {
                 'Create Password',
                 style: TextStyle(
                   fontSize: 14.sp,
+                  fontFamily: 'Montserrat',
                   fontWeight: FontWeight.w600,
                   color: AppColors.text1,
                 ),
@@ -109,6 +114,7 @@ class SignInScreen extends StatelessWidget {
                     'Forget My Password?',
                     style: TextStyle(
                       fontSize: 12.sp,
+                      fontFamily: 'Montserrat',
                       color: AppColors.text1,
                       fontWeight: FontWeight.w500,
                     ),
@@ -123,6 +129,7 @@ class SignInScreen extends StatelessWidget {
                     'I don\'t have account',
                     style: TextStyle(
                       fontSize: 14.sp,
+                      fontFamily: 'Montserrat',
                       color: AppColors.text1,
                       fontWeight: FontWeight.w500,
                     ),
@@ -135,6 +142,7 @@ class SignInScreen extends StatelessWidget {
                       'Sign Up',
                       style: TextStyle(
                         color: const Color(0xFF3F757C),
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
                       ),

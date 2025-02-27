@@ -19,6 +19,8 @@ class CreatePassword extends StatelessWidget {
             'Create Password',
             style: TextStyle(
               fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              fontFamily: "Montserrat", // Applied font family
               color: AppColors.text1,
             ),
           ),
@@ -53,6 +55,7 @@ class CreatePassword extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
+                  fontFamily: "Montserrat", // Applied font family
                   color: AppColors.text1,
                 ),
               ),
@@ -70,6 +73,7 @@ class CreatePassword extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
+                  fontFamily: "Montserrat", // Applied font family
                   color: AppColors.text1,
                 ),
               ),

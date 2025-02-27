@@ -8,7 +8,10 @@ class MoreWidget extends StatelessWidget {
   final Function onTap;
 
   const MoreWidget({
-    super.key, required this.icon, required this.title, required this.onTap,
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onTap,
   });
 
   @override
@@ -34,6 +37,7 @@ class MoreWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
+            fontFamily: "Montserrat", // Applied font family
             color: AppColors.text1,
           ),
         ),

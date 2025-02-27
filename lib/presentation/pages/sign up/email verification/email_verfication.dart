@@ -45,6 +45,7 @@ class EmailVerification extends StatelessWidget {
             'Verification Code',
             style: TextStyle(
               fontSize: 18.sp,
+              fontFamily: 'Montserrat',
               color: AppColors.text1,
             ),
           ),
@@ -75,6 +76,7 @@ class EmailVerification extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
+                fontFamily: 'Montserrat',
                 color: AppColors.text1,
               ),
             ),
@@ -85,6 +87,7 @@ class EmailVerification extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
+                fontFamily: 'Montserrat',
                 color: AppColors.text2,
               ),
             ),
@@ -100,6 +103,7 @@ class EmailVerification extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.grey,
+                    fontFamily: 'Montserrat',
                   ),
                 ),
               ),
@@ -109,6 +113,7 @@ class EmailVerification extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 20.sp,
                   color: Colors.black,
+                  fontFamily: 'Montserrat',
                 ),
                 decoration: defaultPinDecoration,
               ),
@@ -118,6 +123,7 @@ class EmailVerification extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 20.sp,
                   color: Colors.black,
+                  fontFamily: 'Montserrat',
                 ),
                 decoration: focusedPinDecoration,
               ),
@@ -127,6 +133,7 @@ class EmailVerification extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 20.sp,
                   color: Colors.black,
+                  fontFamily: 'Montserrat',
                 ),
                 decoration: submittedPinDecoration,
               ),
@@ -144,6 +151,7 @@ class EmailVerification extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.offWhite,
+                          fontFamily: 'Montserrat',
                           fontSize: 16.0,
                         ),
                       ),
@@ -161,6 +169,7 @@ class EmailVerification extends StatelessWidget {
                   'Resend Code',
                   style: TextStyle(
                     fontSize: 12.sp,
+                    fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w500,
                     color: AppColors.primary,
                   ),
@@ -170,6 +179,7 @@ class EmailVerification extends StatelessWidget {
                   '00:59',
                   style: TextStyle(
                     fontSize: 14.sp,
+                    fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w400,
                     color: AppColors.text1,
                   ),

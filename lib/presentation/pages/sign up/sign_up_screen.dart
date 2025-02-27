@@ -36,6 +36,7 @@ class SignupScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
+                    fontFamily: 'Montserrat',
                     color: AppColors.text1,
                   ),
                 ),
@@ -48,6 +49,7 @@ class SignupScreen extends StatelessWidget {
                   'Welcome to Mynt Hospitality\nChoose your Experience',
                   style: TextStyle(
                       fontSize: 14.sp,
+                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w500,
                       color: AppColors.text2),
                   textAlign: TextAlign.center,
@@ -58,7 +60,10 @@ class SignupScreen extends StatelessWidget {
               ),
               Text(
                 'Email',
-                style: TextStyle(fontSize: 14.sp),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontFamily: 'Montserrat',
+                ),
               ),
               SizedBox(
                 height: 16.h,
@@ -77,6 +82,7 @@ class SignupScreen extends StatelessWidget {
                     'Already have an account?',
                     style: TextStyle(
                         fontSize: 16.sp,
+                        fontFamily: 'Montserrat',
                         color: AppColors.text2,
                         fontWeight: FontWeight.w500),
                   ),
@@ -91,6 +97,7 @@ class SignupScreen extends StatelessWidget {
                       'Sign In',
                       style: TextStyle(
                         color: const Color(0xFF3F757C),
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
                         fontSize: 16.sp,
                       ),

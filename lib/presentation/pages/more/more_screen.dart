@@ -16,6 +16,7 @@ class MoreScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w600,
+            fontFamily: "Montserrat", // Applied font family
             color: AppColors.text1,
           ),
         ),
@@ -79,6 +80,7 @@ class MoreScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
+                      fontFamily: "Montserrat", // Applied font family
                       color: Colors.red,
                     ),
                   ),
