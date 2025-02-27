@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/unit%20details/monthly_calendar_widget.dart';
 import 'package:mynt/presentation/pages/unit%20details/yearly_calender_widget.dart';
 
@@ -14,6 +15,17 @@ class UnitDetailsScreen extends StatefulWidget {
 
 class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
   int index = 0;
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const ServiceTypeBottomSheet();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -349,23 +361,15 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
     return Container(
       padding:
           EdgeInsets.only(top: 10.h, bottom: 10.h, left: 20.w, right: 20.w),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5.r, // Apply ScreenUtil
-            spreadRadius: 2.r, // Apply ScreenUtil
-            offset: const Offset(0, -2),
-          ),
-        ],
       ),
       child: Row(
         children: [
           Expanded(
             child: _buildContainerButton(
                 "Maintenance Request", Colors.white, AppColors.primary, () {
-              // Handle maintenance request action
+              showBottomSheet(context);
             }),
           ),
           SizedBox(width: 15.w), // Add spacing between buttons

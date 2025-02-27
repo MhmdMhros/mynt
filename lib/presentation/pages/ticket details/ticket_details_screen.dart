@@ -15,7 +15,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   int? selectedRate;
   String feedback = '';
 
-  // Function to show BottomSheet
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -29,8 +28,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
               selectedRate = rate;
               feedback = text;
             });
-            print('Rate: $selectedRate');
-            print('Feedback: $feedback');
           },
         );
       },

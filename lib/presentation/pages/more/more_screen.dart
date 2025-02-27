@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/log_out_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/more/widgets/more_widget.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const LogOutBottomSheet();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +70,9 @@ class MoreScreen extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showBottomSheet(context);
+              },
               child: Row(
                 children: [
                   Container(

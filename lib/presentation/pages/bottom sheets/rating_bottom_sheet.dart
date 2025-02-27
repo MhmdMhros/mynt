@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 
 class RatingBottomSheet extends StatefulWidget {
-  final Function(int?, String) onSubmit; // Callback to pass data back
+  final Function(int?, String) onSubmit;
 
   const RatingBottomSheet({super.key, required this.onSubmit});
 
@@ -23,51 +23,73 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
       child: Container(
         color: Colors.white, // Background color
         padding: const EdgeInsets.all(16.0),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          // ⭐ 1. Star Rating Selection
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(5, (index) {
-              return Padding(
-                padding: EdgeInsets.only(right: 4.w, left: 4.w),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedRate = index + 1;
-                    });
-                  },
-                  child: Icon(
-                    index < (selectedRate ?? 0)
-                        ? Icons.star // Filled Star
-                        : Icons.star_border, // Outlined Star
-                    color: const Color(0xFFFFC107), // Star color
-                    size: 40.sp,
-                  ),
+        child: Stack(
+          children: [
+            Column(mainAxisSize: MainAxisSize.min, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(5, (index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 4.w, left: 4.w),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedRate = index + 1;
+                        });
+                      },
+                      child: Icon(
+                        index < (selectedRate ?? 0)
+                            ? Icons.star // Filled Star
+                            : Icons.star_border, // Outlined Star
+                        color: const Color(0xFFFFC107), // Star color
+                        size: 40.sp,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 16.h),
+
+              // 2. Centered Text
+              Text(
+                'How was your experience with the service?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                  color: AppColors.text1,
                 ),
-              );
-            }),
-          ),
-          SizedBox(height: 16.h),
+              ),
+              SizedBox(height: 16.h),
 
-          // 2. Centered Text
-          Text(
-            'How was your experience with the service?',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Montserrat',
-              color: AppColors.text1,
+              // 3. Column with Text and TextField
+              _buildTextField("Comment", "Write your comment here..."),
+              SizedBox(height: 16.h),
+
+              buildBottomButtons(context),
+            ]),
+            Positioned(
+              right: 0,
+              child: Container(
+                width: 30.w, // Adjust width
+                height: 30.h, // Adjust height
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF2F2F2),
+                  borderRadius: BorderRadius.circular(8.r), // Add border radius
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.close,
+                      size: 16, color: Color(0xFFA6A6A6)),
+                  padding: EdgeInsets.zero, // Remove default padding
+                  onPressed: () {
+                    Navigator.pop(context); // Dismiss Bottom Sheet
+                  },
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: 16.h),
-
-          // 3. Column with Text and TextField
-          _buildTextField("Comment", "Write your comment here..."),
-          SizedBox(height: 16.h),
-
-          buildBottomButtons(context),
-        ]),
+          ],
+        ),
       ),
     );
   }
@@ -116,7 +138,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
           _buildButton("Decline", Colors.white, AppColors.primary, () {
             Navigator.pop(context); // Close BottomSheet
           }),
-          _buildButton("Accept", AppColors.primary, Colors.white, () {
+          _buildButton("Send", AppColors.primary, Colors.white, () {
             widget.onSubmit(selectedRate, feedbackController.text);
             Navigator.pop(context);
           }),
@@ -127,26 +149,28 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
 
   Widget _buildButton(
       String text, Color backGColor, Color textColor, VoidCallback onPressed) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backGColor,
-        padding: EdgeInsets.symmetric(
-            horizontal: 50.w, vertical: 12.h), // Apply ScreenUtil
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.r), // Apply ScreenUtil
-          side: BorderSide(
-            color: AppColors.primary,
-            width: 1.w, // Apply ScreenUtil
+    return SizedBox(
+      width: 155.w, // Set fixed width
+      height: 50.h, // Set fixed height
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backGColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r), // Apply rounded corners
+            side: BorderSide(
+              color: AppColors.primary,
+              width: 1.w, // Apply border width
+            ),
           ),
         ),
-      ),
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 16.sp, // Apply ScreenUtil
-          color: textColor,
-          fontFamily: "Montserrat", // Apply Font Family
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16.sp, // Apply ScreenUtil
+            color: textColor,
+            fontFamily: "Montserrat", // Apply Font Family
+          ),
         ),
       ),
     );
