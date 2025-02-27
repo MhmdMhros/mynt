@@ -4,6 +4,7 @@ import 'package:mynt/presentation/pages/about%20us/about_us_screen.dart';
 import 'package:mynt/presentation/pages/contact%20us/contact_us_screen.dart';
 import 'package:mynt/presentation/pages/more/more_screen.dart';
 import 'package:mynt/presentation/pages/my%20profile/my_profile_screen.dart';
+import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MoreScreen(),
+        home: const TicketDetailsScreen(),
       ),
     );
   }

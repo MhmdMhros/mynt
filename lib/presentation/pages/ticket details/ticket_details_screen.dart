@@ -2,9 +2,40 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/rating_bottom_sheet.dart';
 
-class TicketDetailsScreen extends StatelessWidget {
+class TicketDetailsScreen extends StatefulWidget {
   const TicketDetailsScreen({super.key});
+
+  @override
+  State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();
+}
+
+class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
+  int? selectedRate;
+  String feedback = '';
+
+  // Function to show BottomSheet
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return RatingBottomSheet(
+          onSubmit: (rate, text) {
+            setState(() {
+              selectedRate = rate;
+              feedback = text;
+            });
+            print('Rate: $selectedRate');
+            print('Feedback: $feedback');
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +305,9 @@ class TicketDetailsScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  showBottomSheet(context);
+                },
               ),
             ),
           ),

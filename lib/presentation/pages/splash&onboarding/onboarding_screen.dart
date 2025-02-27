@@ -66,6 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               'Skip',
               style: TextStyle(
                 color: const Color(0xFF545453),
+                fontFamily: 'Montserrat',
                 fontSize: 14.sp,
               ),
             ),
