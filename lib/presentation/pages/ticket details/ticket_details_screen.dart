@@ -22,14 +22,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return RatingBottomSheet(
-          onSubmit: (rate, text) {
-            setState(() {
-              selectedRate = rate;
-              feedback = text;
-            });
-          },
-        );
+        return const RatingBottomSheet();
       },
     );
   }

@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 
-class ServiceTypeBottomSheet extends StatefulWidget {
-  const ServiceTypeBottomSheet({super.key});
+class DRServiceTypeBottomSheet extends StatefulWidget {
+  final Function(String?) onSubmit;
+
+  const DRServiceTypeBottomSheet({super.key, required this.onSubmit});
 
   @override
   // ignore: library_private_types_in_public_api
-  _ServiceTypeBottomSheetState createState() => _ServiceTypeBottomSheetState();
+  _DRServiceTypeBottomSheetState createState() =>
+      _DRServiceTypeBottomSheetState();
 }
 
-class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
+class _DRServiceTypeBottomSheetState extends State<DRServiceTypeBottomSheet> {
   String? _selectedService;
 
   final List<String> _serviceTypes = [
@@ -65,11 +68,14 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Divider(
+              height: 1.h,
+              color: Colors.grey[200],
+            ),
             SizedBox(height: 5.h),
-            Divider(height: 1.h, color: Colors.grey[200]),
-            SizedBox(height: 5.h),
-
-            /// **Scrollable Service List**
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -79,7 +85,6 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
                 ),
               ),
             ),
-            buildBottomButtons(context),
           ],
         ),
       ),
@@ -93,7 +98,8 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedService = service;
+          widget.onSubmit(service);
+          Navigator.pop(context);
         });
       },
       child: Container(
@@ -134,56 +140,6 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildBottomButtons(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: 15.h, horizontal: 10.w), // Apply ScreenUtil
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildButton("Decline", Colors.white, AppColors.primary, () {
-            Navigator.pop(context);
-          }),
-          _buildButton("Send", AppColors.primary, Colors.white, () {
-            Navigator.pop(context);
-          }),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildButton(
-      String text, Color backGColor, Color textColor, VoidCallback onPressed) {
-    return SizedBox(
-      width: 155.w, // Set fixed width
-      height: 50.h, // Set fixed height
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backGColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r), // Apply rounded corners
-            side: BorderSide(
-              color: AppColors.primary,
-              width: 1.w, // Apply border width
-            ),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16.sp,
-            color: textColor,
-            fontFamily: "Montserrat",
-          ),
         ),
       ),
     );

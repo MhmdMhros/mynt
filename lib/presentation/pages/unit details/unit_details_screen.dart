@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/enter_date_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/unit%20details/monthly_calendar_widget.dart';
 import 'package:mynt/presentation/pages/unit%20details/yearly_calender_widget.dart';
@@ -15,7 +16,19 @@ class UnitDetailsScreen extends StatefulWidget {
 
 class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
   int index = 0;
-  void showBottomSheet(BuildContext context) {
+  void showEnterDateBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const EnterDateBottomSheet();
+      },
+    );
+  }
+
+  void showServiceTypesBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -369,14 +382,14 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
           Expanded(
             child: _buildContainerButton(
                 "Maintenance Request", Colors.white, AppColors.primary, () {
-              showBottomSheet(context);
+              showServiceTypesBottomSheet(context);
             }),
           ),
           SizedBox(width: 15.w), // Add spacing between buttons
           Expanded(
             child: _buildContainerButton(
                 "Block Unit", AppColors.primary, Colors.white, () {
-              // Handle block unit action
+              showEnterDateBottomSheet(context);
             }),
           ),
         ],

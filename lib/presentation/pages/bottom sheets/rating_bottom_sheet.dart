@@ -3,16 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 
 class RatingBottomSheet extends StatefulWidget {
-  final Function(int?, String) onSubmit;
-
-  const RatingBottomSheet({super.key, required this.onSubmit});
+  const RatingBottomSheet({super.key});
 
   @override
   State<RatingBottomSheet> createState() => _RatingBottomSheetState();
 }
 
 class _RatingBottomSheetState extends State<RatingBottomSheet> {
-  int? selectedRate; // Store selected rate
+  int? selectedRate;
   TextEditingController feedbackController = TextEditingController();
 
   @override
@@ -139,7 +137,6 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
             Navigator.pop(context); // Close BottomSheet
           }),
           _buildButton("Send", AppColors.primary, Colors.white, () {
-            widget.onSubmit(selectedRate, feedbackController.text);
             Navigator.pop(context);
           }),
         ],

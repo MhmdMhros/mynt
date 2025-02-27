@@ -1,9 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/compound_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/dr_service_type_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/unit_number_bottom_sheet.dart';
 
-class RequestServiceScreen extends StatelessWidget {
+class RequestServiceScreen extends StatefulWidget {
   const RequestServiceScreen({super.key});
+
+  @override
+  State<RequestServiceScreen> createState() => _RequestServiceScreenState();
+}
+
+class _RequestServiceScreenState extends State<RequestServiceScreen> {
+  String? selectServiceType;
+  String? selectedCompound;
+  String? selectedUnitNumber;
+
+  /// Show the Service Type Bottom Sheet
+  void showServiceTypeBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return DRServiceTypeBottomSheet(
+          onSubmit: (text) {
+            setState(() {
+              selectServiceType = text;
+            });
+          },
+        );
+      },
+    );
+  }
+
+  /// Show the Compound Selection Bottom Sheet
+  void showCompoundBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return CompoundBottomSheet(
+          onSubmit: (text) {
+            setState(() {
+              selectedCompound = text;
+            });
+          },
+        );
+      },
+    );
+  }
+
+  /// Show the Unit Number Selection Bottom Sheet
+  void showUnitNumBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return UnitNumberBottomSheet(
+          onSubmit: (text) {
+            setState(() {
+              selectedUnitNumber = text;
+            });
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +104,34 @@ class RequestServiceScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                children: [
-                  _buildDropdownField("Compound", "Choose Compound",
-                      ["Hi", "Hello", "Welcome"]),
-                  SizedBox(height: 15.h),
-                  _buildDropdownField("Unit number", "Choose Unit Number",
-                      ["Hi", "Hello", "Welcome"]),
-                  SizedBox(height: 15.h),
-                  _buildDropdownField("Service type", "Choose Service Type",
-                      ["Hi", "Hello", "Welcome"]),
-                  SizedBox(height: 15.h),
-                  _buildTextField("Description", "Write your comment here..."),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildDropdownField(
+                      title: "Compound",
+                      hint: "Choose Compound",
+                      selectedValue: selectedCompound,
+                      onTap: () => showCompoundBottomSheet(context),
+                    ),
+                    SizedBox(height: 15.h),
+                    _buildDropdownField(
+                      title: "Unit number",
+                      hint: "Choose Unit Number",
+                      selectedValue: selectedUnitNumber,
+                      onTap: () => showUnitNumBottomSheet(context),
+                    ),
+                    SizedBox(height: 15.h),
+                    _buildDropdownField(
+                      title: "Service type",
+                      hint: "Choose Service Type",
+                      selectedValue: selectServiceType,
+                      onTap: () => showServiceTypeBottomSheet(context),
+                    ),
+                    SizedBox(height: 15.h),
+                    _buildTextField(
+                        "Description", "Write your comment here..."),
+                  ],
+                ),
               ),
             ),
             _buildSubmitButton(),
@@ -57,8 +141,13 @@ class RequestServiceScreen extends StatelessWidget {
     );
   }
 
-  /// Builds a dropdown field with a title and hint
-  Widget _buildDropdownField(String title, String hint, List<String> items) {
+  /// **Custom Dropdown Field that Opens Bottom Sheet**
+  Widget _buildDropdownField({
+    required String title,
+    required String hint,
+    required String? selectedValue,
+    required VoidCallback onTap,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -72,34 +161,41 @@ class RequestServiceScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: DropdownButtonFormField<String>(
-            decoration: const InputDecoration(border: InputBorder.none),
-            items: items.map((String item) {
-              return DropdownMenuItem(value: item, child: Text(item));
-            }).toList(),
-            onChanged: (value) {},
-            hint: Text(hint,
-                style: TextStyle(fontSize: 14.sp, color: Colors.grey)),
-            icon: const Icon(Icons.keyboard_arrow_down,
-                size: 30, color: AppColors.text1), // Custom arrow icon
-            style: TextStyle(
-                fontSize: 16.sp,
-                color: AppColors.text1,
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w500),
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  selectedValue ?? hint,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "Montserrat",
+                    color:
+                        selectedValue != null ? AppColors.primary : Colors.grey,
+                  ),
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 30,
+                  color: AppColors.text1,
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  /// Builds a text field with a title and hint
+  /// **Text Field**
   Widget _buildTextField(String title, String hint) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +217,7 @@ class RequestServiceScreen extends StatelessWidget {
             hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide.none, // Removes border color
+              borderSide: BorderSide.none,
             ),
           ),
           style: TextStyle(fontSize: 16.sp),
@@ -131,7 +227,7 @@ class RequestServiceScreen extends StatelessWidget {
     );
   }
 
-  /// Builds the submit button
+  /// **Submit Button**
   Widget _buildSubmitButton() {
     return SizedBox(
       width: double.infinity,
