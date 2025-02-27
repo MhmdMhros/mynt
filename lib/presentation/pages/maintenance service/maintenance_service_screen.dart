@@ -72,7 +72,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
                             color: Colors.black,
                           ),
                         ),
-                        const Divider(thickness: 1, color: Colors.grey),
+                        Divider(thickness: 1, color: Colors.grey[300]),
                         Text(
                           "This is a detailed description of the maintenance service required.",
                           style: TextStyle(
@@ -144,7 +144,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
               color: AppColors.primary,
             ),
           ),
-          Divider(thickness: 1, height: 20.h, color: Colors.grey),
+          Divider(thickness: 1, height: 20.h, color: Colors.grey[300]),
           ...children,
         ],
       ),
