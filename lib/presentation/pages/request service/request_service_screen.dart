@@ -67,6 +67,7 @@ class RequestServiceScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w600,
+            fontFamily: "Montserrat",
             color: AppColors.text1,
           ),
         ),
@@ -90,6 +91,7 @@ class RequestServiceScreen extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16.sp,
                 color: AppColors.text1,
+                fontFamily: "Montserrat",
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -150,6 +152,7 @@ class RequestServiceScreen extends StatelessWidget {
             fontSize: 16.sp,
             color: Colors.white,
             fontWeight: FontWeight.w600,
+            fontFamily: "Montserrat",
           ),
         ),
       ),

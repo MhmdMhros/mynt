@@ -45,7 +45,8 @@ class MyProfileScreen extends StatelessWidget {
                       imageUrl:
                           "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg", // Replace with actual URL
                       placeholder: (context, url) =>
-                          CircularProgressIndicator(color: AppColors.text1),
+                          const CircularProgressIndicator(
+                              color: AppColors.text1),
                       errorWidget: (context, url, error) => Icon(Icons.person,
                           size: 60.r, color: AppColors.text1),
                       width: 120.r,
@@ -58,9 +59,7 @@ class MyProfileScreen extends StatelessWidget {
                     bottom: 0,
                     right: 0,
                     child: GestureDetector(
-                      onTap: () {
-                        // TODO: Implement photo change functionality
-                      },
+                      onTap: () {},
                       child: Container(
                         padding: EdgeInsets.all(6.r),
                         decoration: const BoxDecoration(
