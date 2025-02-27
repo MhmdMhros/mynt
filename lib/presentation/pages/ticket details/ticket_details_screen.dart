@@ -79,7 +79,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
-                            color: Color(0xFFBF4C43),
+                            color: const Color(0xFFBF4C43),
                           ),
                         ),
                         Divider(thickness: 1, color: Colors.grey[300]),

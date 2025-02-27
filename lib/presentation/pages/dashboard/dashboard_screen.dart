@@ -172,6 +172,7 @@ class DashBoardScreen extends StatelessWidget {
         SizedBox(width: 6.w),
         Text(label,
             style: TextStyle(fontSize: 12.sp, fontFamily: "Montserrat")),
+        SizedBox(width: 20.w),
         Expanded(
           child: Text(
             value,
@@ -248,10 +249,10 @@ class DashBoardScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10.h),
-                  _buildRow(Icons.bookmark_border_rounded,
-                      "Booking Duration   ", "07/1/2025 - 30/3/2025"),
+                  _buildRow(Icons.bookmark_border_rounded, "Booking Duration",
+                      "07/1/2025 - 30/3/2025"),
                   SizedBox(height: 10.h),
-                  _buildRow(Icons.balance_rounded, "January Balance     ",
+                  _buildRow(Icons.balance_rounded, "January Balance",
                       "-3,500 EGP", Colors.red),
                 ],
               ),

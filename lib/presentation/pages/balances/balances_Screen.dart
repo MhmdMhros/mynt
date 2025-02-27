@@ -240,7 +240,7 @@ class BalancesScreen extends StatelessWidget {
         color: AppColors.text1,
       );
 
-  TextStyle _textStyle() => TextStyle(
+  TextStyle textStyle() => TextStyle(
         fontSize: 13.sp,
         fontFamily: "Montserrat",
         fontWeight: FontWeight.w600,
