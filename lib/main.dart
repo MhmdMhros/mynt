@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/presentation/pages/request%20service/request_service_screen.dart';
-import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 import 'package:mynt/presentation/pages/sign%20up/create%20password/create_password.dart';
-import 'package:mynt/presentation/pages/sign%20up/email%20verification/email_verfication.dart';
-import 'package:mynt/presentation/pages/sign%20up/sign_up_screen.dart';
-import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
-import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
 
 void main() {
   runApp(const MyApp());

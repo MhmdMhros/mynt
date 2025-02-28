@@ -5,6 +5,7 @@ import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/success_pass_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/success_request_bottom_sheet.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -25,7 +26,7 @@ class _CreatePasswordState extends State<CreatePassword> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return const SuccessPassBottomSheet();
+        return const SuccessRequestBottomSheet();
       },
     );
   }
