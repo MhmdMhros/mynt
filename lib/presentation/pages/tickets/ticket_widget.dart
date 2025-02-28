@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
 
 class TicketWidget extends StatelessWidget {
   final String ticketNum;
@@ -18,95 +19,112 @@ class TicketWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Padding(
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const TicketDetailsScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              ); // Uses a smoother transition
+            },
+          ),
+        );
+      },
+      child: Container(
         padding: EdgeInsets.all(10.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Ticket Num: ",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Montserrat",
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Ticket Num: ",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
-                    ),
-                    Text(
-                      "#$ticketNum",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Montserrat",
+                      Text(
+                        "#$ticketNum",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  date,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.grey[600],
-                    fontFamily: "Montserrat",
+                    ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Ticket Sort: ",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black87,
-                        fontFamily: "Montserrat",
-                      ),
-                    ),
-                    Text(
-                      ticketSort,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Montserrat",
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                    color: _getStatusBackgroundColor(status),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Text(
-                    status,
+                  Text(
+                    date,
                     style: TextStyle(
-                      fontSize: 15.sp,
-                      color: _getStatusTextColor(status),
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      color: Colors.grey[600],
                       fontFamily: "Montserrat",
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Ticket Sort: ",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.black87,
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
+                      Text(
+                        ticketSort,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                    decoration: BoxDecoration(
+                      color: _getStatusBackgroundColor(status),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      status,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        color: _getStatusTextColor(status),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Montserrat",
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -274,66 +274,83 @@ class DashBoardScreen extends StatelessWidget {
         shrinkWrap: true,
         itemCount: 3,
         itemBuilder: (context, index) {
-          return IntrinsicWidth(
-            child: Container(
-              margin: EdgeInsets.only(right: 10.w),
-              padding: EdgeInsets.all(10.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 25.r,
-                        backgroundImage: const CachedNetworkImageProvider(
-                            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"),
-                      ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Monte Galala studio",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                  fontFamily: "Montserrat"),
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.location_on_outlined,
-                                    size: 18.sp, color: Colors.grey),
-                                SizedBox(width: 4.w),
-                                Expanded(
-                                  child: Text(
-                                    "Mount Ai Jalala, Suiz, Egypt",
-                                    style: TextStyle(
-                                        color: Colors.grey[800],
-                                        fontSize: 12.sp,
-                                        fontFamily: "Montserrat"),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const UnitDetailsScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    ); // Uses a smoother transition
+                  },
+                ),
+              );
+            },
+            child: IntrinsicWidth(
+              child: Container(
+                margin: EdgeInsets.only(right: 10.w),
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25.r,
+                          backgroundImage: const CachedNetworkImageProvider(
+                              "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10.h),
-                  _buildRow(Icons.bookmark_border_rounded, "Booking Duration",
-                      "07/1/2025 - 30/3/2025"),
-                  SizedBox(height: 10.h),
-                  _buildRow(Icons.balance_rounded, "January Balance",
-                      "-3,500 EGP", Colors.red),
-                ],
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Monte Galala studio",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    fontFamily: "Montserrat"),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.location_on_outlined,
+                                      size: 18.sp, color: Colors.grey),
+                                  SizedBox(width: 4.w),
+                                  Expanded(
+                                    child: Text(
+                                      "Mount Ai Jalala, Suiz, Egypt",
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontSize: 12.sp,
+                                          fontFamily: "Montserrat"),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    _buildRow(Icons.bookmark_border_rounded, "Booking Duration",
+                        "07/1/2025 - 30/3/2025"),
+                    SizedBox(height: 10.h),
+                    _buildRow(Icons.balance_rounded, "January Balance",
+                        "-3,500 EGP", Colors.red),
+                  ],
+                ),
               ),
             ),
           );

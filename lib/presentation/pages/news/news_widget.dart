@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
 
 class NewsWidget extends StatelessWidget {
   final Map<String, String> item;
@@ -82,7 +83,20 @@ class NewsWidget extends StatelessWidget {
                     height: 40.h, // Responsive height
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle view action
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const NewsDetailsScreen(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              ); // Uses a smoother transition
+                            },
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
