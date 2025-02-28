@@ -5,7 +5,7 @@ import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/success_pass_bottom_sheet.dart';
-import 'package:mynt/presentation/pages/bottom%20sheets/success_request_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -19,16 +19,25 @@ class _CreatePasswordState extends State<CreatePassword> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
-  void showBottomSheet(BuildContext context) {
+  void showSuccessPassBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return const SuccessRequestBottomSheet();
+        return const SuccessPassBottomSheet();
       },
     );
+
+    // Delay navigation by 4 seconds
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LayoutScreen()),
+      );
+    });
   }
 
   @override
