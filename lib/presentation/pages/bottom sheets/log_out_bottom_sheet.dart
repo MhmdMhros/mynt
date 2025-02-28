@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class LogOutBottomSheet extends StatelessWidget {
   const LogOutBottomSheet({super.key});
@@ -88,7 +89,22 @@ class LogOutBottomSheet extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildButton("Delete", Colors.white, const Color(0xFFBF4C43), () {}),
+          _buildButton("Delete", Colors.white, const Color(0xFFBF4C43), () {
+            Navigator.of(context).pushAndRemoveUntil(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const SignInScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+              (route) => false, // Removes all previous routes
+            );
+          }),
           _buildButton("Decline", AppColors.primary, Colors.white, () {
             Navigator.pop(context);
           }),
