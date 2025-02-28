@@ -4,36 +4,56 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
-import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/success_pass_bottom_sheet.dart';
 
-class CreatePassword extends StatelessWidget {
+class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _CreatePasswordState createState() => _CreatePasswordState();
+}
+
+class _CreatePasswordState extends State<CreatePassword> {
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  void showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const SuccessPassBottomSheet();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Create Password',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              fontFamily: "Montserrat", // Applied font family
-              color: AppColors.text1,
-            ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 30.w),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
-        backgroundColor: AppColors.background,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(
-            Icons.keyboard_arrow_left,
-            color: AppColors.primary,
-            size: 32.h,
+        title: Text(
+          "Set new password",
+          style: TextStyle(
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            fontSize: 18.sp,
+            color: AppColors.text1,
           ),
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -53,37 +73,67 @@ class CreatePassword extends StatelessWidget {
               Text(
                 'Create Password',
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: "Montserrat", // Applied font family
+                  fontFamily: "Montserrat",
                   color: AppColors.text1,
                 ),
               ),
               SizedBox(height: 16.h),
-              const AppTextFormField(
+              AppTextFormField(
                 hintText: "Password",
                 isBorderEnabled: false,
-                isObscureText: true,
-                prefixIcon: Icon(Icons.lock_clock_outlined),
-                suffixIcon: Icon(Icons.visibility_off_outlined),
+                isObscureText: !_isPasswordVisible,
+                prefixIcon: Icon(
+                  Icons.lock_clock_outlined,
+                  size: 20.sp,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    size: 20.sp,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
               ),
               SizedBox(height: 16.h),
               Text(
                 'Retype Password',
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
-                  fontFamily: "Montserrat", // Applied font family
+                  fontFamily: "Montserrat",
                   color: AppColors.text1,
                 ),
               ),
               SizedBox(height: 16.h),
-              const AppTextFormField(
-                hintText: "Password",
+              AppTextFormField(
+                hintText: "Confirm Password",
                 isBorderEnabled: false,
-                isObscureText: true,
-                prefixIcon: Icon(Icons.lock_clock_outlined),
-                suffixIcon: Icon(Icons.visibility_off_outlined),
+                isObscureText: !_isConfirmPasswordVisible,
+                prefixIcon: Icon(
+                  Icons.lock_clock_outlined,
+                  size: 20.sp,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isConfirmPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    size: 20.sp,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                    });
+                  },
+                ),
               ),
             ],
           ),
@@ -92,16 +142,11 @@ class CreatePassword extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AppTextButton(
-          buttonText: 'Create Account',
+          buttonText: 'Continue',
           buttonHeight: 48.h,
           backgroundColor: AppColors.primary,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const LayoutScreen(),
-              ),
-            );
+            showBottomSheet(context);
           },
         ),
       ),

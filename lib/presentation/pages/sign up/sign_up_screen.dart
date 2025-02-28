@@ -116,8 +116,10 @@ class SignupScreen extends StatelessWidget {
           buttonHeight: 48.h,
           backgroundColor: AppColors.primary,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EmailVerification()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const EmailVerification()));
           },
         ),
       ),

@@ -6,33 +6,33 @@ import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  bool _isPasswordVisible = false; // Toggle password visibility
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Sign In',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: 'Montserrat',
-              color: AppColors.text1,
-            ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          "Sign In",
+          style: TextStyle(
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            fontSize: 18.sp,
+            color: AppColors.text1,
           ),
         ),
-        backgroundColor: AppColors.background,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(
-            Icons.keyboard_arrow_left,
-            color: AppColors.primary,
-            size: 32.h,
-          ),
-        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -83,14 +83,17 @@ class SignInScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const AppTextFormField(
+              AppTextFormField(
                 hintText: "Email",
                 isBorderEnabled: false,
-                prefixIcon: Icon(Icons.person_2_outlined),
+                prefixIcon: Icon(
+                  Icons.person_2_outlined,
+                  size: 20.sp,
+                ),
               ),
               SizedBox(height: 16.h),
               Text(
-                'Create Password',
+                'Password',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontFamily: 'Montserrat',
@@ -99,12 +102,27 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-              const AppTextFormField(
+              AppTextFormField(
                 hintText: "Password",
                 isBorderEnabled: false,
-                isObscureText: true,
-                prefixIcon: Icon(Icons.lock_clock_outlined),
-                suffixIcon: Icon(Icons.visibility_off_outlined),
+                isObscureText: !_isPasswordVisible, // Toggle visibility
+                prefixIcon: Icon(
+                  Icons.lock_clock_outlined,
+                  size: 20.sp,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    size: 20.sp, // Eye icon toggle
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
               ),
               SizedBox(height: 16.h),
               Row(
@@ -117,35 +135,6 @@ class SignInScreen extends StatelessWidget {
                       fontFamily: 'Montserrat',
                       color: AppColors.text1,
                       fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 50.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'I don\'t have account',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: 'Montserrat',
-                      color: AppColors.text1,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: const Color(0xFF3F757C),
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
                     ),
                   ),
                 ],

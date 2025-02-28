@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -6,10 +7,56 @@ import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/presentation/pages/sign%20up/create%20password/create_password.dart';
 
-class EmailVerification extends StatelessWidget {
-  final TextEditingController otpController = TextEditingController();
+class EmailVerification extends StatefulWidget {
+  const EmailVerification({super.key});
 
-  EmailVerification({super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _EmailVerificationState createState() => _EmailVerificationState();
+}
+
+class _EmailVerificationState extends State<EmailVerification> {
+  final TextEditingController otpController = TextEditingController();
+  late Timer _timer;
+  int _seconds = 59;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_seconds > 0) {
+        setState(() {
+          _seconds--;
+        });
+      } else {
+        _timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    otpController.dispose();
+    super.dispose();
+  }
+
+  String _formatTime() {
+    int minutes = _seconds ~/ 60;
+    int seconds = _seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  void _resendCode() {
+    setState(() {
+      _seconds = 59;
+    });
+    _startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +87,25 @@ class EmailVerification extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Verification Code',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: 'Montserrat',
-              color: AppColors.text1,
-            ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 30.w),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
-        backgroundColor: AppColors.background,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(
-            Icons.keyboard_arrow_left,
-            color: AppColors.primary,
-            size: 32.h,
+        title: Text(
+          "Verification",
+          style: TextStyle(
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w600,
+            fontSize: 18.sp,
+            color: AppColors.text1,
           ),
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -165,18 +212,21 @@ class EmailVerification extends StatelessWidget {
             SizedBox(height: 100.h),
             Row(
               children: [
-                Text(
-                  'Resend Code',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primary,
+                GestureDetector(
+                  onTap: _seconds == 0 ? _resendCode : null,
+                  child: Text(
+                    'Resend Code',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w500,
+                      color: _seconds == 0 ? AppColors.primary : Colors.grey,
+                    ),
                   ),
                 ),
                 const Spacer(),
                 Text(
-                  '00:59',
+                  _formatTime(),
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontFamily: 'Montserrat',
