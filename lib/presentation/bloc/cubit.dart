@@ -5,7 +5,6 @@ import 'package:mynt/presentation/pages/dashboard/dashboard_screen.dart';
 import 'package:mynt/presentation/pages/more/more_screen.dart';
 import 'package:mynt/presentation/pages/tickets/tickets_screen.dart';
 import 'package:mynt/presentation/pages/units/all_units_screen.dart';
-import 'package:mynt/presentation/pages/units/units_screen.dart';
 
 class MainCubit extends Cubit<MainStates> {
   MainCubit() : super(MainInitialState());

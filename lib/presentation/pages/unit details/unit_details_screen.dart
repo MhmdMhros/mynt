@@ -252,30 +252,6 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                                 ),
                               ),
                             ),
-                            const YearlyCalendar(
-                              highlightedDays: {
-                                1: [
-                                  5,
-                                  6,
-                                  7,
-                                  8,
-                                  9,
-                                  10,
-                                  12,
-                                  15
-                                ], // Highlight days in January
-                                2: [
-                                  3,
-                                  8,
-                                  9,
-                                  10,
-                                  11,
-                                  20
-                                ], // Highlight days in February
-                                6: [1, 15, 30], // Highlight days in June
-                                12: [25, 31], // Highlight days in December
-                              },
-                            ),
                           ],
                         )
                       : const MonthlyCalendar(

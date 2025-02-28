@@ -3,7 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class YearlyCalendar extends StatelessWidget {
-  final Map<int, List<int>> highlightedDays; // Map of month -> highlighted days
+  final Map<int, List<int>> highlightedDays; // Month -> Highlighted days
 
   const YearlyCalendar({super.key, required this.highlightedDays});
 
@@ -11,17 +11,18 @@ class YearlyCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final int currentYear = DateTime.now().year;
 
-    return SingleChildScrollView(
-      child: Wrap(
-        spacing: 10.w, // Horizontal spacing
-        runSpacing: 15.h, // Vertical spacing
-        alignment: WrapAlignment.center,
-        children: List.generate(12, (index) {
-          DateTime firstDayOfMonth = DateTime(currentYear, index + 1, 1);
-          DateTime lastDayOfMonth = DateTime(currentYear, index + 2, 0);
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(), // Smooth scrolling
+      itemCount: 12,
+      itemBuilder: (context, index) {
+        final DateTime firstDayOfMonth = DateTime(currentYear, index + 1, 1);
+        final DateTime lastDayOfMonth = DateTime(currentYear, index + 2, 0);
 
-          return Container(
-            width: 160.w, // Adjust width to fit nicely
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+          child: Container(
+            width: double.infinity, // Make it responsive
             padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -52,24 +53,22 @@ class YearlyCalendar extends StatelessWidget {
                   calendarFormat: CalendarFormat.month,
                   headerVisible: false,
                   daysOfWeekVisible: true,
-                  rowHeight: 30.h, // Ensures consistent row height
+                  rowHeight: 28.h,
                   calendarStyle: CalendarStyle(
-                    defaultTextStyle: TextStyle(
-                      fontSize: 12.sp, // Ensures all numbers fit in one line
-                    ),
+                    defaultTextStyle: TextStyle(fontSize: 12.sp),
                     todayDecoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.5),
+                      color: Colors.blue.withOpacity(0.4),
                       shape: BoxShape.circle,
                     ),
                   ),
                   calendarBuilders: CalendarBuilders(
                     defaultBuilder: (context, date, _) {
-                      bool isHighlighted =
+                      final bool isHighlighted =
                           highlightedDays[date.month]?.contains(date.day) ??
                               false;
 
                       return Container(
-                        width: 24.w, // Fixed width for all numbers
+                        width: 24.w,
                         height: 24.h,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -82,11 +81,9 @@ class YearlyCalendar extends StatelessWidget {
                           '${date.day}',
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: const Color(0xFF0B3A41),
+                            color: Colors.black87,
                             fontWeight: FontWeight.bold,
                           ),
-                          textAlign:
-                              TextAlign.center, // Ensure text stays in one line
                         ),
                       );
                     },
@@ -94,9 +91,9 @@ class YearlyCalendar extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      },
     );
   }
 
