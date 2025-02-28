@@ -48,12 +48,19 @@ class _UnitsScreenState extends State<UnitsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 30.w),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
         title: Text(
           "Units",
           style: TextStyle(
+            fontSize: 18.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
             color: AppColors.text1,
           ),
         ),

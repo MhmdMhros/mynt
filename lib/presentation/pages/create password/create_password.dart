@@ -156,7 +156,7 @@ class _CreatePasswordState extends State<CreatePassword> {
           buttonHeight: 48.h,
           backgroundColor: AppColors.primary,
           onPressed: () {
-            showBottomSheet(context);
+            showSuccessPassBottomSheet(context);
           },
         ),
       ),

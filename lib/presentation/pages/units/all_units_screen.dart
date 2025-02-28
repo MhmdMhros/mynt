@@ -50,13 +50,6 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 30.w),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
         title: Text(
           "All Units",
           style: TextStyle(

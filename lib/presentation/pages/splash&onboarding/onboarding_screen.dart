@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/presentation/pages/sign%20up/sign_up_screen.dart';
+import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding1_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding2_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,9 +25,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _skip() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const SignupScreen()),
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
@@ -38,9 +38,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SignupScreen()),
+        MaterialPageRoute(builder: (context) => const SignInScreen()),
       );
     }
   }

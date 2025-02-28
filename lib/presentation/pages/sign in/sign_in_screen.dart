@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
+import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -128,13 +129,23 @@ class _SignInScreenState extends State<SignInScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'Forget My Password?',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontFamily: 'Montserrat',
-                      color: AppColors.text1,
-                      fontWeight: FontWeight.w500,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EmailVerification(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Forget My Password?',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontFamily: 'Montserrat',
+                        color: AppColors.text1,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

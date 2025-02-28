@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/success_request_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/layout/layout_screen.dart';
 
 class EnterDateBottomSheet extends StatefulWidget {
   const EnterDateBottomSheet({super.key});
@@ -11,6 +13,27 @@ class EnterDateBottomSheet extends StatefulWidget {
 }
 
 class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
+  void showSuccessRequestBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const SuccessRequestBottomSheet();
+      },
+    );
+
+    // Delay navigation by 4 seconds
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LayoutScreen()),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -168,7 +191,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
             Navigator.pop(context);
           }),
           _buildButton("Send", AppColors.primary, Colors.white, () {
-            Navigator.pop(context);
+            showSuccessRequestBottomSheet(context);
           }),
         ],
       ),
@@ -178,16 +201,16 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
   Widget _buildButton(
       String text, Color backGColor, Color textColor, VoidCallback onPressed) {
     return SizedBox(
-      width: 155.w, // Set fixed width
-      height: 50.h, // Set fixed height
+      width: 155.w,
+      height: 50.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backGColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r), // Apply rounded corners
+            borderRadius: BorderRadius.circular(8.r),
             side: BorderSide(
               color: AppColors.primary,
-              width: 1.w, // Apply border width
+              width: 1.w,
             ),
           ),
         ),

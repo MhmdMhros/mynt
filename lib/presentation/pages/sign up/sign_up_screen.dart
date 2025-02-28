@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
+import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
-import 'package:mynt/presentation/pages/sign%20up/email%20verification/email_verfication.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});

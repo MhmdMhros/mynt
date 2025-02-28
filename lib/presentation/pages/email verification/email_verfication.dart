@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/presentation/pages/create%20password/create_password.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
-import 'package:mynt/presentation/pages/sign%20up/create%20password/create_password.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});

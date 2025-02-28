@@ -4,6 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'package:mynt/presentation/pages/balance%20details/balance_details_screen.dart';
+import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
+import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
+import 'package:mynt/presentation/pages/news/news_screen.dart';
+import 'package:mynt/presentation/pages/notifications/notifications_screen.dart';
+import 'package:mynt/presentation/pages/required%20actions/required_actions_screen.dart';
+import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
+import 'package:mynt/presentation/pages/tickets/tickets_screen.dart';
+import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
+import 'package:mynt/presentation/pages/units/units_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DashBoardScreen extends StatelessWidget {
@@ -38,17 +47,27 @@ class DashBoardScreen extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(8.w),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          color: const Color(0xFF0F525B),
-                          size: 25.sp,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotificationsScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(8.w),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: Icon(
+                            Icons.notifications_outlined,
+                            color: const Color(0xFF0F525B),
+                            size: 25.sp,
+                          ),
                         ),
                       ),
                     ],
@@ -75,26 +94,86 @@ class DashBoardScreen extends StatelessWidget {
                           SizedBox(height: 16.h),
 
                           // Rented Units Section
-                          _buildSectionTitle("Rented Units", () {}, true),
+                          _buildSectionTitle("Rented Units", () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const UnitsScreen(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ); // Uses a smoother transition
+                                },
+                              ),
+                            );
+                          }, true),
                           SizedBox(height: 10.h),
                           _buildRentedUnitsList(),
 
                           SizedBox(height: 16.h),
 
                           // Required Action Section
-                          _buildSectionTitle("Required Action", () {}, true),
+                          _buildSectionTitle("Required Action", () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const RequiredActionsScreen(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ); // Uses a smoother transition
+                                },
+                              ),
+                            );
+                          }, true),
                           SizedBox(height: 10.h),
                           _buildActionCard(context),
 
                           SizedBox(height: 16.h),
 
                           // Last Tickets Section
-                          _buildSectionTitle("Tickets", () {}, true),
+                          _buildSectionTitle("Tickets", () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const TicketsScreen(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ); // Uses a smoother transition
+                                },
+                              ),
+                            );
+                          }, true),
                           SizedBox(height: 10.h),
-                          _buildTicketCard(),
+                          _buildTicketCard(context),
 
                           SizedBox(height: 16.h),
-                          _buildSectionTitle("News", () {}, true),
+                          _buildSectionTitle("News", () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const NewsScreen(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ); // Uses a smoother transition
+                                },
+                              ),
+                            );
+                          }, true),
                           SizedBox(height: 10.h),
                           Column(
                             children: [
@@ -120,7 +199,7 @@ class DashBoardScreen extends StatelessWidget {
                                       "Best-selling product with great user reviews.",
                                   "date": "15/7/2023"
                                 },
-                              ]),
+                              ], context),
                             ],
                           ),
                         ],
@@ -319,7 +398,8 @@ class DashBoardScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const BalanceDetailsScreen()),
+                          builder: (context) =>
+                              const MaintenanceServiceScreen()),
                     );
                   },
                 ),
@@ -499,102 +579,120 @@ class DashBoardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTicketCard() {
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Padding(
+  Widget _buildTicketCard(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const TicketDetailsScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              ); // Uses a smoother transition
+            },
+          ),
+        );
+      },
+      child: Container(
         padding: EdgeInsets.all(10.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Ticket Num: ",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Montserrat",
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Ticket Num: ",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
-                    ),
-                    Text(
-                      "#637893",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Montserrat",
+                      Text(
+                        "#637893",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "18/1/2025 3:45PM",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Colors.grey[600],
-                    fontFamily: "Montserrat",
+                    ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Ticket Sort: ",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black87,
-                        fontFamily: "Montserrat",
-                      ),
-                    ),
-                    Text(
-                      "Gate Pass",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Montserrat",
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 231, 217, 219),
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Text(
-                    "Expired",
+                  Text(
+                    "18/1/2025 3:45PM",
                     style: TextStyle(
-                      fontSize: 15.sp,
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      color: Colors.grey[600],
                       fontFamily: "Montserrat",
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Ticket Sort: ",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.black87,
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
+                      Text(
+                        "Gate Pass",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 231, 217, 219),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      "Expired",
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Montserrat",
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget buildProductList(List<Map<String, String>> products) {
+  Widget buildProductList(
+      List<Map<String, String>> products, BuildContext context) {
     return SizedBox(
       height: 320.h, // Responsive height
       child: ListView.builder(
@@ -602,13 +700,13 @@ class DashBoardScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {
-          return _buildProductCard(products[index]);
+          return _buildProductCard(products[index], context);
         },
       ),
     );
   }
 
-  Widget _buildProductCard(Map<String, String> product) {
+  Widget _buildProductCard(Map<String, String> product, BuildContext context) {
     return Container(
       width: 300.w, // Responsive width
       margin: EdgeInsets.only(right: 12.w),
@@ -676,7 +774,20 @@ class DashBoardScreen extends StatelessWidget {
                     height: 40.h, // Responsive height
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle view action
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const NewsDetailsScreen(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              ); // Uses a smoother transition
+                            },
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
