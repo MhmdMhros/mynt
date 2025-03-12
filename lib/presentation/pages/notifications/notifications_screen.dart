@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
 import 'notification_widget.dart';
 
@@ -90,9 +91,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        title: const Text(
+        title: Text(
           "Notifications",
           style: TextStyle(
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
