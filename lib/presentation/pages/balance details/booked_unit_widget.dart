@@ -19,7 +19,7 @@ class BookedUnitWidget extends StatelessWidget {
                 "Unit ID: ",
                 style: TextStyle(
                   fontFamily: "Montserrat",
-                  fontSize: 16.sp,
+                  fontSize: 12.sp,
                   color: Colors.black54,
                   fontWeight: FontWeight.w500,
                 ),
@@ -28,7 +28,7 @@ class BookedUnitWidget extends StatelessWidget {
                 "403840394",
                 style: TextStyle(
                   fontFamily: "Montserrat",
-                  fontSize: 16.sp,
+                  fontSize: 12.sp,
                   color: Colors.black54,
                   fontWeight: FontWeight.w600,
                 ),
@@ -65,7 +65,7 @@ class BookedUnitWidget extends StatelessWidget {
             title,
             style: TextStyle(
               fontFamily: "Montserrat",
-              fontSize: 18.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
@@ -77,7 +77,7 @@ class BookedUnitWidget extends StatelessWidget {
               "EGP ",
               style: TextStyle(
                   fontFamily: "Montserrat",
-                  fontSize: 15.sp,
+                  fontSize: 14.sp,
                   color: const Color(0xFF007D8B),
                   fontWeight: FontWeight.w500),
             ),
@@ -113,7 +113,7 @@ class BookedUnitWidget extends StatelessWidget {
             label,
             style: TextStyle(
               fontFamily: "Montserrat",
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -123,7 +123,7 @@ class BookedUnitWidget extends StatelessWidget {
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontFamily: "Montserrat",
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 color: Colors.black87,
               ),
             ),

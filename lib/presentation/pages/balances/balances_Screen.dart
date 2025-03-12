@@ -22,7 +22,7 @@ class BalancesScreen extends StatelessWidget {
         title: Text(
           "Net Balance",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -35,7 +35,6 @@ class BalancesScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search TextField
             TextField(
               decoration: InputDecoration(
                 hintText: "Search...",
@@ -53,8 +52,6 @@ class BalancesScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-
-            // Dropdown Filter
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -97,8 +94,6 @@ class BalancesScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-
-            // Container with Row (4 texts)
             Container(
               padding: EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
               decoration: BoxDecoration(
@@ -170,7 +165,7 @@ class BalancesScreen extends StatelessWidget {
             padding: EdgeInsets.only(right: 5.w, left: 5.w),
             child: Text(unitId,
                 style: TextStyle(
-                  fontSize: 13.sp,
+                  fontSize: 12.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w600,
                   color: AppColors.primary,
@@ -178,7 +173,7 @@ class BalancesScreen extends StatelessWidget {
           ),
           Text(checkInOut,
               style: TextStyle(
-                fontSize: 13.sp,
+                fontSize: 12.sp,
                 fontFamily: "Montserrat",
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
@@ -186,15 +181,14 @@ class BalancesScreen extends StatelessWidget {
           Text(
             "${net}EGP",
             style: TextStyle(
-              fontSize: 13.sp,
+              fontSize: 12.sp,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w600,
               color:
                   net > 0 ? const Color(0xFF007D8B) : const Color(0xFFDD6D5C),
             ),
           ),
-          const Icon(Icons.arrow_forward_ios,
-              color: AppColors.primary, size: 16),
+          Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 16.w),
         ],
       ),
     );
@@ -241,7 +235,7 @@ class BalancesScreen extends StatelessWidget {
       );
 
   TextStyle textStyle() => TextStyle(
-        fontSize: 13.sp,
+        fontSize: 12.sp,
         fontFamily: "Montserrat",
         fontWeight: FontWeight.w600,
         color: AppColors.primary,

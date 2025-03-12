@@ -9,17 +9,19 @@ class BalanceDescriptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, String>> descriptions = [
       {
-        "title": "Maintenance Fees",
+        "title": "airconditing maintance",
         "description":
-            "Covers general maintenance of the unit and common areas."
+            "Expenses for cleaning and maintenance of facilities or premises,such as cleaning air conditioners or maintaining heating systems."
       },
       {
-        "title": "Service Charges",
-        "description": "Includes utilities, security, and additional services."
+        "title": "airconditing maintance",
+        "description":
+            "Expenses for cleaning and maintenance of facilities or premises,such as cleaning air conditioners or maintaining heating systems."
       },
       {
-        "title": "Property Tax",
-        "description": "Annual tax paid for the ownership of the unit."
+        "title": "airconditing maintance",
+        "description":
+            "Expenses for cleaning and maintenance of facilities or premises,such as cleaning air conditioners or maintaining heating systems."
       },
     ];
 
@@ -53,7 +55,7 @@ class BalanceDescriptionWidget extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 16.sp, // Responsive font size
+                fontSize: 14.sp, // Responsive font size
                 fontWeight: FontWeight.w600,
                 color: AppColors.primary,
                 fontFamily: "Montserrat",
@@ -66,7 +68,7 @@ class BalanceDescriptionWidget extends StatelessWidget {
             child: Text(
               description,
               style: TextStyle(
-                fontSize: 15.sp, // Responsive font size
+                fontSize: 14.sp, // Responsive font size
                 color: Colors.black87,
                 fontFamily: "Montserrat",
               ),

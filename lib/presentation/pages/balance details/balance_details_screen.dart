@@ -48,7 +48,7 @@ class _BalanceDetailsScreenState extends State<BalanceDetailsScreen> {
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),
@@ -60,35 +60,98 @@ class _BalanceDetailsScreenState extends State<BalanceDetailsScreen> {
             padding: EdgeInsets.all(16.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(categories.length, (index) {
-                return GestureDetector(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 0;
+                      });
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.h, horizontal: 20.w),
+                      decoration: BoxDecoration(
+                        color: selectedIndex == 0
+                            ? AppColors.primary
+                            : AppColors.iconsBack,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Text(
+                        categories[0],
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 10.sp,
+                          color:
+                              selectedIndex == 0 ? Colors.white : Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedIndex = index;
+                      selectedIndex = 1;
                     });
                   },
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
                     decoration: BoxDecoration(
-                      color: selectedIndex == index
+                      color: selectedIndex == 1
                           ? AppColors.primary
                           : AppColors.iconsBack,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      categories[index],
+                      categories[1],
                       style: TextStyle(
                         fontFamily: "Montserrat",
-                        fontSize: 12.sp,
-                        color:
-                            selectedIndex == index ? Colors.white : Colors.grey,
+                        fontSize: 10.sp,
+                        color: selectedIndex == 1 ? Colors.white : Colors.grey,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                );
-              }),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 2;
+                      });
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.h, horizontal: 20.w),
+                      decoration: BoxDecoration(
+                        color: selectedIndex == 2
+                            ? AppColors.primary
+                            : AppColors.iconsBack,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Text(
+                        categories[2],
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 10.sp,
+                          color:
+                              selectedIndex == 2 ? Colors.white : Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           Expanded(child: getSelectedWidget()),
