@@ -11,20 +11,23 @@ class NewsScreen extends StatelessWidget {
     final List<Map<String, String>> newsItems = [
       {
         "image":
-            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-        "description": "This is a great product with amazing features.",
+            "https://s3-alpha-sig.figma.com/img/94de/0cbf/3e90a09eca6036d75eaa148a4caaab08?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OC6s4HmXioTVQylDSGsMMSpwVYoaEauEppt52KIzvqR0dhP1nxnRtlsnmWDBhGporNdtww42tCYrmjJvmVIfjLfxLonNO75b5GJpBcLt8CGFXRl8gUeoLsLZ2jAVD-ipyiIk9hOGPx2GKEPGnu31qTlwITBx-Uzm1maR1f6vnwyK~i~t0Lqi4O2VOcTOBtWziqxpux8QhLSXgwwqbciGwSnnqrXm2F1KtD4KHJTc9SPkWSikl~kBBkGP~bMMTOUt7fzwefSwhiXstLsYQkDeW29FHBoAiKQpxcsAcp11jLhXEuvgqF2WvEWAiCVlxJyruFC6lsrYCNi6htRD3dfnaw__",
+        "description":
+            "Opening of the New ${"Flowers"} Compound in Sheikh Zayed Area",
         "date": "2/5/2023"
       },
       {
         "image":
-            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-        "description": "Another amazing product with high-quality design.",
+            "https://s3-alpha-sig.figma.com/img/94de/0cbf/3e90a09eca6036d75eaa148a4caaab08?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OC6s4HmXioTVQylDSGsMMSpwVYoaEauEppt52KIzvqR0dhP1nxnRtlsnmWDBhGporNdtww42tCYrmjJvmVIfjLfxLonNO75b5GJpBcLt8CGFXRl8gUeoLsLZ2jAVD-ipyiIk9hOGPx2GKEPGnu31qTlwITBx-Uzm1maR1f6vnwyK~i~t0Lqi4O2VOcTOBtWziqxpux8QhLSXgwwqbciGwSnnqrXm2F1KtD4KHJTc9SPkWSikl~kBBkGP~bMMTOUt7fzwefSwhiXstLsYQkDeW29FHBoAiKQpxcsAcp11jLhXEuvgqF2WvEWAiCVlxJyruFC6lsrYCNi6htRD3dfnaw__",
+        "description":
+            "Opening of the New ${"Flowers"} Compound in Sheikh Zayed Area",
         "date": "10/6/2023"
       },
       {
         "image":
-            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-        "description": "Best-selling product with great user reviews.",
+            "https://s3-alpha-sig.figma.com/img/94de/0cbf/3e90a09eca6036d75eaa148a4caaab08?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OC6s4HmXioTVQylDSGsMMSpwVYoaEauEppt52KIzvqR0dhP1nxnRtlsnmWDBhGporNdtww42tCYrmjJvmVIfjLfxLonNO75b5GJpBcLt8CGFXRl8gUeoLsLZ2jAVD-ipyiIk9hOGPx2GKEPGnu31qTlwITBx-Uzm1maR1f6vnwyK~i~t0Lqi4O2VOcTOBtWziqxpux8QhLSXgwwqbciGwSnnqrXm2F1KtD4KHJTc9SPkWSikl~kBBkGP~bMMTOUt7fzwefSwhiXstLsYQkDeW29FHBoAiKQpxcsAcp11jLhXEuvgqF2WvEWAiCVlxJyruFC6lsrYCNi6htRD3dfnaw__",
+        "description":
+            "Opening of the New ${"Flowers"} Compound in Sheikh Zayed Area",
         "date": "15/7/2023"
       },
     ];
@@ -43,7 +46,7 @@ class NewsScreen extends StatelessWidget {
         title: Text(
           "News",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,

@@ -55,7 +55,8 @@ class NewsWidget extends StatelessWidget {
               child: Text(
                 item["description"]!,
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
+                  color: AppColors.text1,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Montserrat", // Apply Montserrat font
                 ),
@@ -73,7 +74,7 @@ class NewsWidget extends StatelessWidget {
                   Text(
                     item["date"]!,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: Colors.grey[700],
                       fontFamily: "Montserrat", // Apply Montserrat font
                     ),
@@ -107,7 +108,7 @@ class NewsWidget extends StatelessWidget {
                       child: Text(
                         "View",
                         style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           color: Colors.white,
                           fontFamily: "Montserrat", // Apply Montserrat font
                         ),

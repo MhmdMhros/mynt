@@ -12,22 +12,26 @@ class RequiredActionsScreen extends StatelessWidget {
       {
         "title": "Maintenance Service 🔧",
         "date": "15 Feb 2025",
-        "description": "Description of the required action goes here."
+        "description":
+            "The unit requires maintenance on 15th February. The costs will be covered by the owner. Please confirm or reschedule"
       },
       {
         "title": "Maintenance Service 🔧",
         "date": "15 Feb 2025",
-        "description": "Description of the required action goes here."
+        "description":
+            "The unit requires maintenance on 15th February. The costs will be covered by the owner. Please confirm or reschedule"
       },
       {
         "title": "Maintenance Service 🔧",
         "date": "15 Feb 2025",
-        "description": "Description of the required action goes here."
+        "description":
+            "The unit requires maintenance on 15th February. The costs will be covered by the owner. Please confirm or reschedule"
       },
       {
         "title": "Maintenance Service 🔧",
         "date": "15 Feb 2025",
-        "description": "Description of the required action goes here."
+        "description":
+            "The unit requires maintenance on 15th February. The costs will be covered by the owner. Please confirm or reschedule"
       },
     ];
 
