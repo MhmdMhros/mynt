@@ -23,7 +23,7 @@ class ContactUsScreen extends StatelessWidget {
         title: Text(
           "Contact Us",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -77,7 +77,7 @@ class ContactUsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(icon, size: 40.r, color: AppColors.text1),
+          Icon(icon, size: 30.r, color: AppColors.text1),
           SizedBox(height: 8.h),
           Text(
             label,
@@ -100,7 +100,7 @@ class ContactUsScreen extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             fontFamily: "Montserrat",
             color: AppColors.text1,
@@ -123,7 +123,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontFamily: "Montserrat",
           ),
           maxLines: 3,

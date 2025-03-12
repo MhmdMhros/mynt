@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/presentation/pages/balances/balances_screen.dart';
-import 'package:mynt/presentation/pages/splash&onboarding/onboarding_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/splash_screen.dart';
 
 void main() {

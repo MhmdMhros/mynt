@@ -23,7 +23,7 @@ class AboutUsScreen extends StatelessWidget {
         title: Text(
           "About Us",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -72,7 +72,7 @@ class AboutUsScreen extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w600,
               color: AppColors.text1,

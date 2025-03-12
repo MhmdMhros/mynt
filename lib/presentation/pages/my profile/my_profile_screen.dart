@@ -23,7 +23,7 @@ class MyProfileScreen extends StatelessWidget {
         title: Text(
           "My Profile",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -43,7 +43,7 @@ class MyProfileScreen extends StatelessWidget {
                   ClipOval(
                     child: CachedNetworkImage(
                       imageUrl:
-                          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg", // Replace with actual URL
+                          "https://s3-alpha-sig.figma.com/img/5f8b/1e3c/e7b3657f2652263b0ef7a745a66e0f2a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=G7iTfjPpl79oCwQ~4SV4vXG8Nm7RWpAwsaWYNrMIoHdcbWFit3azy-zf2l8588OyZFXvWnwRBKZtBgh3tnt9GHAT~Qzp0Wgsbd3DKeQv0Ntn1bLaWTQv~1EEWG94i8F3v1ra9huJw2~UVtTBJIr7BLBIDU1Zt5sfosNI7ggpgD0uM5ZYYFSV8ehLgSUj-r9K5ouq7T8dLQn16LqJK4txA3yYDBqSKoM6cojXC~BBDsP1tagVTDGK~OH~TLHMvNpu22g1YN89YS3xp5-VshSrYBfa~Q7C7mVF5Oy7yij~MZqadYUsMxwZ1dFvXhCU5NXpjlkywe5JDOLeI2ob2Nc5CQ__", // Replace with actual URL
                       placeholder: (context, url) =>
                           const CircularProgressIndicator(
                               color: AppColors.text1),
@@ -106,7 +106,7 @@ class MyProfileScreen extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w600,
               color: AppColors.text1,
@@ -121,7 +121,11 @@ class MyProfileScreen extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             decoration: InputDecoration(
-              prefixIcon: Icon(icon, color: AppColors.text1),
+              prefixIcon: Icon(
+                icon,
+                color: AppColors.text1,
+                size: 20.sp,
+              ),
               hintText: label,
               hintStyle: TextStyle(
                 fontFamily: "Montserrat",

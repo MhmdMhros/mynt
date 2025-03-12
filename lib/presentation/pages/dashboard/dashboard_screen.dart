@@ -10,7 +10,6 @@ import 'package:mynt/presentation/pages/news/news_screen.dart';
 import 'package:mynt/presentation/pages/notifications/notifications_screen.dart';
 import 'package:mynt/presentation/pages/required%20actions/required_actions_screen.dart';
 import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
-import 'package:mynt/presentation/pages/tickets/tickets_screen.dart';
 import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
 import 'package:mynt/presentation/pages/units/units_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
