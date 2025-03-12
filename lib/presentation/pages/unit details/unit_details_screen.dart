@@ -56,7 +56,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         title: Text(
           "Unit Details",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -83,7 +83,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                       borderRadius: BorderRadius.circular(10.r),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg', // Replace with real image URL
+                            'https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__', // Replace with real image URL
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
@@ -110,7 +110,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                           Text(
                             "Unit ID: ",
                             style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                               fontFamily: "Montserrat",
                               color: AppColors.text1,
@@ -119,7 +119,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                           Text(
                             "4212234566",
                             style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: "Montserrat",
                               color: AppColors.primary,
@@ -138,7 +138,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                         child: Text(
                           "Mount Aj Jalala, Suez, Egypt",
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontFamily: "Montserrat",
                             fontWeight: FontWeight.w500,
                             color: AppColors.text2,
@@ -326,16 +326,16 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
       [Color? valueColor]) {
     return Row(
       children: [
-        Icon(icon, size: 18.sp, color: Colors.grey),
+        Icon(icon, size: 15.sp, color: Colors.grey),
         SizedBox(width: 6.w),
         Text(label,
-            style: TextStyle(fontSize: 12.sp, fontFamily: "Montserrat")),
+            style: TextStyle(fontSize: 14.sp, fontFamily: "Montserrat")),
         SizedBox(width: 30.w),
         Expanded(
           child: Text(
             value,
             style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: valueColor ?? Colors.black,
                 fontFamily: "Montserrat"),
@@ -380,7 +380,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         height: 50.h,
         decoration: BoxDecoration(
           color: backGColor,
-          borderRadius: BorderRadius.circular(8.r),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: AppColors.primary,
             width: 1.w,
