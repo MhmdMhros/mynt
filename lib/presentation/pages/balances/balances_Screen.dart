@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/presentation/pages/balance%20details/balance_details_screen.dart';
 
 class BalancesScreen extends StatelessWidget {
   const BalancesScreen({super.key});
@@ -106,14 +108,8 @@ class BalancesScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Unit ID", style: _headerStyle()),
-                  Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: Text("Check in/out", style: _headerStyle()),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.w),
-                    child: Text("Net", style: _headerStyle()),
-                  ),
+                  Text("Check in/out", style: _headerStyle()),
+                  Text("Net", style: _headerStyle()),
                   Text("More", style: _headerStyle()),
                 ],
               ),
@@ -127,10 +123,10 @@ class BalancesScreen extends StatelessWidget {
                 separatorBuilder: (_, __) => SizedBox(height: 10.h),
                 itemBuilder: (context, index) {
                   return _buildBalanceRow(
-                    unitId: "12225",
-                    checkInOut: "2/5/2023 - 19/7/2023",
-                    net: -4150.0,
-                  );
+                      unitId: "12225",
+                      checkInOut: "2/5/2023 - 19/7/2023",
+                      net: -4150.00,
+                      context: context);
                 },
               ),
             ),
@@ -151,44 +147,65 @@ class BalancesScreen extends StatelessWidget {
   }
 
   // Widget for list item row
-  Widget _buildBalanceRow({
-    required String unitId,
-    required String checkInOut,
-    required double net,
-  }) {
+  Widget _buildBalanceRow(
+      {required String unitId,
+      required String checkInOut,
+      required double net,
+      required BuildContext context}) {
     return Container(
       padding: EdgeInsets.all(10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: EdgeInsets.only(right: 5.w, left: 5.w),
-            child: Text(unitId,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primary,
-                )),
-          ),
-          Text(checkInOut,
+          Text(unitId,
               style: TextStyle(
                 fontSize: 12.sp,
                 fontFamily: "Montserrat",
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primary,
               )),
-          Text(
-            "${net}EGP",
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontFamily: "Montserrat",
-              fontWeight: FontWeight.w600,
-              color:
-                  net > 0 ? const Color(0xFF007D8B) : const Color(0xFFDD6D5C),
+          Padding(
+            padding: EdgeInsets.only(left: 40.w),
+            child: Text(checkInOut,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10.w),
+            child: Text(
+              "${net}EGP",
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                color:
+                    net > 0 ? const Color(0xFF007D8B) : const Color(0xFFDD6D5C),
+              ),
             ),
           ),
-          Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 16.w),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 30.w),
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColors.primary,
+                  size: 16.w,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BalanceDetailsScreen()),
+                  );
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

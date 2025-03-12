@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/constants/app_colors.dart';
-import 'package:mynt/presentation/pages/balance%20details/balance_details_screen.dart';
+import 'package:mynt/presentation/pages/balances/balances_Screen.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
 import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
 import 'package:mynt/presentation/pages/news/news_screen.dart';
@@ -487,7 +487,7 @@ class DashBoardScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const BalanceDetailsScreen()),
+                          builder: (context) => const BalancesScreen()),
                     );
                   },
                   child: Container(
