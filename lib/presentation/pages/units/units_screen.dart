@@ -18,7 +18,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
       "booking_duration": "07/1/2025 - 30/3/2025",
       "balance": "-3,500 EGP",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
       "status": "Rented"
     },
     {
@@ -27,7 +27,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
       "booking_duration": "10/2/2025 - 15/5/2025",
       "balance": "-5,200 EGP",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
       "status": "Pending"
     },
     {
@@ -36,7 +36,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
       "booking_duration": "..",
       "balance": "..",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
       "status": ""
     },
   ];
@@ -58,7 +58,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
         title: Text(
           "Units",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -96,7 +96,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
           Row(
             children: [
               CircleAvatar(
-                radius: 30.r,
+                radius: 24.r,
                 backgroundImage: CachedNetworkImageProvider(unit["image"]!),
               ),
               SizedBox(width: 10.w),
@@ -111,7 +111,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                             unit["title"]!,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16.sp,
+                              fontSize: 12.sp,
                               fontFamily: "Montserrat",
                             ),
                           ),
@@ -130,7 +130,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                             child: Text(
                               unit["status"]!,
                               style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 12.sp,
                                 color: unit["status"]! == "Rented"
                                     ? const Color(0xFF0F525B)
                                     : const Color(0xFFCC9D00),
@@ -147,7 +147,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                           "Unit ID: ",
                           style: TextStyle(
                             color: Colors.grey[800],
-                            fontSize: 14.sp,
+                            fontSize: 10.sp,
                             fontFamily: "Montserrat",
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -156,7 +156,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                           unit["uid"]!,
                           style: TextStyle(
                             color: Colors.grey[600],
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                           ),
@@ -184,13 +184,13 @@ class _UnitsScreenState extends State<UnitsScreen> {
       [Color? valueColor]) {
     return Row(
       children: [
-        Icon(icon, size: 20.sp, color: Colors.grey),
+        Icon(icon, size: 15.sp, color: Colors.grey),
         SizedBox(width: 8.w),
         Expanded(
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 12.sp,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w500,
             ),
@@ -199,7 +199,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
         Text(
           value,
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: valueColor ?? Colors.black,

@@ -17,31 +17,31 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
       "title": "Monte Galala studio",
       "uid": "551554",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
     },
     {
       "title": "Monte Galala studio",
       "uid": "551554",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
     },
     {
       "title": "Monte Galala studio",
       "uid": "551554",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
     },
     {
       "title": "Monte Galala studio",
       "uid": "551554",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
     },
     {
       "title": "Monte Galala studio",
       "uid": "551554",
       "image":
-          "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
     },
   ];
   @override
@@ -50,13 +50,14 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: const Text(""),
         elevation: 0,
         title: Text(
           "All Units",
           style: TextStyle(
-            fontSize: 18.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),
@@ -74,7 +75,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
               child: Text(
                 "Total Units 12",
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 12.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w600,
                   color: AppColors.text1,
@@ -116,7 +117,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
           Row(
             children: [
               CircleAvatar(
-                radius: 28.r,
+                radius: 24.r,
                 backgroundImage: CachedNetworkImageProvider(unit["image"]!),
               ),
               SizedBox(width: 10.w),
@@ -131,7 +132,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                             unit["title"]!,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
+                              fontSize: 12.sp,
                               fontFamily: "Montserrat",
                             ),
                           ),
@@ -144,7 +145,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                           "Unit ID: ",
                           style: TextStyle(
                             color: Colors.grey[800],
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontFamily: "Montserrat",
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -153,7 +154,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                           unit["uid"]!,
                           style: TextStyle(
                             color: Colors.grey[600],
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                           ),
@@ -189,7 +190,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                   child: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Colors.white,
-                    size: 20.sp,
+                    size: 15.sp,
                   ),
                 ),
               ),
@@ -197,35 +198,6 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget buildRow(IconData icon, String label, String value,
-      [Color? valueColor]) {
-    return Row(
-      children: [
-        Icon(icon, size: 20.sp, color: Colors.grey),
-        SizedBox(width: 8.w),
-        Expanded(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontFamily: "Montserrat",
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.w600,
-            color: valueColor ?? Colors.black,
-          ),
-        ),
-      ],
     );
   }
 }
