@@ -26,7 +26,6 @@ class DashBoardScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              // App Bar
               Container(
                 height: 0.25.sh,
                 width: double.infinity,
@@ -66,7 +65,7 @@ class DashBoardScreen extends StatelessWidget {
                           child: Icon(
                             Icons.notifications_outlined,
                             color: const Color(0xFF0F525B),
-                            size: 25.sp,
+                            size: 20.sp,
                           ),
                         ),
                       ),
@@ -74,8 +73,6 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Scrollable Content
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(top: 70.h),
@@ -180,21 +177,21 @@ class DashBoardScreen extends StatelessWidget {
                               buildProductList([
                                 {
                                   "image":
-                                      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
                                   "description":
                                       "This is a great product with amazing features.",
                                   "date": "2/5/2023"
                                 },
                                 {
                                   "image":
-                                      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
                                   "description":
                                       "Another amazing product with high-quality design.",
                                   "date": "10/6/2023"
                                 },
                                 {
                                   "image":
-                                      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
                                   "description":
                                       "Best-selling product with great user reviews.",
                                   "date": "15/7/2023"
@@ -227,7 +224,7 @@ class DashBoardScreen extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-              fontSize: 20.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Montserrat"),
         ),
@@ -236,7 +233,7 @@ class DashBoardScreen extends StatelessWidget {
             onPressed: onSeeAllPressed,
             child: Text(
               "See all",
-              style: TextStyle(fontSize: 18.sp, fontFamily: "Montserrat"),
+              style: TextStyle(fontSize: 14.sp, fontFamily: "Montserrat"),
             ),
           ),
       ],
@@ -247,11 +244,11 @@ class DashBoardScreen extends StatelessWidget {
       [Color? valueColor]) {
     return Row(
       children: [
-        Icon(icon, size: 18.sp, color: Colors.grey),
+        Icon(icon, size: 15.sp, color: Colors.grey),
         SizedBox(width: 6.w),
         Text(label,
             style: TextStyle(fontSize: 12.sp, fontFamily: "Montserrat")),
-        SizedBox(width: 20.w),
+        SizedBox(width: 18.w),
         Expanded(
           child: Text(
             value,
@@ -305,9 +302,9 @@ class DashBoardScreen extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 25.r,
+                          radius: 24.r,
                           backgroundImage: const CachedNetworkImageProvider(
-                              "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"),
+                              "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__"),
                         ),
                         SizedBox(width: 10.w),
                         Expanded(
@@ -318,7 +315,7 @@ class DashBoardScreen extends StatelessWidget {
                                 "Monte Galala studio",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16.sp,
+                                    fontSize: 12.sp,
                                     fontFamily: "Montserrat"),
                               ),
                               Row(
@@ -331,7 +328,7 @@ class DashBoardScreen extends StatelessWidget {
                                       "Mount Ai Jalala, Suiz, Egypt",
                                       style: TextStyle(
                                           color: Colors.grey[800],
-                                          fontSize: 12.sp,
+                                          fontSize: 10.sp,
                                           fontFamily: "Montserrat"),
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -383,7 +380,7 @@ class DashBoardScreen extends StatelessWidget {
                           "Maintenance Service 🔧 ",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               fontFamily: "Montserrat"),
                         ),
                       ],
@@ -392,7 +389,7 @@ class DashBoardScreen extends StatelessWidget {
                       "15 Feb 2025",
                       style: TextStyle(
                           color: Colors.grey[600],
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontFamily: "Montserrat"),
                     ),
                   ],
@@ -408,7 +405,7 @@ class DashBoardScreen extends StatelessWidget {
                     child: Icon(
                       Icons.arrow_forward_ios_rounded,
                       color: Colors.white,
-                      size: 20.sp,
+                      size: 15.sp,
                     ),
                   ),
                   onTap: () {
@@ -461,14 +458,14 @@ class DashBoardScreen extends StatelessWidget {
                           "Net Balance",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               fontFamily: "Montserrat"),
                         ),
                         SizedBox(width: 5.w),
                         SvgPicture.asset(
                           "assets/images/dollarImage.svg",
-                          width: 20.w,
-                          height: 20.h,
+                          width: 15.w,
+                          height: 15.h,
                         ),
                       ],
                     ),
@@ -477,7 +474,7 @@ class DashBoardScreen extends StatelessWidget {
                       "for all unitsfor all units",
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: 15.sp,
+                        fontSize: 12.sp,
                         fontFamily: "Montserrat",
                       ),
                       maxLines: 2,
@@ -504,7 +501,7 @@ class DashBoardScreen extends StatelessWidget {
                     child: Icon(
                       Icons.arrow_forward_ios_rounded,
                       color: Colors.white,
-                      size: 20.sp,
+                      size: 15.sp,
                     ),
                   ),
                 ),
@@ -516,7 +513,7 @@ class DashBoardScreen extends StatelessWidget {
                 Text(
                   "EGP  ",
                   style: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: 16.sp,
                       color: const Color(0xFF0F525B),
                       fontWeight: FontWeight.w400,
                       fontFamily: "Montserrat"),
@@ -524,7 +521,7 @@ class DashBoardScreen extends StatelessWidget {
                 Text(
                   "33,700.0",
                   style: TextStyle(
-                      fontSize: 22.sp,
+                      fontSize: 16.sp,
                       color: const Color(0xFF0F525B),
                       fontWeight: FontWeight.w600,
                       fontFamily: "Montserrat"),
@@ -541,9 +538,9 @@ class DashBoardScreen extends StatelessWidget {
     final PageController pageController = PageController();
 
     final List<String> images = [
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-      "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
     ];
 
     return Column(
@@ -632,7 +629,7 @@ class DashBoardScreen extends StatelessWidget {
                       Text(
                         "Ticket Num: ",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           fontFamily: "Montserrat",
                         ),
@@ -640,24 +637,25 @@ class DashBoardScreen extends StatelessWidget {
                       Text(
                         "#637893",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Montserrat",
                         ),
                       ),
                     ],
                   ),
-                  Text(
-                    "18/1/2025 3:45PM",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: Colors.grey[600],
-                      fontFamily: "Montserrat",
+                  Expanded(
+                    child: Text(
+                      "18/1/2025 3:45PM",
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.grey[600],
+                        fontFamily: "Montserrat",
+                      ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -666,7 +664,7 @@ class DashBoardScreen extends StatelessWidget {
                       Text(
                         "Ticket Sort: ",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           color: Colors.black87,
                           fontFamily: "Montserrat",
                         ),
@@ -674,7 +672,7 @@ class DashBoardScreen extends StatelessWidget {
                       Text(
                         "Gate Pass",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           color: Colors.black87,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Montserrat",
@@ -692,7 +690,7 @@ class DashBoardScreen extends StatelessWidget {
                     child: Text(
                       "Expired",
                       style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 12.sp,
                         color: Colors.red,
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
@@ -763,7 +761,7 @@ class DashBoardScreen extends StatelessWidget {
               child: Text(
                 product["description"]!,
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Montserrat", // Apply Montserrat font
                 ),
@@ -781,7 +779,7 @@ class DashBoardScreen extends StatelessWidget {
                   Text(
                     product["date"]!,
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: Colors.grey[700],
                       fontFamily: "Montserrat", // Apply Montserrat font
                     ),
@@ -815,7 +813,7 @@ class DashBoardScreen extends StatelessWidget {
                       child: Text(
                         "View",
                         style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           color: Colors.white,
                           fontFamily: "Montserrat", // Apply Montserrat font
                         ),
