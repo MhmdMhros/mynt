@@ -47,12 +47,13 @@ class TicketsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: const Text(""),
         title: Text(
           "Tickets",
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),

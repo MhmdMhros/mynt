@@ -136,21 +136,21 @@ class DashBoardScreen extends StatelessWidget {
 
                           // Last Tickets Section
                           _buildSectionTitle("Tickets", () {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const TicketsScreen(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ); // Uses a smoother transition
-                                },
-                              ),
-                            );
-                          }, true),
+                            // Navigator.of(context).push(
+                            //   PageRouteBuilder(
+                            //     pageBuilder:
+                            //         (context, animation, secondaryAnimation) =>
+                            //             const TicketsScreen(),
+                            //     transitionsBuilder: (context, animation,
+                            //         secondaryAnimation, child) {
+                            //       return FadeTransition(
+                            //         opacity: animation,
+                            //         child: child,
+                            //       ); // Uses a smoother transition
+                            //     },
+                            //   ),
+                            // );
+                          }, false),
                           SizedBox(height: 10.h),
                           _buildTicketCard(context),
 
@@ -624,37 +624,40 @@ class DashBoardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Ticket Num: ",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Montserrat",
-                        ),
-                      ),
-                      Text(
-                        "#637893",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Montserrat",
-                        ),
-                      ),
-                    ],
-                  ),
                   Expanded(
-                    child: Text(
-                      "18/1/2025 3:45PM",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Colors.grey[600],
-                        fontFamily: "Montserrat",
-                      ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Ticket Num: ",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Montserrat",
+                          ),
+                        ),
+                        Text(
+                          "#637893",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Montserrat",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    "18/1/2025 3:45PM",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.grey[600],
+                      fontFamily: "Montserrat",
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

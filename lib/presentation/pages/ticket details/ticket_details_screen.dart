@@ -30,9 +30,9 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> imageUrls = [
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__",
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__",
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__"
     ];
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -51,7 +51,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),
@@ -97,7 +97,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         Text(
                           "Reject Reason",
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                             color: const Color(0xFFBF4C43),
@@ -136,7 +136,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         Text(
                           "Ticket Description",
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                             color: Colors.black,
@@ -178,7 +178,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         Text(
                           "Responsible Person",
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                             color: AppColors.primary,
@@ -192,14 +192,14 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                             CircleAvatar(
                               radius: 25.r,
                               backgroundImage: const CachedNetworkImageProvider(
-                                'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg', // Replace with the actual user image URL
+                                'https://s3-alpha-sig.figma.com/img/2eb7/499e/f4c7018a2473ea64f2bcac990ed3d939?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=JsJTUwpKdY3M15DkeiUcmU1T760qAVdTrxFWzCWjVjNweSYzvOZaF5iY4S3dt9A~8oc26Cn5HhG1dVdxFfMwxMD5GZXLLE4GRVwswPu7WWcT7yggMp3EUE82yPD9g5KBexmZ3nyE8C54sm9wyMLyv9eUYHMPG5qJ7yMZNr~f9aai6Xzu1IrINgJE5lYBm6Fn01VvBrM-YLRiAJKI9pSvDXiqVD7z~-S7iU-TFjLC83HQ5HyXEIsJzsrQbS6JrRTTVu20YBaZCoHmmToH2jrNH2sHaJRKKwB6TaVV-kARGsVRbOdNgWdqb~Y29faqOglcel9TAt1RW8jloXvvJpQ5dA__', // Replace with the actual user image URL
                               ),
                             ),
                             SizedBox(width: 10.w),
                             Text(
-                              "John Doe",
+                              "Ahmed Omar",
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 fontFamily: "Montserrat",
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xFF262626),
@@ -240,7 +240,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                             Expanded(
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green,
+                                  backgroundColor: AppColors.primary,
                                   padding: EdgeInsets.symmetric(vertical: 12.h),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.r),
@@ -289,7 +289,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                 label: Text(
                   "Rate",
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     fontFamily: "Montserrat",
                     color: Colors.white,
@@ -315,7 +315,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           Text(
             title,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Montserrat",
               color: Colors.black54,
@@ -324,7 +324,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           Text(
             value,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               fontFamily: "Montserrat",
               color: Colors.black,
@@ -349,7 +349,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           Text(
             title,
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Montserrat",
               color: AppColors.primary,

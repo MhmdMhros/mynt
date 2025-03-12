@@ -54,7 +54,7 @@ class TicketWidget extends StatelessWidget {
                       Text(
                         "Ticket Num: ",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           fontFamily: "Montserrat",
                         ),
@@ -62,7 +62,7 @@ class TicketWidget extends StatelessWidget {
                       Text(
                         "#$ticketNum",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Montserrat",
                         ),
@@ -72,14 +72,14 @@ class TicketWidget extends StatelessWidget {
                   Text(
                     date,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       color: Colors.grey[600],
                       fontFamily: "Montserrat",
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,7 +88,7 @@ class TicketWidget extends StatelessWidget {
                       Text(
                         "Ticket Sort: ",
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           color: Colors.black87,
                           fontFamily: "Montserrat",
                         ),
@@ -96,7 +96,7 @@ class TicketWidget extends StatelessWidget {
                       Text(
                         ticketSort,
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           color: Colors.black87,
                           fontWeight: FontWeight.w600,
                           fontFamily: "Montserrat",
@@ -114,7 +114,7 @@ class TicketWidget extends StatelessWidget {
                     child: Text(
                       status,
                       style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 12.sp,
                         color: _getStatusTextColor(status),
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
