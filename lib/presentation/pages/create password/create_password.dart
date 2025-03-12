@@ -59,7 +59,7 @@ class _CreatePasswordState extends State<CreatePassword> {
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),
@@ -83,7 +83,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               Text(
                 'Create Password',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: "Montserrat",
                   color: AppColors.text1,
@@ -96,7 +96,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                 isObscureText: !_isPasswordVisible,
                 prefixIcon: Icon(
                   Icons.lock_clock_outlined,
-                  size: 20.sp,
+                  size: 24.sp,
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -116,7 +116,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               Text(
                 'Retype Password',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: "Montserrat",
                   color: AppColors.text1,
@@ -136,7 +136,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                     _isConfirmPasswordVisible
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    size: 20.sp,
+                    size: 24.sp,
                   ),
                   onPressed: () {
                     setState(() {

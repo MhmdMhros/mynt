@@ -101,7 +101,7 @@ class _EmailVerificationState extends State<EmailVerification> {
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),

@@ -20,12 +20,14 @@ class OnboardingPage1 extends StatelessWidget {
           ),
         ),
         SizedBox(height: 12.h),
-        Text(
-          'Say goodbye to rent collection hassles and maintenance worries—Mynt handles everything for you!',
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColors.text2,
+        Expanded(
+          child: Text(
+            'Say goodbye to rent collection hassles and maintenance worries—Mynt handles everything for you!',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.text2,
+            ),
           ),
         ),
       ],

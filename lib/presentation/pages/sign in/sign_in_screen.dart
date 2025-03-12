@@ -29,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             color: AppColors.text1,
           ),
         ),
@@ -67,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   'Welcome to Mynt Hospitality\nChoose your Experience',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w500,
                     color: AppColors.text2,
@@ -89,7 +89,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 isBorderEnabled: false,
                 prefixIcon: Icon(
                   Icons.person_2_outlined,
-                  size: 20.sp,
+                  size: 24.sp,
                 ),
               ),
               SizedBox(height: 16.h),
@@ -109,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 isObscureText: !_isPasswordVisible, // Toggle visibility
                 prefixIcon: Icon(
                   Icons.lock_clock_outlined,
-                  size: 20.sp,
+                  size: 24.sp,
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(
