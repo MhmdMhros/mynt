@@ -52,7 +52,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
                     child: Text(
                       "Enter Dates",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
                       ),
@@ -123,7 +123,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
             color: AppColors.text1,
@@ -167,7 +167,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
                 ),
               ),
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontFamily: 'Montserrat',
               ),
             ),
@@ -187,12 +187,19 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildButton("Decline", Colors.white, AppColors.primary, () {
-            Navigator.pop(context);
-          }),
-          _buildButton("Send", AppColors.primary, Colors.white, () {
-            showSuccessRequestBottomSheet(context);
-          }),
+          Expanded(
+            child: _buildButton("Decline", Colors.white, AppColors.primary, () {
+              Navigator.pop(context);
+            }),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            child: _buildButton("Send", AppColors.primary, Colors.white, () {
+              showSuccessRequestBottomSheet(context);
+            }),
+          ),
         ],
       ),
     );
@@ -207,7 +214,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
         style: ElevatedButton.styleFrom(
           backgroundColor: backGColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(10.r),
             side: BorderSide(
               color: AppColors.primary,
               width: 1.w,
@@ -218,8 +225,9 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             color: textColor,
+            fontWeight: FontWeight.w600,
             fontFamily: "Montserrat",
           ),
         ),

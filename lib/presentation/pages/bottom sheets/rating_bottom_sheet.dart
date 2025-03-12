@@ -99,7 +99,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
           ),
@@ -116,7 +116,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
               borderSide: BorderSide.none, // Removes border color
             ),
           ),
-          style: TextStyle(fontSize: 16.sp),
+          style: TextStyle(fontSize: 14.sp),
           maxLines: 3,
         ),
       ],
@@ -133,12 +133,19 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildButton("Decline", Colors.white, AppColors.primary, () {
-            Navigator.pop(context); // Close BottomSheet
-          }),
-          _buildButton("Send", AppColors.primary, Colors.white, () {
-            Navigator.pop(context);
-          }),
+          Expanded(
+            child: _buildButton("Decline", Colors.white, AppColors.primary, () {
+              Navigator.pop(context); // Close BottomSheet
+            }),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            child: _buildButton("Send", AppColors.primary, Colors.white, () {
+              Navigator.pop(context);
+            }),
+          ),
         ],
       ),
     );
@@ -164,8 +171,9 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 16.sp, // Apply ScreenUtil
+            fontSize: 14.sp, // Apply ScreenUtil
             color: textColor,
+            fontWeight: FontWeight.w600,
             fontFamily: "Montserrat", // Apply Font Family
           ),
         ),

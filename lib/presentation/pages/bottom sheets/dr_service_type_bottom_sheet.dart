@@ -45,7 +45,7 @@ class _DRServiceTypeBottomSheetState extends State<DRServiceTypeBottomSheet> {
                     child: Text(
                       "Service Type",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -121,7 +121,7 @@ class _DRServiceTypeBottomSheetState extends State<DRServiceTypeBottomSheet> {
               child: Text(
                 service,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   color: isSelected ? AppColors.primary : Colors.black,
                 ),

@@ -40,7 +40,7 @@ class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
                     child: Text(
                       "Unit Number",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -115,7 +115,7 @@ class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
               child: Text(
                 unitNum,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   color: isSelected ? AppColors.primary : Colors.black,
                 ),

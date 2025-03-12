@@ -31,7 +31,7 @@ class LogOutBottomSheet extends StatelessWidget {
                   'Logout',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Montserrat',
                     color: AppColors.text1,
@@ -89,25 +89,33 @@ class LogOutBottomSheet extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildButton("Delete", Colors.white, const Color(0xFFBF4C43), () {
-            Navigator.of(context).pushAndRemoveUntil(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const SignInScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-              ),
-              (route) => false, // Removes all previous routes
-            );
-          }),
-          _buildButton("Decline", AppColors.primary, Colors.white, () {
-            Navigator.pop(context);
-          }),
+          Expanded(
+            child: _buildButton("Delete", Colors.white, const Color(0xFFBF4C43),
+                () {
+              Navigator.of(context).pushAndRemoveUntil(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const SignInScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+                (route) => false, // Removes all previous routes
+              );
+            }),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            child: _buildButton("Decline", AppColors.primary, Colors.white, () {
+              Navigator.pop(context);
+            }),
+          ),
         ],
       ),
     );
@@ -135,8 +143,9 @@ class LogOutBottomSheet extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             color: textColor,
+            fontWeight: FontWeight.w600,
             fontFamily: "Montserrat",
           ),
         ),

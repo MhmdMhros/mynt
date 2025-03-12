@@ -42,7 +42,7 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
                     child: Text(
                       "Service Type",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -115,7 +115,7 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
               child: Text(
                 service,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   color: isSelected ? AppColors.primary : Colors.black,
                 ),
@@ -149,12 +149,19 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildButton("Decline", Colors.white, AppColors.primary, () {
-            Navigator.pop(context);
-          }),
-          _buildButton("Send", AppColors.primary, Colors.white, () {
-            Navigator.pop(context);
-          }),
+          Expanded(
+            child: _buildButton("Decline", Colors.white, AppColors.primary, () {
+              Navigator.pop(context);
+            }),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            child: _buildButton("Send", AppColors.primary, Colors.white, () {
+              Navigator.pop(context);
+            }),
+          ),
         ],
       ),
     );
@@ -180,8 +187,9 @@ class _ServiceTypeBottomSheetState extends State<ServiceTypeBottomSheet> {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             color: textColor,
+            fontWeight: FontWeight.w600,
             fontFamily: "Montserrat",
           ),
         ),

@@ -35,7 +35,7 @@ class SuccessRequestBottomSheet extends StatelessWidget {
                     'You request has been successfully  sent to the administration, and they will review it and respond',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       fontFamily: 'Montserrat',
                       color: AppColors.text1,
                     ),

@@ -32,7 +32,7 @@ class SuccessPassBottomSheet extends StatelessWidget {
                     'password has been reset successfully!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       fontFamily: 'Montserrat',
                       color: AppColors.text1,
                     ),

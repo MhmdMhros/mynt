@@ -40,7 +40,7 @@ class _CompoundBottomSheetState extends State<CompoundBottomSheet> {
                     child: Text(
                       "Compound",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -115,7 +115,7 @@ class _CompoundBottomSheetState extends State<CompoundBottomSheet> {
               child: Text(
                 compound,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   color: isSelected ? AppColors.primary : Colors.black,
                 ),
