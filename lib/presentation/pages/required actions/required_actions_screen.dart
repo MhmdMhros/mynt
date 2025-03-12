@@ -43,10 +43,11 @@ class RequiredActionsScreen extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        title: const Text(
+        title: Text(
           "Required Actions",
           style: TextStyle(
             fontFamily: "Montserrat",
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
           ),
@@ -87,7 +88,7 @@ class RequiredActionsScreen extends StatelessWidget {
                     action["title"]!,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                     ),
                   ),
@@ -95,7 +96,7 @@ class RequiredActionsScreen extends StatelessWidget {
                     action["date"]!,
                     style: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       fontFamily: "Montserrat",
                     ),
                   ),
@@ -126,7 +127,7 @@ class RequiredActionsScreen extends StatelessWidget {
                   child: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Colors.white,
-                    size: 20.sp,
+                    size: 15.sp,
                   ),
                 ),
               ),

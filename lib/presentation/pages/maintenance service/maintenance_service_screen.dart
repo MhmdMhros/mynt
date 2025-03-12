@@ -8,9 +8,9 @@ class MaintenanceServiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> imageUrls = [
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__",
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__",
+      "https://s3-alpha-sig.figma.com/img/ae43/08b5/aea0ab2ab3a15afc5279eef129f57706?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=PANPJZMWxnD1dfTGPVhl9FlrOauZK63HqIQP0VL3XUU-O6oEhI3Jg0TT7nWqUqYppvYaKPSd1jAu-3HR2tFlq58ecRD~3gfR~ssSfMBo~Dr5RtmmnX-O8urDziYyVwl~2y~Xk6nAfzl6u-YMvIhyyLstBdmEcv8WCGL8gwP1UpuOe3tkvATEK8vRWED7m4-Ib2qHFLjb2arPNjwsdv7VbMCOM41KuUoEn5O3AOD2OlhmTsaFDeDGlc8g-9BROmnIVmUxbhegzmFO4gUWLl3xk1DDFct2et2002D-1CeKBZpbqqbypbMHNezF3XoIEUaDdIlc14AuRaslGmc7JTjg3w__"
     ];
 
     return Scaffold(
@@ -28,7 +28,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
         title: Text(
           "Maintenance Service",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -66,7 +66,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
                         Text(
                           "Description",
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat",
                             color: Colors.black,
@@ -74,7 +74,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
                         ),
                         Divider(thickness: 1, color: Colors.grey[300]),
                         Text(
-                          "This is a detailed description of the maintenance service required.",
+                          "The air conditioning unit in my apartment has stopped working. It is not cooling, and there is no airflow coming from the vents.",
                           style: TextStyle(
                               fontSize: 14.sp,
                               fontFamily: "Montserrat",
@@ -104,7 +104,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Montserrat",
               color: Colors.black54,
@@ -113,7 +113,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               fontFamily: "Montserrat",
               color: Colors.black,
@@ -138,7 +138,7 @@ class MaintenanceServiceScreen extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Montserrat",
               color: AppColors.primary,
@@ -201,22 +201,29 @@ class MaintenanceServiceScreen extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: const Color.fromARGB(255, 238, 238, 238),
             blurRadius: 5.r, // Apply ScreenUtil
             spreadRadius: 2.r, // Apply ScreenUtil
-            offset: const Offset(0, -2),
+            offset: const Offset(0, 0),
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButton("Decline", Colors.white, AppColors.primary, () {
-            // Handle cancel action
-          }),
-          _buildButton("Accept", AppColors.primary, Colors.white, () {
-            // Handle confirm action
-          }),
+          Expanded(
+            child: _buildButton("Decline", Colors.white, AppColors.primary, () {
+              // Handle cancel action
+            }),
+          ),
+          SizedBox(
+            width: 14.w,
+          ),
+          Expanded(
+            child: _buildButton("Accept", AppColors.primary, Colors.white, () {
+              // Handle confirm action
+            }),
+          ),
         ],
       ),
     );
@@ -228,9 +235,9 @@ class MaintenanceServiceScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backGColor,
         padding: EdgeInsets.symmetric(
-            horizontal: 50.w, vertical: 12.h), // Apply ScreenUtil
+            horizontal: 50.w, vertical: 16.h), // Apply ScreenUtil
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.r), // Apply ScreenUtil
+          borderRadius: BorderRadius.circular(10.r), // Apply ScreenUtil
           side: BorderSide(
             color: AppColors.primary,
             width: 1.w, // Apply ScreenUtil
@@ -241,8 +248,9 @@ class MaintenanceServiceScreen extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 16.sp, // Apply ScreenUtil
+          fontSize: 14.sp, // Apply ScreenUtil
           color: textColor,
+          fontWeight: FontWeight.w600,
           fontFamily: "Montserrat", // Apply Font Family
         ),
       ),
