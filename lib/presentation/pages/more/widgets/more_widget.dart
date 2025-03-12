@@ -19,15 +19,15 @@ class MoreWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 40.w,
-          height: 40.h,
+          width: 30.w,
+          height: 30.h,
           decoration: BoxDecoration(
             color: AppColors.iconsBack,
             borderRadius: BorderRadius.circular(4.r),
           ),
           child: Icon(
             icon,
-            size: 24.sp,
+            size: 20.sp,
             color: AppColors.primary,
           ),
         ),
@@ -48,7 +48,7 @@ class MoreWidget extends StatelessWidget {
               onPressed: () => onTap(),
               icon: Icon(
                 Icons.arrow_forward_ios,
-                size: 24.sp,
+                size: 20.sp,
                 color: AppColors.primary,
               ),
             ),

@@ -91,7 +91,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         title: Text(
           "Request Service",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Montserrat",
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
@@ -154,7 +154,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             fontFamily: "Montserrat",
             color: AppColors.text1,
@@ -203,7 +203,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.text1,
           ),
@@ -220,7 +220,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
               borderSide: BorderSide.none,
             ),
           ),
-          style: TextStyle(fontSize: 16.sp),
+          style: TextStyle(fontSize: 14.sp),
           maxLines: 3,
         ),
       ],
@@ -236,7 +236,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(10.r),
           ),
         ),
         onPressed: () {
