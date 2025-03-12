@@ -43,7 +43,7 @@ class NewsDetailsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
                 child: CachedNetworkImage(
                   imageUrl:
-                      "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+                      "https://s3-alpha-sig.figma.com/img/94de/0cbf/3e90a09eca6036d75eaa148a4caaab08?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OC6s4HmXioTVQylDSGsMMSpwVYoaEauEppt52KIzvqR0dhP1nxnRtlsnmWDBhGporNdtww42tCYrmjJvmVIfjLfxLonNO75b5GJpBcLt8CGFXRl8gUeoLsLZ2jAVD-ipyiIk9hOGPx2GKEPGnu31qTlwITBx-Uzm1maR1f6vnwyK~i~t0Lqi4O2VOcTOBtWziqxpux8QhLSXgwwqbciGwSnnqrXm2F1KtD4KHJTc9SPkWSikl~kBBkGP~bMMTOUt7fzwefSwhiXstLsYQkDeW29FHBoAiKQpxcsAcp11jLhXEuvgqF2WvEWAiCVlxJyruFC6lsrYCNi6htRD3dfnaw__",
                   height: 200.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -60,7 +60,7 @@ class NewsDetailsScreen extends StatelessWidget {
               Text(
                 "2/5/2023",
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 14.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w500,
                   color: AppColors.text1,
@@ -70,7 +70,7 @@ class NewsDetailsScreen extends StatelessWidget {
               Text(
                 "Opening of the New ${"Flowers"} Compound in Sheikh Zayed Area",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w600,
                   color: AppColors.text1,
@@ -81,7 +81,7 @@ class NewsDetailsScreen extends StatelessWidget {
               Text(
                 "${"Future Real Estate"} company announced the opening of the new ${"Flowers"} compound, located in the heart of Sheikh Zayed. The compound features modern and luxurious design, offering a variety of residential units ranging from small apartments to standalone villas. Project Details Location: Sheikh Zayed, Cairo. Number of Units: 300 residential units. Types of Units: Apartments (2 to 4 bedrooms) and villas. Amenities:The compound includes swimming pools, a fitness area, a social club, and a children's garden. Opening Date:January 2025. Unit Prices:Prices start from 1.5 million Egyptian pounds. The opening ceremony was attended by several public figures and investors, highlighting the unique features of the project.",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w500,
                   color: AppColors.text1,
@@ -92,7 +92,7 @@ class NewsDetailsScreen extends StatelessWidget {
               Text(
                 "Project Details",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w600,
                   color: AppColors.text1,
@@ -108,7 +108,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Location: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -118,7 +118,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "Sheikh Zayed, Cairo.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -137,7 +137,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Number of Units: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -147,7 +147,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "300 residential units.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -166,7 +166,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Types of Units: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -176,7 +176,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "Apartments (2 to 4 bedrooms) and villas.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -195,7 +195,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Amenities: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -205,7 +205,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "The compound includes swimming pools, a fitness area, a social club, and a children's garden.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -224,7 +224,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Opening Date: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -234,7 +234,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "January 2025.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -253,7 +253,7 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     "Unit Prices: ",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontFamily: "Montserrat",
                       fontWeight: FontWeight.w600,
                       color: AppColors.text1,
@@ -263,7 +263,7 @@ class NewsDetailsScreen extends StatelessWidget {
                     child: Text(
                       "Prices start from 1.5 million Egyptian pounds.",
                       style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w500,
                         color: AppColors.text1,
@@ -277,7 +277,7 @@ class NewsDetailsScreen extends StatelessWidget {
               Text(
                 "The opening ceremony was attended by several public figures and investors, highlighting the unique features of the project.",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w500,
                   color: AppColors.text1,
