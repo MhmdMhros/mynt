@@ -70,24 +70,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i5.FlutterSecureStorage>(
         () => injectableUserSecureStorageModule.secureStorage);
 
-    gh.lazySingleton<_i1001.LoginUseCase>(
-        () => _i1001.LoginUseCase(gh<_i8.Repository>()));
-
-    gh.lazySingleton<_i1002.CheckAccountUsecase>(
-        () => _i1002.CheckAccountUsecase(gh<_i8.Repository>()));
-
-    gh.lazySingleton<_i1003.SendOtpUsecase>(
-        () => _i1003.SendOtpUsecase(gh<_i8.Repository>()));
-
-    gh.lazySingleton<_i1004.OtpVerificationUsecase>(
-        () => _i1004.OtpVerificationUsecase(gh<_i8.Repository>()));
-    gh.factory<_i1005.LoginCubit>(() => _i1005.LoginCubit(
-          gh<_i1001.LoginUseCase>(),
-          gh<_i1002.CheckAccountUsecase>(),
-          gh<_i1003.SendOtpUsecase>(),
-          gh<_i1004.OtpVerificationUsecase>(),
-        ));
-
     gh.factory<_i8.Repository>(
         () => _i9.RepositoryImpl(gh<_i3.AppServiceClient>()));
     // gh.lazySingleton<_i10.ResendEmailVerificationUseCase>(
@@ -145,6 +127,26 @@ extension GetItInjectableX on _i1.GetIt {
     //     () => _i106.ForgetPasswordCubit(gh<_i57.ForgetPasswordUseCase>()));
     // gh.factory<_i107.LoginCubit>(
     //     () => _i107.LoginCubit(gh<_i80.LoginUseCase>()));
+
+    gh.lazySingleton<_i1001.LoginUseCase>(
+        () => _i1001.LoginUseCase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1002.CheckAccountUsecase>(
+        () => _i1002.CheckAccountUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1003.SendOtpUsecase>(
+        () => _i1003.SendOtpUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1004.OtpVerificationUsecase>(
+        () => _i1004.OtpVerificationUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i1005.LoginCubit>(() => _i1005.LoginCubit(
+          gh<_i1001.LoginUseCase>(),
+          gh<_i1002.CheckAccountUsecase>(),
+          gh<_i1003.SendOtpUsecase>(),
+          gh<_i1004.OtpVerificationUsecase>(),
+        ));
+
     return this;
   }
 }

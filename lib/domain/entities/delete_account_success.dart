@@ -1,3 +1,0 @@
-class DeleteAccountSuccess {
-  DeleteAccountSuccess();
-}

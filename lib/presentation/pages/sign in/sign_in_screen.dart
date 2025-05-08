@@ -7,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
-import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/email_verfication.dart';
 
@@ -26,157 +25,153 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<LoginCubit>(),
-      child: BlocBuilder<LoginCubit, LoginState>(
-        builder: (context, state) {
-          final cubit = LoginCubit.get(context);
-          return Scaffold(
-            backgroundColor: AppColors.background,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              title: Text(
-                "Sign In",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                  color: AppColors.text1,
-                ),
-              ),
-              centerTitle: true,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 24.h),
-                      Center(
-                        child: SvgPicture.asset(
-                          'assets/images/mynt.svg',
-                          height: 120.h,
-                          width: 120.w,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      AppTextFormField(
-                        controller: emailController,
-                        hintText: "Email",
-                        isBorderEnabled: false,
-                        prefixIcon: Icon(Icons.person_2_outlined, size: 24.sp),
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Email is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 16.h),
-                      AppTextFormField(
-                        controller: passwordController,
-                        hintText: "Password",
-                        isObscureText: !_isPasswordVisible,
-                        isBorderEnabled: false,
-                        prefixIcon:
-                            Icon(Icons.lock_clock_outlined, size: 24.sp),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            size: 20.sp,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Password is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 16.h),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const EmailVerification(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Forget My Password?',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.text1,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        final cubit = LoginCubit.get(context);
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: Text(
+              "Sign In",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
+                color: AppColors.text1,
               ),
             ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AppTextButton(
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: state is LoginLoading
-                    ? () {}
-                    : () async {
-                        if (_formKey.currentState!.validate()) {
-                          cubit.initializeLoginData(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                          final success = await cubit.checkAndLogin();
-                          if (success) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const EmailVerification(),
-                              ),
-                            );
-                          }
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 24.h),
+                    Center(
+                      child: SvgPicture.asset(
+                        'assets/images/mynt.svg',
+                        height: 120.h,
+                        width: 120.w,
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    AppTextFormField(
+                      controller: emailController,
+                      hintText: "Email",
+                      isBorderEnabled: false,
+                      prefixIcon: Icon(Icons.person_2_outlined, size: 24.sp),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
                         }
+                        return null;
                       },
-                child: state is LoginLoading
-                    ? const SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
+                    ),
+                    SizedBox(height: 16.h),
+                    AppTextFormField(
+                      controller: passwordController,
+                      hintText: "Password",
+                      isObscureText: !_isPasswordVisible,
+                      isBorderEnabled: false,
+                      prefixIcon: Icon(Icons.lock_clock_outlined, size: 24.sp),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 20.sp,
                         ),
-                      )
-                    : Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 16.h),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const EmailVerification(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forget My Password?',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.text1,
+                          ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: AppTextButton(
+              buttonHeight: 48.h,
+              backgroundColor: AppColors.primary,
+              onPressed: state is LoginLoading
+                  ? () {}
+                  : () async {
+                      if (_formKey.currentState!.validate()) {
+                        cubit.initializeLoginData(
+                          emailController.text,
+                          passwordController.text,
+                        );
+                        final success = await cubit.checkAndLogin();
+                        if (success) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EmailVerification(),
+                            ),
+                          );
+                        }
+                      }
+                    },
+              child: state is LoginLoading
+                  ? const SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
