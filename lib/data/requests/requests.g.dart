@@ -109,7 +109,8 @@ Map<String, dynamic> _$LogoutRequestToJson(LogoutRequest instance) =>
       'newPasswordConfirm': instance.newPasswordConfirm,
     };
 
-Map<String, dynamic> _$GetUserRequestToJson(GetUserRequest instance) =>
+Map<String, dynamic> _$RefreshTokenRequestToJson(
+        RefreshTokenRequest instance) =>
     <String, dynamic>{
-      'token': instance.token,
+      'refresh_token': instance.refreshToken,
     };

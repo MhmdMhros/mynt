@@ -65,7 +65,7 @@ ResetPasswordSuccessResponse _$ResetPasswordSuccessResponseFromJson(
     );
 
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
@@ -77,7 +77,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       statusId: json['status_id'] as int?,
       statusText: json['status_text'] as String?,
       statusSlug: json['status_slug'] as String?,
-      balance: json['balance'] as double?,
+      balance: json['balance'] as int?,
       provider: json['provider'] == null
           ? null
           : UserResponse.fromJson(json['provider'] as Map<String, dynamic>),
@@ -129,4 +129,12 @@ BodyPhotoResponse _$BodyPhotoResponseFromJson(Map<String, dynamic> json) =>
       photoUrl: json['photoUrl'] as String?,
       type: json['type'] as String?,
       createdAt: json['createdAt'] as String?,
+    );
+
+RefreshTokenSuccessResponse _$RefreshTokenSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    RefreshTokenSuccessResponse(
+      accessToken: json['access_token'] as String?,
+      refreshToken: json['refresh_token'] as String?,
+      expiresIn: json['expires_in'] as int?,
     );

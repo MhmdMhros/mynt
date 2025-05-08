@@ -13,6 +13,11 @@ part "app_api.g.dart";
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String baseUrl}) = _AppServiceClient;
 
+  @POST(Constants.refreshTokenPath)
+  Future<HttpResponse<RefreshTokenSuccessResponse>> refreshToken(
+    @Body() RefreshTokenRequest refreshTokenRequest,
+  );
+
   @POST(Constants.loginPath)
   Future<HttpResponse<LoginSuccessResponse>> login(
     @Body() LoginRequest loginRequest,
@@ -79,10 +84,6 @@ abstract class AppServiceClient {
     @Part(contentType: 'image/png') File? photo,
     @Part(contentType: 'image/png') File? cover,
   ]);
-  @GET(Constants.getProviderDataPath)
-  Future<HttpResponse<UserResponse>> getProviderData(
-    @Path() String userId,
-  );
   @PUT('')
   Future<HttpResponse<void>> uploadFile(
     @Body() UploadFileRequest uploadFileRequest,

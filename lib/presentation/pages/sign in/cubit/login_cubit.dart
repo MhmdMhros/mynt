@@ -1,12 +1,9 @@
 import 'dart:io';
 
 import 'package:mynt/app/functions.dart';
-import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
-import 'package:mynt/di.dart';
 import 'package:mynt/domain/usecases/check_account_usecase.dart';
 import 'package:mynt/domain/usecases/login_usecase.dart';
-import 'package:mynt/domain/usecases/otp_verification_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +14,12 @@ part 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._loginUseCase, this._checkAccountUsecase,
-      this._sendOtpUsecase, this._otpVerificationUsecase)
+  LoginCubit(
+      this._loginUseCase, this._checkAccountUsecase, this._sendOtpUsecase)
       : super(LoginInitial());
   final LoginUseCase _loginUseCase;
   final CheckAccountUsecase _checkAccountUsecase;
   final SendOtpUsecase _sendOtpUsecase;
-  final OtpVerificationUsecase _otpVerificationUsecase;
 
   static LoginCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -53,54 +49,6 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  // Send OTP
-  Future<bool> resendOtp() async {
-    final result = await _sendOtpUsecase(
-      SendOtpRequest(identifier: glopalUserName!),
-    );
-    return await result.fold(
-      (failure) {
-        showToast(failure.message, ToastType.error);
-        emit(LoginError(failure.message));
-        return true;
-      },
-      (success) {
-        otp = success.token;
-        showToast("Verification code has been sent again.", ToastType.success);
-        emit(SendOtpSuccess());
-        return false;
-      },
-    );
-  }
-
-  Future<bool> verifyOtp(String? enteredOtp) async {
-    emit(VerifyOtpLoading());
-    if (enteredOtp == null) {
-      emit(const LoginError("OTP not sent or stored."));
-      return false;
-    }
-
-    final result = await _otpVerificationUsecase(
-      OtpVerificationRequest(
-        identifier: glopalUserName!,
-        token: enteredOtp,
-      ),
-    );
-
-    return await result.fold(
-      (failure) {
-        showToast(failure.message, ToastType.error);
-        emit(VerifyOtpError(failure.message));
-        return false;
-      },
-      (success) {
-        showToast("Login successfully!!!", ToastType.success);
-        emit(VerifyOtpSuccess(success.message));
-        return true;
-      },
-    );
-  }
-
   Future<bool> checkAndLogin() async {
     emit(LoginLoading());
 
@@ -110,12 +58,13 @@ class LoginCubit extends Cubit<LoginState> {
 
     return await checkResult.fold(
       (failure) {
-        showToast(failure.message, ToastType.error);
+        showToast(
+            'No account found with this email or phone number. Please check and try again.',
+            ToastType.error);
         emit(LoginError(failure.message));
         return false;
       },
       (checkSuccess) async {
-        print("Check Account Successssssssssssssssssssssssssssss");
         final loginResult = await _loginUseCase(
           LoginRequest(
             userName: glopalUserName!,
@@ -127,14 +76,14 @@ class LoginCubit extends Cubit<LoginState> {
 
         return await loginResult.fold(
           (failure) {
-            showToast(failure.message, ToastType.error);
-            print("send otp successsssssssssssssssssssssssssssssss");
+            showToast(
+                'Login failed. The email or password you entered is incorrect.',
+                ToastType.error);
 
             emit(LoginError(failure.message));
             return false;
           },
           (loginSuccess) async {
-            print("login successssssssssssssssssssss");
             emit(LoginSuccess());
 
             final sendOtpResult = await _sendOtpUsecase(
@@ -143,22 +92,14 @@ class LoginCubit extends Cubit<LoginState> {
 
             return await sendOtpResult.fold(
               (failure) {
-                showToast(failure.message, ToastType.error);
+                showToast(
+                    'Failed to send verification code. Please try again later.',
+                    ToastType.error);
 
                 emit(LoginError(failure.message));
                 return false;
               },
               (sendOtpSuccess) async {
-                print("send otp successsssssssssssssssssssssssssssssss");
-
-                await getIt<UserSecureStorage>().upsertUserInfo(
-                  userId: loginSuccess.userId,
-                  email: glopalUserName,
-                  password: glopalPassword,
-                  accessToken: loginSuccess.accessToken,
-                  refreshToken: loginSuccess.refreshToken,
-                  expiresIn: loginSuccess.expiresIn,
-                );
                 otp = sendOtpSuccess.token;
                 showToast("Verify your account to complete the login process.",
                     ToastType.warning);

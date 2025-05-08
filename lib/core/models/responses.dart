@@ -14,6 +14,7 @@ import '../../domain/entities/login_success.dart';
 import '../../domain/entities/resend_email_verification_success.dart';
 import '../../domain/entities/otp_verification_success.dart';
 import '../../domain/entities/signup_success.dart';
+import '../../domain/entities/refresh_token_success.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -55,6 +56,8 @@ part '../../data/responses/signed_url__data_response.dart';
 part '../../data/responses/body_photos_data_response.dart';
 
 part '../../data/responses/body_photo_response.dart';
+
+part '../../data/responses/refresh_token_success_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

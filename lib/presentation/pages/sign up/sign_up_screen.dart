@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
-import 'package:mynt/presentation/pages/sign%20in/email_verfication.dart';
+import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -119,7 +119,7 @@ class SignupScreen extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const EmailVerification()));
+                    builder: (context) => const EmailVerification('')));
           },
         ),
       ),

@@ -16,6 +16,11 @@ class AppPreferences {
         kPrefsKeyIsOnBoardingScreenViewed, true);
   }
 
+  Future<bool> resetIsOnBoardingScreenViewed() async {
+    return await _sharedPreferences.setBool(
+        kPrefsKeyIsOnBoardingScreenViewed, false);
+  }
+
   bool getIsOnBoardingScreenViewed() {
     bool? isOnBoardingScreenViewed =
         _sharedPreferences.getBool(kPrefsKeyIsOnBoardingScreenViewed);
@@ -28,6 +33,10 @@ class AppPreferences {
 
   Future<bool> saveIsUserLogin() async {
     return await _sharedPreferences.setBool(kPrefsKeyIsUserLogin, true);
+  }
+
+  Future<bool> resetIsUserLogin() async {
+    return await _sharedPreferences.setBool(kPrefsKeyIsUserLogin, false);
   }
 
   bool getIsUserLogin() {

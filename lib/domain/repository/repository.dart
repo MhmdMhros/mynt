@@ -1,3 +1,4 @@
+import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 
 import '../../core/models/no_data.dart';
@@ -18,6 +19,10 @@ import '../../core/network/failure.dart';
 import '../../data/requests/requests.dart';
 
 abstract class Repository {
+  Future<Either<Failure, RefreshTokenSuccess>> refreshToken(
+    RefreshTokenRequest refreshTokenRequest,
+  );
+
   Future<Either<Failure, LoginSuccess>> login(
     LoginRequest loginRequest,
   );
@@ -60,7 +65,6 @@ abstract class Repository {
   Future<Either<Failure, User>> updateUser(
     UpdateUserRequest updateUserRequest,
   );
-  Future<Either<Failure, User>> getProviderData();
 
   Future<Either<Failure, NoData>> deleteAccount();
 }

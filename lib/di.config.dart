@@ -23,14 +23,23 @@ import 'package:mynt/domain/repository/repository.dart' as _i8;
 
 import 'package:mynt/domain/usecases/delete_account_usecase.dart' as _i45;
 import 'package:mynt/domain/usecases/forget_password_usecase.dart' as _i57;
-import 'package:mynt/domain/usecases/get_provider_data_usecase.dart' as _i74;
-import 'package:mynt/domain/usecases/get_user_usecase.dart' as _i76;
+
 import 'package:mynt/domain/usecases/login_usecase.dart' as _i1001;
 import 'package:mynt/domain/usecases/check_account_usecase.dart' as _i1002;
 import 'package:mynt/domain/usecases/send_otp_usecase.dart' as _i1003;
 import 'package:mynt/domain/usecases/otp_verification_usecase.dart' as _i1004;
+import 'package:mynt/domain/usecases/get_user_usecase.dart' as _i1005;
+import 'package:mynt/domain/usecases/refresh_token_usecase.dart' as _i1006;
+import 'package:mynt/domain/usecases/reset_password_usecase.dart' as _i1007;
+
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
-    as _i1005;
+    as _i2000;
+import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart'
+    as _i2001;
+import 'package:mynt/presentation/pages/create password/cubit/create_password_cubit.dart'
+    as _i2002;
+import 'package:mynt/presentation/pages/email verification/cubit/verification_cubit.dart'
+    as _i2003;
 
 import 'package:mynt/domain/usecases/logout_usecase.dart' as _i81;
 import 'package:mynt/domain/usecases/resend_email_verification_usecase.dart'
@@ -140,11 +149,33 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i1004.OtpVerificationUsecase>(
         () => _i1004.OtpVerificationUsecase(gh<_i8.Repository>()));
 
-    gh.factory<_i1005.LoginCubit>(() => _i1005.LoginCubit(
+    gh.factory<_i2000.LoginCubit>(() => _i2000.LoginCubit(
           gh<_i1001.LoginUseCase>(),
           gh<_i1002.CheckAccountUsecase>(),
           gh<_i1003.SendOtpUsecase>(),
+        ));
+
+    gh.factory<_i2003.VerificationCubit>(() => _i2003.VerificationCubit(
           gh<_i1004.OtpVerificationUsecase>(),
+          gh<_i1003.SendOtpUsecase>(),
+        ));
+
+    gh.lazySingleton<_i1007.ResetPasswordUseCase>(
+        () => _i1007.ResetPasswordUseCase(gh<_i8.Repository>()));
+
+    gh.factory<_i2002.CreatePasswordCubit>(() => _i2002.CreatePasswordCubit(
+          gh<_i1007.ResetPasswordUseCase>(),
+        ));
+
+    gh.lazySingleton<_i1005.GetUserUseCase>(
+        () => _i1005.GetUserUseCase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1006.RefreshTokenUsecase>(
+        () => _i1006.RefreshTokenUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i2001.LayoutCubit>(() => _i2001.LayoutCubit(
+          gh<_i1005.GetUserUseCase>(),
+          gh<_i1006.RefreshTokenUsecase>(),
         ));
 
     return this;

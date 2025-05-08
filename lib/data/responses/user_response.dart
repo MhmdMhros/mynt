@@ -2,7 +2,7 @@ part of '../../core/models/responses.dart';
 
 @JsonSerializable(createToJson: false)
 class UserResponse extends Equatable implements DataResponse<User> {
-  final String? id;
+  final int? id;
   final String? name;
   final String? email;
   final String? phone;
@@ -20,7 +20,7 @@ class UserResponse extends Equatable implements DataResponse<User> {
   final String? statusText;
   @JsonKey(name: 'status_slug')
   final String? statusSlug;
-  final double? balance;
+  final int? balance;
   final UserResponse? provider;
 
   const UserResponse({
@@ -43,7 +43,7 @@ class UserResponse extends Equatable implements DataResponse<User> {
   @override
   User toDomain() {
     return User(
-      id: id.orEmpty(),
+      id: id ?? 0,
       name: name.orEmpty(),
       email: email.orEmpty(),
       phone: phone.orEmpty(),

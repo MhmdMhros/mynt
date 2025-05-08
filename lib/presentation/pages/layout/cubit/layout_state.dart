@@ -23,6 +23,16 @@ final class GetUserFailure extends LayoutState {
   const GetUserFailure(this.message);
 }
 
+final class RefreshTokenLoading extends LayoutState {}
+
+final class RefreshTokenSuccess extends LayoutState {}
+
+final class RefreshTokenFailure extends LayoutState {
+  final String message;
+
+  const RefreshTokenFailure(this.message);
+}
+
 class SocketDataUpdated extends LayoutState {
   final dynamic data;
   const SocketDataUpdated(this.data);

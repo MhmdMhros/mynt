@@ -1,3 +1,4 @@
+import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 
 import 'package:dio/dio.dart';
@@ -31,30 +32,34 @@ class RepositoryImpl implements Repository {
   final RepositoryHelpers _repositoryHelpers;
   int? userId;
   String? accessToken;
-  String? refreshToken;
+  String? refreshTokenVal;
 
   RepositoryImpl(this._appServiceClient)
       : _repositoryHelpers = RepositoryHelpers() {
-    initUserId();
+    // initUserId();
+    // initAccessToken();
+    // initRefreshToken();
   }
 
-  Future<void> initUserId([int? id]) async {
-    userId = id ?? await getIt<UserSecureStorage>().getUserId() ?? 0;
-  }
+  // Future<void> initUserId([int? id]) async {
+  //   userId = id ?? await getIt<UserSecureStorage>().getUserId() ?? 0;
+  // }
 
-  Future<void> initAccessToken([String? token]) async {
-    accessToken =
-        token ?? await getIt<UserSecureStorage>().getUserAccessToken() ?? '';
-  }
+  // Future<void> initAccessToken([String? token]) async {
+  //   accessToken =
+  //       token ?? await getIt<UserSecureStorage>().getUserAccessToken() ?? '';
+  // }
 
-  Future<void> initRefreshToken([String? token]) async {
-    refreshToken =
-        token ?? await getIt<UserSecureStorage>().getRefreshToken() ?? '';
-  }
+  // Future<void> initRefreshToken([String? token]) async {
+  //   refreshTokenVal =
+  //       token ?? await getIt<UserSecureStorage>().getRefreshToken() ?? '';
+  // }
 
   Future<void> _storeUserData(
       LoginSuccess loginData, LoginRequest loginRequest) async {
-    await initUserId(loginData.userId);
+    // await initUserId(loginData.userId);
+    // await initAccessToken(loginData.accessToken);
+    // await initRefreshToken(loginData.refreshToken);
     await getIt<UserSecureStorage>().upsertUserInfo(
       userId: loginData.userId,
       email: loginRequest.userName,
@@ -109,6 +114,18 @@ class RepositoryImpl implements Repository {
     return _repositoryHelpers.callApi<ResendEmailVerificationSuccess>(
       () => _appServiceClient.resendEmailVerification(
         resendEmailVerificationRequest,
+      ),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, RefreshTokenSuccess>> refreshToken(
+    RefreshTokenRequest refreshTokenRequest,
+  ) async {
+    return _repositoryHelpers.callApi<RefreshTokenSuccess>(
+      () => _appServiceClient.refreshToken(
+        refreshTokenRequest,
       ),
       statusCode: 200,
     );
@@ -196,9 +213,9 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, User>> getUser() async {
-    if (userId == null) initUserId();
+    final accessToken = await getIt<UserSecureStorage>().getUserAccessToken();
     return _repositoryHelpers.callApi<User>(
-      () => _appServiceClient.getUser(userId.toString()),
+      () => _appServiceClient.getUser(accessToken ?? ''),
       statusCode: 200,
     );
   }
@@ -230,17 +247,6 @@ class RepositoryImpl implements Repository {
         updateProviderRequest.city,
         updateProviderRequest.photo,
         updateProviderRequest.cover,
-      ),
-      statusCode: 200,
-    );
-  }
-
-  @override
-  Future<Either<Failure, User>> getProviderData() async {
-    await initUserId();
-    return _repositoryHelpers.callApi<User>(
-      () => _appServiceClient.getProviderData(
-        userId.toString(),
       ),
       statusCode: 200,
     );

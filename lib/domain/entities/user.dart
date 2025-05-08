@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class User {
-  final String id;
+  final int? id;
   final String? name;
   final String? email;
   final String? phone;
@@ -12,7 +12,7 @@ class User {
   final int? statusId;
   final String? statusText;
   final String? statusSlug;
-  final double? balance;
+  final int? balance;
   final User? provider;
 
   User({
@@ -33,7 +33,7 @@ class User {
   });
 
   User copyWith({
-    String? id,
+    int? id,
     String? name,
     String? email,
     String? phone,
@@ -45,7 +45,7 @@ class User {
     int? statusId,
     String? statusText,
     String? statusSlug,
-    double? balance,
+    int? balance,
     User? provider,
   }) {
     return User(

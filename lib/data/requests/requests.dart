@@ -30,10 +30,8 @@ part 'change_my_password_request.dart';
 
 part 'logout_request.dart';
 
-part 'get_provider_data_request.dart';
+part 'refresh_token_request.dart';
 
 part 'upload_file_request.dart';
-
-part 'get_user_request.dart';
 
 part 'upload_profile_photo_request.dart';

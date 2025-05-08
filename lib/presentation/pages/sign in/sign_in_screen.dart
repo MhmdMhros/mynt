@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
+import 'package:mynt/presentation/pages/create%20password/create_password_screen.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
-import 'package:mynt/presentation/pages/sign%20in/email_verfication.dart';
+import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -27,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
-        final cubit = LoginCubit.get(context);
+        var cubit = LoginCubit.get(context);
         return Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
@@ -104,12 +106,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const EmailVerification(),
-                            ),
-                          );
+                          if (emailController.text.trim().isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    CreatePasswordScreen(emailController.text),
+                              ),
+                            );
+                          } else {
+                            showToast("Email is required.", ToastType.warning);
+                          }
                         },
                         child: Text(
                           'Forget My Password?',
@@ -145,7 +152,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const EmailVerification(),
+                              builder: (context) =>
+                                  EmailVerification(emailController.text),
                             ),
                           );
                         }

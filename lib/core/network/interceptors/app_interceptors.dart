@@ -1,14 +1,10 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/di.dart';
-import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
-import 'package:mynt/presentation/widgets/my_text.dart';
 
 import '../../../core/resources/strings_manager.dart';
-import '../../resources/app_context.dart';
 
 class AppInterceptors extends Interceptor {
   final Dio client;
@@ -36,46 +32,45 @@ class AppInterceptors extends Interceptor {
     debugPrint(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
     if (err.response?.statusCode == 401) {
-      await showDialogForLoginAgain();
+      // await showDialogForLoginAgain();
     }
     super.onError(err, handler);
   }
 
-  Future<void> showDialogForLoginAgain() async {
-    final context = AppContext.context;
-    showAdaptiveDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => AlertDialog.adaptive(
-        title: MyText(
-          AppStrings.sessionExpired,
-          textStyle: TextStyleEnum.poppinsBold,
-          fontSize: 18.sp,
-        ),
-        content: MyText(
-          AppStrings.pleaseLoginAgain,
-          textStyle: TextStyleEnum.poppinsMedium,
-          fontSize: 15.sp,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              getIt<UserSecureStorage>().deleteUserInfo().then(
-                    (value) => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const SignInScreen()),
-                      (Route<dynamic> route) => false,
-                    ),
-                  );
-            },
-            child: MyText(
-              AppStrings.ok,
-              textStyle: TextStyleEnum.poppinsBold,
-              fontSize: 18.sp,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Future<void> showDialogForLoginAgain() async {
+  //   final context = AppContext.context;
+  //   showAdaptiveDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (context) => AlertDialog.adaptive(
+  //       title: MyText(
+  //         AppStrings.sessionExpired,
+  //         textStyle: TextStyleEnum.poppinsBold,
+  //         fontSize: 18.sp,
+  //       ),
+  //       content: MyText(
+  //         AppStrings.pleaseLoginAgain,
+  //         textStyle: TextStyleEnum.poppinsMedium,
+  //         fontSize: 15.sp,
+  //       ),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () async {
+  //             getIt<UserSecureStorage>().deleteUserInfo().then(
+  //                   (value) => Navigator.of(context).pushReplacement(
+  //                     MaterialPageRoute(
+  //                         builder: (context) => const SignInScreen()),
+  //                   ),
+  //                 );
+  //           },
+  //           child: MyText(
+  //             AppStrings.ok,
+  //             textStyle: TextStyleEnum.poppinsBold,
+  //             fontSize: 18.sp,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

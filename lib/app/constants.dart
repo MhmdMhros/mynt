@@ -37,8 +37,9 @@ class Constants {
   static const String checkAccountPath = 'owner/account/exists';
   static const String sendOtpPath = 'otp/request';
   static const String otpVerificationPath = 'otp/validate';
-  static const String resetPasswordPath = 'password/reset';
+  static const String resetPasswordPath = 'owner/password/reset';
   static const String deleteAccountPath = 'user/delete-account';
+  static const String refreshTokenPath = 'owner/token/refresh';
 
   static const String logoutPath = 'auth/logout';
   static const String forgetPasswordPath = 'auth/forget-password';
@@ -46,7 +47,6 @@ class Constants {
 
   static const String getUserPath = 'owner/data';
   static const String updateUserPath = 'users/{userId}';
-  static const String getProviderDataPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =
       'clients/{clientId}/body-photos';
 }
