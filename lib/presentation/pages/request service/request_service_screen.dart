@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/compound_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/dr_service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/unit_number_bottom_sheet.dart';

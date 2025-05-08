@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/about%20us/about_us_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/log_out_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/contact%20us/contact_us_screen.dart';

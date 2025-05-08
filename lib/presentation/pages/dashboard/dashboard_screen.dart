@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/balances/balances_Screen.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
 import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';

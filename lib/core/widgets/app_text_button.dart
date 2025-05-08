@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 
 class AppTextButton extends StatelessWidget {
   final double? borderRadius;
@@ -11,9 +11,10 @@ class AppTextButton extends StatelessWidget {
   final double? verticalPadding;
   final double? buttonWidth;
   final double? buttonHeight;
-  final String buttonText;
+  final String? buttonText;
   final TextStyle? textStyle;
   final VoidCallback onPressed;
+  final Widget? child;
 
   const AppTextButton({
     super.key,
@@ -24,8 +25,9 @@ class AppTextButton extends StatelessWidget {
     this.buttonHeight,
     this.buttonWidth,
     this.textStyle,
-    required this.buttonText,
+    this.buttonText,
     required this.onPressed,
+    this.child, // ✅ جديد
   });
 
   @override
@@ -52,15 +54,16 @@ class AppTextButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Text(
-        buttonText,
-        style: textStyle ??
-            TextStyle(
-              fontSize: 16.sp,
-              color: Colors.white,
-              fontFamily: 'Montserrat',
-            ),
-      ),
+      child: child ??
+          Text(
+            buttonText ?? '',
+            style: textStyle ??
+                TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.white,
+                  fontFamily: 'Montserrat',
+                ),
+          ),
     );
   }
 }

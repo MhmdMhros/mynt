@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/bloc/cubit.dart';
 import 'package:mynt/presentation/bloc/state.dart';
 

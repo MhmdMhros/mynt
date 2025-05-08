@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
-import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
+import 'package:mynt/presentation/pages/sign%20in/email_verfication.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class SignupScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
 
 class RequiredActionsScreen extends StatelessWidget {

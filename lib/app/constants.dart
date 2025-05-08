@@ -1,0 +1,52 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
+class Constants {
+  Constants._();
+
+  static const String appName = 'mynt';
+  static String baseUrl = 'http://apis.mynt.kixedo.com/';
+  static const Duration apiTimeOut = Duration(seconds: 120);
+  static const Duration snackBarDuration = Duration(seconds: 2);
+  static const Duration bottomNavDuration = Duration(milliseconds: 600);
+
+  static const List<String> englishDaysOfWeek = [
+    "Sat",
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+  ];
+  static const List<String> arabicDaysOfWeek = [
+    "السبت",
+    "الأحد",
+    "الاثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+    "الجمعة",
+  ];
+  static const String signupPath = 'auth/register/';
+
+  static const String verifyAccountPath = 'auth/verify-account';
+  static const String resendAccountVerificationOtpPath =
+      'auth/send-account-verification';
+
+  static const String loginPath = 'owner/login';
+  static const String checkAccountPath = 'owner/account/exists';
+  static const String sendOtpPath = 'otp/request';
+  static const String otpVerificationPath = 'otp/validate';
+  static const String resetPasswordPath = 'password/reset';
+  static const String deleteAccountPath = 'user/delete-account';
+
+  static const String logoutPath = 'auth/logout';
+  static const String forgetPasswordPath = 'auth/forget-password';
+  static const String verifyResetPasswordOtpPath = 'auth/verify-reset-password';
+
+  static const String getUserPath = 'owner/data';
+  static const String updateUserPath = 'users/{userId}';
+  static const String getProviderDataPath = 'users/{userId}';
+  static const String getAllClientBodyPhotosPath =
+      'clients/{clientId}/body-photos';
+}

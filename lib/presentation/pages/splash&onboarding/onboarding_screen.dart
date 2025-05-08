@@ -1,10 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/core/app_prefs/app_prefs.dart';
+import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding1_screen.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/widgets/onboarding2_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:mynt/core/constants/app_colors.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -18,26 +22,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
+  Future<void> onBoardingScreenViewed() async =>
+      await getIt<AppPreferences>().saveIsOnBoardingScreenViewed();
+
   void _onPageChanged(int index) {
     setState(() {
       _currentPage = index;
     });
   }
 
-  void _skip() {
+  void _skip() async {
+    await onBoardingScreenViewed();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
-  void _next() {
+  void _next() async {
     if (_currentPage == 0) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
+      await onBoardingScreenViewed();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const SignInScreen()),

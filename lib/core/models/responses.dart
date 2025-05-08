@@ -1,0 +1,72 @@
+import 'package:mynt/domain/entities/send_otp.dart';
+
+import '../../domain/entities/body_photo.dart';
+import '../../domain/entities/body_photos_data.dart';
+import '../../domain/entities/signed_url_data.dart';
+import '../../domain/entities/signed_url.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/entities/logout_success.dart';
+import '../../domain/entities/change_password_success.dart';
+import '../../domain/entities/reset_password_success.dart';
+import '../../domain/entities/verify_reset_password_otp_success.dart';
+import '../../domain/entities/forget_password_success.dart';
+import '../../domain/entities/login_success.dart';
+import '../../domain/entities/resend_email_verification_success.dart';
+import '../../domain/entities/otp_verification_success.dart';
+import '../../domain/entities/signup_success.dart';
+
+// ignore: unused_import
+import '../../app/extensions.dart';
+// ignore: unused_import
+import 'package:equatable/equatable.dart';
+
+import 'package:json_annotation/json_annotation.dart';
+
+import 'no_data.dart';
+
+part 'responses.g.dart';
+
+part '../../data/responses/signup_success_response.dart';
+
+part '../../data/responses/otp_verification_success_response.dart';
+
+part '../../data/responses/resend_email_verification_success_response.dart';
+
+part '../../data/responses/login_success_response.dart';
+
+part '../../data/responses/send_otp_response.dart';
+
+part '../../data/responses/forget_password_success_response.dart';
+
+part '../../data/responses/verify_reset_password_otp_success_response.dart';
+
+part '../../data/responses/reset_password_success_response.dart';
+
+part '../../data/responses/user_response.dart';
+
+part '../../data/responses/change_password_success_response.dart';
+
+part '../../data/responses/logout_success_response.dart';
+
+part '../../data/responses/signed_url_response.dart';
+
+part '../../data/responses/signed_url__data_response.dart';
+
+part '../../data/responses/body_photos_data_response.dart';
+
+part '../../data/responses/body_photo_response.dart';
+
+abstract class DataResponse<T> {
+  T toDomain();
+}
+
+@JsonSerializable(createToJson: false)
+final class NoDataResponse implements DataResponse<NoData> {
+  const NoDataResponse();
+
+  @override
+  NoData toDomain() => const NoData();
+
+  factory NoDataResponse.fromJson(Map<String, dynamic> json) =>
+      _$NoDataResponseFromJson(json);
+}

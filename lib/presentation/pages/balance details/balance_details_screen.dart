@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
-import 'package:mynt/presentation/pages/balance%20details/balance_description_widget.dart';
-import 'package:mynt/presentation/pages/balance%20details/balances_widget.dart';
-import 'package:mynt/presentation/pages/balance%20details/booked_unit_widget.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/balance%20details/widgets/balance_description_widget.dart';
+import 'package:mynt/presentation/pages/balance%20details/widgets/balances_widget.dart';
+import 'package:mynt/presentation/pages/balance%20details/widgets/booked_unit_widget.dart';
 
 class BalanceDetailsScreen extends StatefulWidget {
   const BalanceDetailsScreen({super.key});

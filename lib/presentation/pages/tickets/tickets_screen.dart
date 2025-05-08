@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
-import 'package:mynt/presentation/pages/tickets/ticket_widget.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/tickets/widgets/ticket_widget.dart';
 
 class TicketsScreen extends StatelessWidget {
   const TicketsScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/core/constants/app_colors.dart';
-import 'package:mynt/presentation/pages/news/news_widget.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/news/widgets/news_widget.dart';
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});

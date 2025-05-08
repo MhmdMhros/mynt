@@ -1,0 +1,193 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
+import 'package:mynt/presentation/widgets/simple_toast.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> launchURL({
+  required String url,
+  bool isSocialMedia = false,
+}) async {
+  if (!url.startsWith("https")) {
+    url = "https://$url";
+  }
+  var uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    SimpleToast.show(
+      msg:
+          isSocialMedia ? "something went wrong try again" : "enter valid link",
+    );
+  }
+}
+
+Future<void> launchWhatsApp({
+  required String phone,
+  String message = 'Hello',
+}) async =>
+    await launchURL(
+      url: "https://api.whatsapp.com/send?phone=+$phone&text=$message",
+      isSocialMedia: true,
+    );
+
+Future<void> launchFacebook({
+  required String user,
+}) async =>
+    await launchURL(
+      url: "https://www.facebook.com/$user/",
+      isSocialMedia: true,
+    );
+
+Future<void> launchInstagram({
+  required String user,
+}) async =>
+    await launchURL(
+      url: "https://www.instagram.com/$user/",
+      isSocialMedia: true,
+    );
+
+Future<void> launchTwitter({
+  required String user,
+}) async =>
+    await launchURL(
+      url: "https://www.linkedin.com/in/$user/",
+      isSocialMedia: true,
+    );
+
+Future<File?> getImageFile(
+  BuildContext context, {
+  bool allowMultiple = false,
+}) async {
+  FocusScope.of(context).requestFocus(FocusNode());
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.image,
+    allowMultiple: allowMultiple,
+  );
+  if (result != null) {
+    File imageFile = File(result.files.single.path!);
+    return imageFile;
+  }
+  return null;
+}
+
+Future<File?> getAttachmentFile(FileType fileType) async {
+  if (fileType == FileType.any) {
+    return await getAPdfFile();
+  }
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: fileType,
+    allowMultiple: false,
+  );
+  if (result != null) {
+    File imageFile = File(result.files.single.path!);
+    return imageFile;
+  }
+  return null;
+}
+
+Future<File?> getAPdfFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom, allowMultiple: false, allowedExtensions: ['pdf']);
+  if (result != null) {
+    File imageFile = File(result.files.single.path!);
+    return imageFile;
+  }
+  return null;
+}
+
+Future<String> fileToBase64(File file) async {
+  List<int> bytes = await file.readAsBytes();
+  return base64Encode(bytes);
+}
+
+bool isEmail(String email) => RegExp(
+      '^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@((([0-1]?'
+      '[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.'
+      '([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])'
+      ')|([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})\$',
+    ).hasMatch(email);
+
+String? getSexValue(String? sex) {
+  return sex == null || sex.isEmpty
+      ? null
+      : sex == 'MALE'
+          ? 'male'
+          : 'female';
+}
+
+bool isValidYouTubeUrl(String url) {
+  // Regular expression for matching YouTube video URLs
+  RegExp regExp = RegExp(
+    r'^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)|youtu\.be\/([a-zA-Z0-9_-]+))',
+    caseSensitive: false,
+    multiLine: false,
+  );
+
+  return regExp.hasMatch(url);
+}
+
+Future<File> changeFileNameOnly(File file, String newFileName) async {
+  var path = file.path;
+
+  var lastSeparator = path.lastIndexOf(Platform.pathSeparator);
+  var newPath = path.substring(0, lastSeparator + 1) + newFileName;
+  if (path == newPath) return Future.value(file);
+  return await file.rename(newPath);
+}
+
+bool areListsEqual(List<String> list1, List<String> list2) {
+  if (list1.length != list2.length) {
+    return false;
+  }
+
+  for (int i = 0; i < list1.length; i++) {
+    if (list1[i] != list2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+String formatDateWithSlashed(DateTime date) =>
+    DateFormat('dd/MM/yyyy').format(date);
+
+String generateRandomToken(int length) {
+  const chars =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#';
+  final rand = Random();
+  return List.generate(length, (_) => chars[rand.nextInt(chars.length)]).join();
+}
+
+enum ToastType { success, error, warning, info }
+
+void showToast(String message, ToastType type) {
+  Color bgColor;
+  switch (type) {
+    case ToastType.success:
+      bgColor = Colors.green;
+      break;
+    case ToastType.error:
+      bgColor = Colors.red;
+      break;
+    case ToastType.warning:
+      bgColor = Colors.orange;
+      break;
+    case ToastType.info:
+      bgColor = Colors.blue;
+      break;
+  }
+
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: bgColor,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
