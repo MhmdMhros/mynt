@@ -89,12 +89,6 @@ ChangePasswordSuccessResponse _$ChangePasswordSuccessResponseFromJson(
       message: json['message'] as String?,
     );
 
-LogoutSuccessResponse _$LogoutSuccessResponseFromJson(
-        Map<String, dynamic> json) =>
-    LogoutSuccessResponse(
-      message: json['message'] as String?,
-    );
-
 SignedUrlResponse _$SignedUrlResponseFromJson(Map<String, dynamic> json) =>
     SignedUrlResponse(
       video: json['video'] == null

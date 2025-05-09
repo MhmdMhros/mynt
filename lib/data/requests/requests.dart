@@ -35,3 +35,9 @@ part 'refresh_token_request.dart';
 part 'upload_file_request.dart';
 
 part 'upload_profile_photo_request.dart';
+
+part 'edit_account_data_request.dart';
+
+part 'edit_email_request.dart';
+
+part 'edit_phone_request.dart';

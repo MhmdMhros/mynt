@@ -41,9 +41,10 @@ class Constants {
   static const String deleteAccountPath = 'user/delete-account';
   static const String refreshTokenPath = 'owner/token/refresh';
 
-  static const String logoutPath = 'auth/logout';
+  static const String logoutPath = 'owner/logout';
   static const String forgetPasswordPath = 'auth/forget-password';
   static const String verifyResetPasswordOtpPath = 'auth/verify-reset-password';
+  static const String editAccountPath = 'owner/account/edit';
 
   static const String getUserPath = 'owner/data';
   static const String updateUserPath = 'users/{userId}';

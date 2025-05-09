@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 
 import '../../core/models/no_data.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/entities/logout_success.dart';
 import '../../domain/entities/reset_password_success.dart';
 import '../../domain/entities/verify_reset_password_otp_success.dart';
 import '../../domain/entities/forget_password_success.dart';
@@ -30,9 +29,6 @@ import '../requests/requests.dart';
 class RepositoryImpl implements Repository {
   final AppServiceClient _appServiceClient;
   final RepositoryHelpers _repositoryHelpers;
-  int? userId;
-  String? accessToken;
-  String? refreshTokenVal;
 
   RepositoryImpl(this._appServiceClient)
       : _repositoryHelpers = RepositoryHelpers() {
@@ -221,9 +217,10 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, LogoutSuccess>> logout() async {
-    return _repositoryHelpers.callApi<LogoutSuccess>(
-      () => _appServiceClient.logout(),
+  Future<Either<Failure, NoData>> logout(LogoutRequest logoutRequest) async {
+    final accessToken = await getIt<UserSecureStorage>().getUserAccessToken();
+    return _repositoryHelpers.callApi<NoData>(
+      () => _appServiceClient.logout(accessToken!, logoutRequest),
       statusCode: 200,
     );
   }
@@ -254,9 +251,43 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, NoData>> deleteAccount() async {
+    final accessToken = await getIt<UserSecureStorage>().getUserAccessToken();
     return _repositoryHelpers.callApi<NoData>(
       () => _appServiceClient.deleteAccount(
         accessToken!,
+      ),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, NoData>> editAccountData(
+      EditAccountDataRequest editAccountDataRequest) async {
+    return _repositoryHelpers.callApi<NoData>(
+      () => _appServiceClient.editAccountData(
+        editAccountDataRequest,
+      ),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, NoData>> editAccountEmail(
+      EditEmailRequest editEmailRequest) async {
+    return _repositoryHelpers.callApi<NoData>(
+      () => _appServiceClient.editAccountEmail(
+        editEmailRequest,
+      ),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, NoData>> editAccountPhone(
+      EditPhoneRequest editPhoneRequest) async {
+    return _repositoryHelpers.callApi<NoData>(
+      () => _appServiceClient.editAccountPhone(
+        editPhoneRequest,
       ),
       statusCode: 200,
     );

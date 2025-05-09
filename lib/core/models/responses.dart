@@ -5,7 +5,6 @@ import '../../domain/entities/body_photos_data.dart';
 import '../../domain/entities/signed_url_data.dart';
 import '../../domain/entities/signed_url.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/entities/logout_success.dart';
 import '../../domain/entities/change_password_success.dart';
 import '../../domain/entities/reset_password_success.dart';
 import '../../domain/entities/verify_reset_password_otp_success.dart';
@@ -46,8 +45,6 @@ part '../../data/responses/reset_password_success_response.dart';
 part '../../data/responses/user_response.dart';
 
 part '../../data/responses/change_password_success_response.dart';
-
-part '../../data/responses/logout_success_response.dart';
 
 part '../../data/responses/signed_url_response.dart';
 

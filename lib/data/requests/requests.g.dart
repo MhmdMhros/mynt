@@ -104,13 +104,30 @@ Map<String, dynamic> _$ChangeMyPasswordRequestToJson(
 
 Map<String, dynamic> _$LogoutRequestToJson(LogoutRequest instance) =>
     <String, dynamic>{
-      'oldPassword': instance.oldPassword,
-      'newPassword': instance.newPassword,
-      'newPasswordConfirm': instance.newPasswordConfirm,
+      'device_token': instance.deviceToken,
+      'device_type': instance.deviceType,
     };
 
 Map<String, dynamic> _$RefreshTokenRequestToJson(
         RefreshTokenRequest instance) =>
     <String, dynamic>{
       'refresh_token': instance.refreshToken,
+    };
+
+Map<String, dynamic> _$EditAccountDataRequestToJson(
+        EditAccountDataRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'gender': instance.gender,
+      'birthdate': instance.birthDate,
+    };
+
+Map<String, dynamic> _$EditEmailRequestToJson(EditEmailRequest instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+    };
+
+Map<String, dynamic> _$EditPhoneRequestToJson(EditPhoneRequest instance) =>
+    <String, dynamic>{
+      'phone': instance.phoneNumber,
     };

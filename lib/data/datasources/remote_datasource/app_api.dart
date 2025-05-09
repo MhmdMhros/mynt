@@ -65,8 +65,12 @@ abstract class AppServiceClient {
   @GET(Constants.getUserPath)
   Future<HttpResponse<UserResponse>> getUser(@Path() String token);
 
-  @GET(Constants.logoutPath)
-  Future<HttpResponse<LogoutSuccessResponse>> logout();
+  @POST(Constants.logoutPath)
+  Future<HttpResponse<void>> logout(
+    @Path() String token,
+    @Body() LogoutRequest logoutRequest,
+  );
+
   @PATCH(Constants.updateUserPath)
   @MultiPart()
   Future<HttpResponse<UserResponse>> updateUser(
@@ -96,5 +100,20 @@ abstract class AppServiceClient {
   Future<HttpResponse<BodyPhotosDataResponse>> getAllClientBodyPhotos(
     @Path() String clientId,
     @Queries() Map<String, dynamic> query,
+  );
+
+  @POST(Constants.editAccountPath)
+  Future<HttpResponse<void>> editAccountData(
+    @Body() EditAccountDataRequest editAccountDataRequest,
+  );
+
+  @POST(Constants.editAccountPath)
+  Future<HttpResponse<void>> editAccountEmail(
+    @Body() EditEmailRequest editEmailRequest,
+  );
+
+  @POST(Constants.editAccountPath)
+  Future<HttpResponse<void>> editAccountPhone(
+    @Body() EditPhoneRequest editPhoneRequest,
   );
 }
