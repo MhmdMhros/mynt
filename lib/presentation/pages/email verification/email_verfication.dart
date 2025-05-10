@@ -14,8 +14,17 @@ import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 
 class EmailVerification extends StatefulWidget {
-  final String userName;
-  const EmailVerification(this.userName, {super.key});
+  final String email;
+  final String phoneNumber;
+  final String name;
+  final String gender;
+  final String birthDate;
+  final String newPassword;
+  final String
+      type; //  type = 'edit_email', 'edit_phone', 'edit_data' or 'auth'
+  const EmailVerification(this.email, this.phoneNumber, this.name, this.gender,
+      this.birthDate, this.newPassword, this.type,
+      {super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -146,7 +155,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'Please enter the verification code sent to\nemail ali@gmail.com',
+                    'Please enter the verification code sent to\n ${widget.phoneNumber == '' ? widget.email : widget.phoneNumber}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14.sp,
@@ -202,16 +211,69 @@ class _EmailVerificationState extends State<EmailVerification> {
                       decoration: submittedPinDecoration,
                     ),
                     onCompleted: (otp) async {
-                      final success =
-                          await cubit.verifyOtp(widget.userName, otp);
+                      final success = await cubit.verifyOtp(
+                          widget.phoneNumber == ''
+                              ? widget.email
+                              : widget.phoneNumber,
+                          otp);
                       if (success) {
-                        await isUserLogged();
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LayoutScreen()),
-                          (route) => false,
-                        );
+                        if (widget.type == 'auth_login') {
+                          await isUserLogged();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LayoutScreen()),
+                            (route) => false,
+                          );
+                        } else if (widget.type == 'auth_reset') {
+                          final resetSuccess = await cubit.resetPassword(
+                              email: widget.email,
+                              newPassword: widget.newPassword,
+                              confirmPassword: widget.newPassword);
+                          if (resetSuccess) {
+                            await isUserLogged();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LayoutScreen()),
+                              (route) => false,
+                            );
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        } else if (widget.type == 'edit_data') {
+                          final editSuccess = await cubit.editAccountData(
+                              widget.name, widget.gender, widget.birthDate);
+                          if (editSuccess) {
+                            Navigator.pop(context, {
+                              'name': widget.name,
+                              'gender': widget.gender,
+                              'birthDate': widget.birthDate,
+                            });
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        } else if (widget.type == 'edit_email') {
+                          final editSuccess =
+                              await cubit.editEmail(widget.email);
+                          if (editSuccess) {
+                            Navigator.pop(context, {
+                              'email': widget.email,
+                            });
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        } else if (widget.type == 'edit_phone') {
+                          final editSuccess =
+                              await cubit.editPhone(widget.phoneNumber);
+                          if (editSuccess) {
+                            Navigator.pop(context, {
+                              'name': widget.phoneNumber,
+                            });
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        }
                       }
                     },
                   ),
@@ -221,8 +283,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                       GestureDetector(
                         onTap: () async {
                           if (_seconds == 0) {
-                            final success =
-                                await cubit.resendOtp(widget.userName);
+                            final success = await cubit.resendOtp(
+                                widget.phoneNumber == ''
+                                    ? widget.email
+                                    : widget.phoneNumber);
                             if (success) {
                               _resendCode();
                             }
@@ -262,15 +326,22 @@ class _EmailVerificationState extends State<EmailVerification> {
                 backgroundColor: AppColors.primary,
                 onPressed: () async {
                   final success = await cubit.verifyOtp(
-                      widget.userName, otpController.text);
+                      widget.phoneNumber == ''
+                          ? widget.email
+                          : widget.phoneNumber,
+                      otpController.text);
                   if (success) {
-                    await isUserLogged();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LayoutScreen()),
-                      (route) => false,
-                    );
+                    if (widget.type == 'auth') {
+                      await isUserLogged();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LayoutScreen()),
+                        (route) => false,
+                      );
+                    } else {
+                      Navigator.pop(context);
+                    }
                   }
                 },
               ),

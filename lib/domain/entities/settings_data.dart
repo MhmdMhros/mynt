@@ -1,18 +1,18 @@
 class SettingsData {
-  final String aboutUsContent;
-  final String termsContent;
-  final String privacyContent;
-  final String copyrightContent;
-  final String deleteAccountContent;
-  final String plansSubscriptionsTermsContent;
-  final String paymentTermsContent;
-  final String aboutUsContentText;
-  final String termsContentText;
-  final String privacyContentText;
-  final String copyrightContentText;
-  final String deleteAccountContentText;
-  final String plansSubscriptionsTermsContentText;
-  final String paymentTermsContentText;
+  final String? aboutUsContent;
+  final String? termsContent;
+  final String? privacyContent;
+  final String? copyrightContent;
+  final String? deleteAccountContent;
+  final String? plansSubscriptionsTermsContent;
+  final String? paymentTermsContent;
+  final String? aboutUsContentText;
+  final String? termsContentText;
+  final String? privacyContentText;
+  final String? copyrightContentText;
+  final String? deleteAccountContentText;
+  final String? plansSubscriptionsTermsContentText;
+  final String? paymentTermsContentText;
 
   SettingsData({
     required this.aboutUsContent,

@@ -58,3 +58,10 @@ class SocketDataUpdated extends LayoutState {
   @override
   List<Object> get props => [data];
 }
+
+final class SendOtpSuccess extends LayoutState {}
+
+final class SendOtpError extends LayoutState {
+  final String error;
+  const SendOtpError(this.error);
+}

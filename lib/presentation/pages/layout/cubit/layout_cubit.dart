@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
@@ -12,6 +13,7 @@ import 'package:mynt/domain/entities/user.dart';
 import 'package:mynt/domain/usecases/get_user_usecase.dart';
 import 'package:mynt/domain/usecases/logout_usecase.dart';
 import 'package:mynt/domain/usecases/refresh_token_usecase.dart';
+import 'package:mynt/domain/usecases/send_otp_usecase.dart';
 import 'package:mynt/domain/usecases/settings_data_usecase.dart';
 import 'package:mynt/presentation/pages/dashboard/dashboard_screen.dart';
 import 'package:mynt/presentation/pages/more/more_screen.dart';
@@ -23,12 +25,13 @@ part 'layout_state.dart';
 @injectable
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit(this._getUserUseCase, this._refreshTokenUsecase,
-      this._settingsDataUsecase, this._logoutUseCase)
+      this._settingsDataUsecase, this._logoutUseCase, this._sendOtpUsecase)
       : super(LayoutInitial());
   final GetUserUseCase _getUserUseCase;
   final RefreshTokenUsecase _refreshTokenUsecase;
   final SettingsDataUsecase _settingsDataUsecase;
   final LogoutUseCase _logoutUseCase;
+  final SendOtpUsecase _sendOtpUsecase;
 
   static LayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -128,5 +131,32 @@ class LayoutCubit extends Cubit<LayoutState> {
         return true;
       },
     );
+  }
+
+  Future<bool> sendOtp(String userName) async {
+    final result = await _sendOtpUsecase(
+      SendOtpRequest(identifier: userName),
+    );
+    return await result.fold(
+      (failure) {
+        showToast('Failed to send verification code. Please try again later.',
+            ToastType.error);
+        emit(SendOtpError(failure.message));
+        return true;
+      },
+      (success) {
+        emit(SendOtpSuccess());
+        return false;
+      },
+    );
+  }
+
+  Future<void> editData() async {
+    final success = await getUser();
+    if (success) {
+      await getIt<UserSecureStorage>().upsertUserInfo(
+        email: user!.email,
+      );
+    }
   }
 }

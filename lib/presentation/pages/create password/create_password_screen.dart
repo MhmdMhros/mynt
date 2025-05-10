@@ -7,11 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
-import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/success_pass_bottom_sheet.dart';
-import 'package:mynt/presentation/pages/create%20password/cubit/create_password_cubit.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   final String userName;
@@ -56,171 +55,164 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<CreatePasswordCubit>(),
-      child: BlocConsumer<CreatePasswordCubit, CreatePasswordState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = CreatePasswordCubit.get(context);
-          return Scaffold(
-            backgroundColor: AppColors.background,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              leading: Padding(
-                padding: EdgeInsets.only(left: 30.w),
-                child: IconButton(
-                  icon:
-                      const Icon(Icons.arrow_back_ios, color: AppColors.text1),
-                  onPressed: () => Navigator.pop(context),
-                ),
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: Padding(
+              padding: EdgeInsets.only(left: 30.w),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+                onPressed: () => Navigator.pop(context),
               ),
-              title: Text(
-                "Set new password",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.sp,
-                  color: AppColors.text1,
-                ),
-              ),
-              centerTitle: true,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 16.h),
-                      Center(
-                        child: SvgPicture.asset(
-                          'assets/images/password.svg',
-                          height: 120.h,
-                          width: 120.w,
-                        ),
+            title: Text(
+              "Set new password",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
+                color: AppColors.text1,
+              ),
+            ),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16.h),
+                    Center(
+                      child: SvgPicture.asset(
+                        'assets/images/password.svg',
+                        height: 120.h,
+                        width: 120.w,
                       ),
-                      SizedBox(height: 64.h),
-                      Text(
-                        'Create Password',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Montserrat",
-                          color: AppColors.text1,
-                        ),
+                    ),
+                    SizedBox(height: 64.h),
+                    Text(
+                      'Create Password',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Montserrat",
+                        color: AppColors.text1,
                       ),
-                      SizedBox(height: 16.h),
-                      AppTextFormField(
-                        controller: _passwordController,
-                        hintText: "Password",
-                        isBorderEnabled: false,
-                        isObscureText: !_isPasswordVisible,
-                        prefixIcon: Icon(
-                          Icons.lock_clock_outlined,
-                          size: 24.sp,
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            size: 20.sp,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a password';
-                          } else if (value.length < 8) {
-                            return 'Password must be at least 8 characters';
-                          }
-                          return null;
-                        },
+                    ),
+                    SizedBox(height: 16.h),
+                    AppTextFormField(
+                      controller: _passwordController,
+                      hintText: "Password",
+                      isBorderEnabled: false,
+                      isObscureText: !_isPasswordVisible,
+                      prefixIcon: Icon(
+                        Icons.lock_clock_outlined,
+                        size: 24.sp,
                       ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'Retype Password',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Montserrat",
-                          color: AppColors.text1,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      AppTextFormField(
-                        controller: _confirmPasswordController,
-                        hintText: "Confirm Password",
-                        isBorderEnabled: false,
-                        isObscureText: !_isConfirmPasswordVisible,
-                        prefixIcon: Icon(
-                          Icons.lock_clock_outlined,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           size: 20.sp,
                         ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isConfirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            size: 24.sp,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isConfirmPasswordVisible =
-                                  !_isConfirmPasswordVisible;
-                            });
-                          },
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
-                          } else if (value != _passwordController.text) {
-                            return 'Password does not match';
-                          }
-                          return null;
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
                         },
                       ),
-                    ],
-                  ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a password';
+                        } else if (value.length < 8) {
+                          return 'Password must be at least 8 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      'Retype Password',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Montserrat",
+                        color: AppColors.text1,
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    AppTextFormField(
+                      controller: _confirmPasswordController,
+                      hintText: "Confirm Password",
+                      isBorderEnabled: false,
+                      isObscureText: !_isConfirmPasswordVisible,
+                      prefixIcon: Icon(
+                        Icons.lock_clock_outlined,
+                        size: 20.sp,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 24.sp,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isConfirmPasswordVisible =
+                                !_isConfirmPasswordVisible;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please confirm your password';
+                        } else if (value != _passwordController.text) {
+                          return 'Password does not match';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AppTextButton(
-                buttonText: 'Continue',
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    final resetPassSuccess = await cubit.resetPassword(
-                      email: widget.userName,
-                      newPassword: _passwordController.text,
-                      confirmPassword: _confirmPasswordController.text,
-                    );
-                    if (resetPassSuccess) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EmailVerification(widget.userName),
-                        ),
-                      );
-                    }
-                  }
-                },
-              ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: AppTextButton(
+              buttonText: 'Continue',
+              buttonHeight: 48.h,
+              backgroundColor: AppColors.primary,
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EmailVerification(
+                          widget.userName,
+                          '',
+                          '',
+                          '',
+                          '',
+                          _passwordController.text,
+                          'auth_reset'),
+                    ),
+                  );
+                }
+              },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

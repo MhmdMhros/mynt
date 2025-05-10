@@ -26,3 +26,48 @@ final class SendOtpError extends VerificationState {
   final String error;
   const SendOtpError(this.error);
 }
+
+class EditAccountDataLoading extends VerificationState {}
+
+class EditAccountDataSuccess extends VerificationState {}
+
+class EditAccountDataFailure extends VerificationState {
+  final String message;
+  const EditAccountDataFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class EditEmailLoading extends VerificationState {}
+
+class EditEmailSuccess extends VerificationState {}
+
+class EditEmailFailure extends VerificationState {
+  final String message;
+  const EditEmailFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class EditPhoneLoading extends VerificationState {}
+
+class EditPhoneSuccess extends VerificationState {}
+
+class EditPhoneFailure extends VerificationState {
+  final String message;
+  const EditPhoneFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+final class CreatePasswordLoading extends VerificationState {}
+
+final class CreatePasswordSuccess extends VerificationState {}
+
+final class CreatePasswordError extends VerificationState {
+  final String error;
+  const CreatePasswordError(this.error);
+}

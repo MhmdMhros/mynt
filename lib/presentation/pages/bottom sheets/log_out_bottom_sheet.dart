@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/di.dart';
@@ -126,6 +127,9 @@ class LogOutBottomSheet extends StatelessWidget {
                       },
                     ),
                   );
+                } else {
+                  showToast('Failed during logout, please try again.',
+                      ToastType.error);
                 }
               },
             ),

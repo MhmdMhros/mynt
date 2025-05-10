@@ -30,13 +30,14 @@ import 'package:mynt/domain/usecases/refresh_token_usecase.dart' as _i1006;
 import 'package:mynt/domain/usecases/reset_password_usecase.dart' as _i1007;
 import 'package:mynt/domain/usecases/settings_data_usecase.dart' as _i1008;
 import 'package:mynt/domain/usecases/logout_usecase.dart' as _i1009;
+import 'package:mynt/domain/usecases/edit_account_data_usecase.dart' as _i1010;
+import 'package:mynt/domain/usecases/edit_email_usecase.dart' as _i1011;
+import 'package:mynt/domain/usecases/edit_phone_usecase.dart' as _i1012;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart'
     as _i2001;
-import 'package:mynt/presentation/pages/create password/cubit/create_password_cubit.dart'
-    as _i2002;
 import 'package:mynt/presentation/pages/email verification/cubit/verification_cubit.dart'
     as _i2003;
 
@@ -145,15 +146,24 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1003.SendOtpUsecase>(),
         ));
 
-    gh.factory<_i2003.VerificationCubit>(() => _i2003.VerificationCubit(
-          gh<_i1004.OtpVerificationUsecase>(),
-          gh<_i1003.SendOtpUsecase>(),
-        ));
+    gh.lazySingleton<_i1010.EditAccountDataUsecase>(
+        () => _i1010.EditAccountDataUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1011.EditEmailUsecase>(
+        () => _i1011.EditEmailUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1012.EditPhoneUsecase>(
+        () => _i1012.EditPhoneUsecase(gh<_i8.Repository>()));
 
     gh.lazySingleton<_i1007.ResetPasswordUseCase>(
         () => _i1007.ResetPasswordUseCase(gh<_i8.Repository>()));
 
-    gh.factory<_i2002.CreatePasswordCubit>(() => _i2002.CreatePasswordCubit(
+    gh.factory<_i2003.VerificationCubit>(() => _i2003.VerificationCubit(
+          gh<_i1004.OtpVerificationUsecase>(),
+          gh<_i1003.SendOtpUsecase>(),
+          gh<_i1010.EditAccountDataUsecase>(),
+          gh<_i1011.EditEmailUsecase>(),
+          gh<_i1012.EditPhoneUsecase>(),
           gh<_i1007.ResetPasswordUseCase>(),
         ));
 
@@ -174,6 +184,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1006.RefreshTokenUsecase>(),
           gh<_i1008.SettingsDataUsecase>(),
           gh<_i1009.LogoutUseCase>(),
+          gh<_i1003.SendOtpUsecase>(),
         ));
 
     return this;
