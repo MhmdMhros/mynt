@@ -2,6 +2,7 @@ import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 
 import 'package:dio/dio.dart';
+import 'package:mynt/domain/entities/settings_data.dart';
 
 import '../../core/models/no_data.dart';
 import '../../domain/entities/user.dart';
@@ -63,6 +64,8 @@ class RepositoryImpl implements Repository {
       accessToken: loginData.accessToken,
       refreshToken: loginData.refreshToken,
       expiresIn: loginData.expiresIn,
+      deviceToken: loginRequest.deviceToken,
+      deviceType: loginRequest.deviceType,
     );
   }
 
@@ -289,6 +292,14 @@ class RepositoryImpl implements Repository {
       () => _appServiceClient.editAccountPhone(
         editPhoneRequest,
       ),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, SettingsData>> settingsData() async {
+    return _repositoryHelpers.callApi<SettingsData>(
+      () => _appServiceClient.settingsData(),
       statusCode: 200,
     );
   }

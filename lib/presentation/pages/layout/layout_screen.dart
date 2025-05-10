@@ -34,7 +34,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
       final refreshed = await cubit.refreshToken();
       if (refreshed) {
         final retried = await cubit.getUser();
-        if (!retried) _showLoginPopup();
+        if (!retried) {
+          _showLoginPopup();
+        } else {
+          await cubit.getSettingsData();
+        }
       } else {
         _showLoginPopup();
       }

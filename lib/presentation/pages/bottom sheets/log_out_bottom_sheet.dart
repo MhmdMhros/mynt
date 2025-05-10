@@ -1,83 +1,97 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/di.dart';
+import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class LogOutBottomSheet extends StatelessWidget {
   const LogOutBottomSheet({super.key});
 
+  Future<void> resetIsInMainLayout() async {
+    await getIt<AppPreferences>().resetIsUserLogin();
+    await getIt<AppPreferences>().saveIsOnBoardingScreenViewed();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      child: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(16.0),
-        child: Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // 1. SVG Image
-                SvgPicture.asset(
-                  'assets/images/log_out.svg',
-                  height: 100.h,
-                ),
-                SizedBox(height: 16.h),
-
-                // 2. Centered Text 1
-                Text(
-                  'Logout',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat',
-                    color: AppColors.text1,
+    return BlocBuilder<LayoutCubit, LayoutState>(builder: (context, state) {
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 1. SVG Image
+                  SvgPicture.asset(
+                    'assets/images/log_out.svg',
+                    height: 100.h,
                   ),
-                ),
-                SizedBox(height: 8.h),
+                  SizedBox(height: 16.h),
 
-                // 3. Centered Text 2
-                Text(
-                  'Are you sure that you want to logout',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontFamily: 'Montserrat',
-                    color: AppColors.text2,
+                  // 2. Centered Text 1
+                  Text(
+                    'Logout',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                      color: AppColors.text1,
+                    ),
                   ),
-                ),
-                SizedBox(height: 16.h),
+                  SizedBox(height: 8.h),
 
-                // 4. Bottom Buttons
-                buildBottomButtons(context),
-              ],
-            ),
-            Positioned(
-              right: 0,
-              child: Container(
-                width: 30.w, // Adjust width
-                height: 30.h, // Adjust height
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.circular(8.r), // Add border radius
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.close,
-                      size: 16, color: Color(0xFFA6A6A6)),
-                  padding: EdgeInsets.zero, // Remove default padding
-                  onPressed: () {
-                    Navigator.pop(context); // Dismiss Bottom Sheet
-                  },
+                  // 3. Centered Text 2
+                  Text(
+                    'Are you sure that you want to logout',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontFamily: 'Montserrat',
+                      color: AppColors.text2,
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
+
+                  // 4. Bottom Buttons
+                  buildBottomButtons(context),
+                ],
+              ),
+              Positioned(
+                right: 0,
+                child: Container(
+                  width: 30.w, // Adjust width
+                  height: 30.h, // Adjust height
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF2F2F2),
+                    borderRadius:
+                        BorderRadius.circular(8.r), // Add border radius
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.close,
+                        size: 16, color: Color(0xFFA6A6A6)),
+                    padding: EdgeInsets.zero, // Remove default padding
+                    onPressed: () {
+                      Navigator.pop(context); // Dismiss Bottom Sheet
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget buildBottomButtons(BuildContext context) {
@@ -90,23 +104,31 @@ class LogOutBottomSheet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: _buildButton("Delete", Colors.white, const Color(0xFFBF4C43),
-                () {
-              Navigator.of(context).pushAndRemoveUntil(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SignInScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
-                (route) => false, // Removes all previous routes
-              );
-            }),
+            child: _buildButton(
+              "Delete",
+              Colors.white,
+              const Color(0xFFBF4C43),
+              () async {
+                final cubit = LayoutCubit.get(context);
+                final success = await cubit.logout();
+                if (success && context.mounted) {
+                  await resetIsInMainLayout();
+                  Navigator.of(context).pushReplacement(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const SignInScreen(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
           ),
           SizedBox(
             width: 10.w,

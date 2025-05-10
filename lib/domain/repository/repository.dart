@@ -1,5 +1,6 @@
 import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
+import 'package:mynt/domain/entities/settings_data.dart';
 
 import '../../core/models/no_data.dart';
 import '../entities/user.dart';
@@ -49,6 +50,8 @@ abstract class Repository {
   Future<Either<Failure, NoData>> editAccountPhone(
     EditPhoneRequest editPhoneRequest,
   );
+
+  Future<Either<Failure, SettingsData>> settingsData();
 
   Future<Either<Failure, SignupSuccess>> signup(
     SignupRequest signupRequest,

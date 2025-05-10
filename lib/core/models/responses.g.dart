@@ -132,3 +132,25 @@ RefreshTokenSuccessResponse _$RefreshTokenSuccessResponseFromJson(
       refreshToken: json['refresh_token'] as String?,
       expiresIn: json['expires_in'] as int?,
     );
+
+SettingsDataResponse _$SettingsDataResponseFromJson(
+  Map<String, dynamic> json,
+) =>
+    SettingsDataResponse(
+      aboutUsContent: json['about_us_content'] as String?,
+      termsContent: json['terms_content'] as String?,
+      privacyContent: json['privacy_content'] as String?,
+      copyrightContent: json['copyright_content'] as String?,
+      deleteAccountContent: json['delete_account_content'] as String?,
+      plansSubscriptionsTermsContent:
+          json['plans_subscriptions_terms_content'] as String?,
+      paymentTermsContent: json['payment_terms_content'] as String?,
+      aboutUsContentText: json['about_us_content_text'] as String?,
+      termsContentText: json['terms_content_text'] as String?,
+      privacyContentText: json['privacy_content_text'] as String?,
+      copyrightContentText: json['copyright_content_text'] as String?,
+      deleteAccountContentText: json['delete_account_content_text'] as String?,
+      plansSubscriptionsTermsContentText:
+          json['plans_subscriptions_terms_content_text'] as String?,
+      paymentTermsContentText: json['payment_terms_content_text'] as String?,
+    );

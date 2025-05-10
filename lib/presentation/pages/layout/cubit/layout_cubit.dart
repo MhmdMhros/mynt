@@ -7,9 +7,12 @@ import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/di.dart';
+import 'package:mynt/domain/entities/settings_data.dart';
 import 'package:mynt/domain/entities/user.dart';
 import 'package:mynt/domain/usecases/get_user_usecase.dart';
+import 'package:mynt/domain/usecases/logout_usecase.dart';
 import 'package:mynt/domain/usecases/refresh_token_usecase.dart';
+import 'package:mynt/domain/usecases/settings_data_usecase.dart';
 import 'package:mynt/presentation/pages/dashboard/dashboard_screen.dart';
 import 'package:mynt/presentation/pages/more/more_screen.dart';
 import 'package:mynt/presentation/pages/tickets/tickets_screen.dart';
@@ -19,14 +22,18 @@ part 'layout_state.dart';
 
 @injectable
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit(this._getUserUseCase, this._refreshTokenUsecase)
+  LayoutCubit(this._getUserUseCase, this._refreshTokenUsecase,
+      this._settingsDataUsecase, this._logoutUseCase)
       : super(LayoutInitial());
   final GetUserUseCase _getUserUseCase;
   final RefreshTokenUsecase _refreshTokenUsecase;
+  final SettingsDataUsecase _settingsDataUsecase;
+  final LogoutUseCase _logoutUseCase;
 
   static LayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
   User? user;
+  SettingsData? settingsData;
 
   int bottomNavIndex = 0;
 
@@ -82,6 +89,42 @@ class LayoutCubit extends Cubit<LayoutState> {
       (user) {
         this.user = user;
         emit(GetUserSuccess());
+        return true;
+      },
+    );
+  }
+
+  Future<bool> getSettingsData() async {
+    emit(GetSettingsDataLoading());
+    final res = await _settingsDataUsecase(NoParams());
+    return res.fold(
+      (l) {
+        emit(GetSettingsDataFailure(l.message));
+        return false;
+      },
+      (data) {
+        settingsData = data;
+        emit(GetSettingsDataSuccess());
+        return true;
+      },
+    );
+  }
+
+  Future<bool> logout() async {
+    emit(LogoutLoading());
+    final deviceToken = await getIt<UserSecureStorage>().getDeviceToken();
+    final deviceType = await getIt<UserSecureStorage>().getDeviceType();
+
+    final res = await _logoutUseCase(
+        LogoutRequest(deviceToken: deviceToken!, deviceType: deviceType!));
+    return await res.fold(
+      (l) {
+        emit(LogoutFailure(l.message));
+        return false;
+      },
+      (r) async {
+        await getIt<UserSecureStorage>().deleteUserInfo(); // Clear user tokens
+        emit(LogoutSuccess());
         return true;
       },
     );

@@ -33,6 +33,9 @@ abstract class AppServiceClient {
     @Body() SendOtpRequest sendOtpRequest,
   );
 
+  @GET(Constants.settingsPath)
+  Future<HttpResponse<SettingsDataResponse>> settingsData();
+
   @POST(Constants.signupPath)
   Future<HttpResponse<SignupSuccessResponse>> signup(
     @Body() SignupRequest signupRequest,

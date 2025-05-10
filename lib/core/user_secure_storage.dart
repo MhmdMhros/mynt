@@ -11,6 +11,8 @@ class UserSecureStorage {
   static const _refreshToken = 'refresh_token';
   static const _expiresIn = 'expires_in';
   static const _tokenSavedAt = 'token_saved_at';
+  static const _device_token_key = 'device_token_key';
+  static const _device_type = 'device_type';
 
   const UserSecureStorage(this._secureStorage);
   final FlutterSecureStorage _secureStorage;
@@ -22,6 +24,8 @@ class UserSecureStorage {
     String? accessToken,
     String? refreshToken,
     int? expiresIn,
+    String? deviceToken,
+    String? deviceType,
   }) async {
     await Future.wait([
       _secureStorage.write(key: _userId, value: userId.toString()),
@@ -34,6 +38,10 @@ class UserSecureStorage {
         _secureStorage.write(key: _refreshToken, value: refreshToken),
       if (expiresIn != null)
         _secureStorage.write(key: _expiresIn, value: expiresIn.toString()),
+      if (deviceToken != null)
+        _secureStorage.write(key: _device_token_key, value: deviceToken),
+      if (deviceType != null)
+        _secureStorage.write(key: _device_type, value: deviceType),
     ]);
 
     if (accessToken != null && expiresIn != null) {
@@ -79,6 +87,8 @@ class UserSecureStorage {
         _secureStorage.delete(key: _refreshToken),
         _secureStorage.delete(key: _expiresIn),
         _secureStorage.delete(key: _tokenSavedAt),
+        _secureStorage.delete(key: _device_token_key),
+        _secureStorage.delete(key: _device_type),
       ]);
 
   Future<int?> getUserId() async {
@@ -96,6 +106,11 @@ class UserSecureStorage {
   Future<String?> getUsername() => _secureStorage.read(key: _usernameKey);
 
   Future<String?> getRefreshToken() => _secureStorage.read(key: _refreshToken);
+
+  Future<String?> getDeviceToken() =>
+      _secureStorage.read(key: _device_token_key);
+
+  Future<String?> getDeviceType() => _secureStorage.read(key: _device_type);
 
   Future<int?> getExpiresIn() async {
     final value = await _secureStorage.read(key: _expiresIn);
