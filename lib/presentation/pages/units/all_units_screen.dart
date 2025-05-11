@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
+import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
 class AllUnitsScreen extends StatefulWidget {
   const AllUnitsScreen({super.key});
@@ -46,61 +48,63 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const Text(""),
-        elevation: 0,
-        title: Text(
-          "All Units",
-          style: TextStyle(
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
-            color: AppColors.text1,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.w),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
+    return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: const Text(""),
+          elevation: 0,
+          title: Text(
+            "All Units",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontWeight: FontWeight.w600,
+              fontSize: 16.sp,
+              color: AppColors.text1,
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Total Units 12",
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text1,
+          ),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Total Units 12",
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontFamily: "Montserrat",
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text1,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: allUnits.length,
-                itemBuilder: (context, index) {
-                  final unit = allUnits[index];
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 16.h),
-                    child: _buildUnitContainer(unit),
-                  );
-                },
+              const SizedBox(
+                height: 14,
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: allUnits.length,
+                  itemBuilder: (context, index) {
+                    final unit = allUnits[index];
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 16.h),
+                      child: _buildUnitContainer(unit),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildUnitContainer(Map<String, String> unit) {

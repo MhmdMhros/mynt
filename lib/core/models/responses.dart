@@ -15,6 +15,11 @@ import '../../domain/entities/otp_verification_success.dart';
 import '../../domain/entities/signup_success.dart';
 import '../../domain/entities/refresh_token_success.dart';
 import '../../domain/entities/settings_data.dart';
+import '../../domain/entities/dashboard_data.dart';
+import '../../domain/entities/banner.dart';
+import '../../domain/entities/booking.dart';
+import '../../domain/entities/ticket.dart';
+import '../../domain/entities/article.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -58,6 +63,16 @@ part '../../data/responses/body_photo_response.dart';
 part '../../data/responses/refresh_token_success_response.dart';
 
 part '../../data/responses/settings_data_response.dart';
+
+part '../../data/responses/dashboard_data_response.dart';
+
+part '../../data/responses/article_response.dart';
+
+part '../../data/responses/banner_response.dart';
+
+part '../../data/responses/booking_response.dart';
+
+part '../../data/responses/ticket_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

@@ -154,3 +154,99 @@ SettingsDataResponse _$SettingsDataResponseFromJson(
           json['plans_subscriptions_terms_content_text'] as String?,
       paymentTermsContentText: json['payment_terms_content_text'] as String?,
     );
+
+CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
+    CategoryResponse(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+    );
+
+ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
+    ArticleResponse(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      slug: json['slug'] as String?,
+      description: json['description'] as String?,
+      excerpt: json['excerpt'] as String?,
+      metaTitle: json['meta_title'] as String?,
+      metaDescription: json['meta_description'] as String?,
+      publishedAt: json['published_at'] as String?,
+      route: json['route'] as String?,
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => CategoryResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      image: json['image'] as String?,
+    );
+
+BookedDateResponse _$BookedDateResponseFromJson(Map<String, dynamic> json) =>
+    BookedDateResponse(
+      bookingId: json['booking_id'] as int?,
+      date: json['date'] as String?,
+    );
+
+BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>
+    BookingResponse(
+      id: json['id'] as int?,
+      checkin: json['checkin'] as String?,
+      checkout: json['checkout'] as String?,
+      bookingId: json['booking_id'] as int?,
+      accountId: json['account_id'] as int?,
+      netTotal: json['net_total'] as String?,
+      balance: json['balance'] as String?,
+      customerName: json['customer_name'] as String?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      projectId: json['project_id'] as int?,
+      projectTitle: json['project_title'] as String?,
+      projectAddress: json['project_address'] as String?,
+      gallery:
+          (json['gallery'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      bookedDates: (json['booked_dates'] as List<dynamic>?)
+          ?.map((e) => BookedDateResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+TicketResponse _$TicketResponseFromJson(Map<String, dynamic> json) =>
+    TicketResponse(
+      id: json['id'] as int?,
+      propertyTitle: json['property_title'] as String?,
+      propertyNumber: json['property_number'] as String?,
+      propertyBuilding: json['property_building'] as String?,
+      customerName: json['customer_name'] as String?,
+      customerPhone: json['customer_phone'] as String?,
+      ownerName: json['owner_name'] as String?,
+      ownerPhone: json['owner_phone'] as String?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      statusText: json['status_text'] as String?,
+      creationDate: json['creation_date'] as String?,
+      creationTime: json['creation_time'] as String?,
+      gallery:
+          (json['gallery'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    );
+
+BannerResponse _$BannerResponseFromJson(Map<String, dynamic> json) =>
+    BannerResponse(
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+      featuredImage: json['featured_image'] as String?,
+    );
+
+DashboardDataResponse _$DashboardDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    DashboardDataResponse(
+      banners: (json['banners'] as List<dynamic>?)
+          ?.map((e) => BannerResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      bookings: (json['bookings'] as List<dynamic>?)
+          ?.map((e) => BookingResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      tickets: (json['tickets'] as List<dynamic>?)
+          ?.map((e) => TicketResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      articles: (json['articles'] as List<dynamic>?)
+          ?.map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      balance: json['balance'] as int?,
+    );

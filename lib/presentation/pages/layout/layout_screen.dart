@@ -42,6 +42,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
       } else {
         _showLoginPopup();
       }
+    } else {
+      await cubit.getSettingsData();
     }
   }
 

@@ -48,6 +48,7 @@ class Constants {
   static const String settingsPath = 'settings-management?slug=pages';
 
   static const String getUserPath = 'owner/data';
+  static const String getHomeDataPath = 'owner/home-page';
   static const String updateUserPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =
       'clients/{clientId}/body-photos';

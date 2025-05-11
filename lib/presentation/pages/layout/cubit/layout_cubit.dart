@@ -8,6 +8,7 @@ import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/di.dart';
+import 'package:mynt/domain/entities/dashboard_data.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
 import 'package:mynt/domain/entities/user.dart';
 import 'package:mynt/domain/usecases/get_user_usecase.dart';
@@ -24,9 +25,13 @@ part 'layout_state.dart';
 
 @injectable
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit(this._getUserUseCase, this._refreshTokenUsecase,
-      this._settingsDataUsecase, this._logoutUseCase, this._sendOtpUsecase)
-      : super(LayoutInitial());
+  LayoutCubit(
+    this._getUserUseCase,
+    this._refreshTokenUsecase,
+    this._settingsDataUsecase,
+    this._logoutUseCase,
+    this._sendOtpUsecase,
+  ) : super(LayoutInitial());
   final GetUserUseCase _getUserUseCase;
   final RefreshTokenUsecase _refreshTokenUsecase;
   final SettingsDataUsecase _settingsDataUsecase;
@@ -37,6 +42,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   User? user;
   SettingsData? settingsData;
+  DashboardData? dashboardData;
 
   int bottomNavIndex = 0;
 
@@ -105,8 +111,8 @@ class LayoutCubit extends Cubit<LayoutState> {
         emit(GetSettingsDataFailure(l.message));
         return false;
       },
-      (data) {
-        settingsData = data;
+      (settingsData) {
+        this.settingsData = settingsData;
         emit(GetSettingsDataSuccess());
         return true;
       },

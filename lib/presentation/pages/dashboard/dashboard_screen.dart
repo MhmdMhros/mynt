@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/balances/balances_Screen.dart';
+import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
 import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
 import 'package:mynt/presentation/pages/news/news_screen.dart';
@@ -14,205 +17,240 @@ import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart'
 import 'package:mynt/presentation/pages/units/units_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});
 
   @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _handleHomeLogic();
+  }
+
+  Future<void> _handleHomeLogic() async {
+    final cubit = DashboardCubit.get(context);
+    final homeFetched = await cubit.getHomeData();
+    if (homeFetched) {
+      showToast('Congratulations!!!.', ToastType.success);
+    } else {
+      showToast('Oooooooops!!!.', ToastType.error);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: Stack(
-        children: [
-          Column(
+    return BlocBuilder<DashboardCubit, DashboardState>(
+        builder: (context, state) {
+      final cubit = DashboardCubit.get(context);
+      if (state is GetHomeDataSuccess) {
+        return Scaffold(
+          backgroundColor: Colors.grey[200],
+          body: Stack(
             children: [
-              Container(
-                height: 0.25.sh,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF0F525B),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(right: 24.w, left: 24.w, bottom: 60.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: SvgPicture.asset(
-                          "assets/images/myntNameImage2.svg",
-                          height: 50.h,
-                          width: 100.w,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NotificationsScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(8.w),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          child: Icon(
-                            Icons.notifications_outlined,
-                            color: const Color(0xFF0F525B),
-                            size: 20.sp,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 70.h),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
+              Column(
+                children: [
+                  Container(
+                    height: 0.25.sh,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF0F525B),
+                    ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: EdgeInsets.only(
+                          right: 24.w, left: 24.w, bottom: 60.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(height: 50.h),
-                          _buildSectionTitle("Current Balance", () {}, false),
-                          SizedBox(height: 10.h),
-
-                          _buildCurrentBalance(context),
-                          SizedBox(height: 16.h),
-
-                          // Rented Units Section
-                          _buildSectionTitle("Rented Units", () {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const UnitsScreen(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ); // Uses a smoother transition
-                                },
+                          Flexible(
+                            child: SvgPicture.asset(
+                              "assets/images/myntNameImage2.svg",
+                              height: 50.h,
+                              width: 100.w,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const NotificationsScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
-                            );
-                          }, true),
-                          SizedBox(height: 10.h),
-                          _buildRentedUnitsList(),
-
-                          SizedBox(height: 16.h),
-
-                          // Required Action Section
-                          _buildSectionTitle("Required Action", () {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const RequiredActionsScreen(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ); // Uses a smoother transition
-                                },
+                              child: Icon(
+                                Icons.notifications_outlined,
+                                color: const Color(0xFF0F525B),
+                                size: 20.sp,
                               ),
-                            );
-                          }, true),
-                          SizedBox(height: 10.h),
-                          _buildActionCard(context),
-
-                          SizedBox(height: 16.h),
-
-                          // Last Tickets Section
-                          _buildSectionTitle("Tickets", () {
-                            // Navigator.of(context).push(
-                            //   PageRouteBuilder(
-                            //     pageBuilder:
-                            //         (context, animation, secondaryAnimation) =>
-                            //             const TicketsScreen(),
-                            //     transitionsBuilder: (context, animation,
-                            //         secondaryAnimation, child) {
-                            //       return FadeTransition(
-                            //         opacity: animation,
-                            //         child: child,
-                            //       ); // Uses a smoother transition
-                            //     },
-                            //   ),
-                            // );
-                          }, false),
-                          SizedBox(height: 10.h),
-                          _buildTicketCard(context),
-
-                          SizedBox(height: 16.h),
-                          _buildSectionTitle("News", () {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        const NewsScreen(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ); // Uses a smoother transition
-                                },
-                              ),
-                            );
-                          }, true),
-                          SizedBox(height: 10.h),
-                          Column(
-                            children: [
-                              buildProductList([
-                                {
-                                  "image":
-                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                  "description":
-                                      "This is a great product with amazing features.",
-                                  "date": "2/5/2023"
-                                },
-                                {
-                                  "image":
-                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                  "description":
-                                      "Another amazing product with high-quality design.",
-                                  "date": "10/6/2023"
-                                },
-                                {
-                                  "image":
-                                      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                  "description":
-                                      "Best-selling product with great user reviews.",
-                                  "date": "15/7/2023"
-                                },
-                              ], context),
-                            ],
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 70.h),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 50.h),
+                              _buildSectionTitle(
+                                  "Current Balance", () {}, false),
+                              SizedBox(height: 10.h),
+
+                              _buildCurrentBalance(context),
+                              SizedBox(height: 16.h),
+
+                              // Rented Units Section
+                              _buildSectionTitle("Rented Units", () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        const UnitsScreen(),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ); // Uses a smoother transition
+                                    },
+                                  ),
+                                );
+                              }, true),
+                              SizedBox(height: 10.h),
+                              _buildRentedUnitsList(),
+
+                              SizedBox(height: 16.h),
+
+                              // Required Action Section
+                              _buildSectionTitle("Required Action", () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        const RequiredActionsScreen(),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ); // Uses a smoother transition
+                                    },
+                                  ),
+                                );
+                              }, true),
+                              SizedBox(height: 10.h),
+                              _buildActionCard(context),
+
+                              SizedBox(height: 16.h),
+
+                              // Last Tickets Section
+                              _buildSectionTitle("Tickets", () {
+                                // Navigator.of(context).push(
+                                //   PageRouteBuilder(
+                                //     pageBuilder:
+                                //         (context, animation, secondaryAnimation) =>
+                                //             const TicketsScreen(),
+                                //     transitionsBuilder: (context, animation,
+                                //         secondaryAnimation, child) {
+                                //       return FadeTransition(
+                                //         opacity: animation,
+                                //         child: child,
+                                //       ); // Uses a smoother transition
+                                //     },
+                                //   ),
+                                // );
+                              }, false),
+                              SizedBox(height: 10.h),
+                              _buildTicketCard(context),
+
+                              SizedBox(height: 16.h),
+                              _buildSectionTitle("News", () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        const NewsScreen(),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ); // Uses a smoother transition
+                                    },
+                                  ),
+                                );
+                              }, true),
+                              SizedBox(height: 10.h),
+                              Column(
+                                children: [
+                                  buildProductList([
+                                    {
+                                      "image":
+                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+                                      "description":
+                                          "This is a great product with amazing features.",
+                                      "date": "2/5/2023"
+                                    },
+                                    {
+                                      "image":
+                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+                                      "description":
+                                          "Another amazing product with high-quality design.",
+                                      "date": "10/6/2023"
+                                    },
+                                    {
+                                      "image":
+                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+                                      "description":
+                                          "Best-selling product with great user reviews.",
+                                      "date": "15/7/2023"
+                                    },
+                                  ], context),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 120.h, left: 15.w, right: 15.w),
+                child: _buildNewAds(),
+              )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 120.h, left: 15.w, right: 15.w),
-            child: _buildNewAds(),
-          )
-        ],
-      ),
-    );
+        );
+      } else {
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+    });
   }
 
   Widget _buildSectionTitle(

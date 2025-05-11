@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynt/core/services/BlocObserver.dart';
 import 'package:mynt/di.dart';
+import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/splash_screen.dart';
+import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +35,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<LayoutCubit>(
             create: (_) => getIt<LayoutCubit>(),
+          ),
+          BlocProvider<DashboardCubit>(
+            create: (_) => getIt<DashboardCubit>(),
+          ),
+          BlocProvider<UnitsCubit>(
+            create: (_) => getIt<UnitsCubit>(),
           ),
         ],
         child: MaterialApp(

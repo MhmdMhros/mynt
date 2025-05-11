@@ -1,3 +1,4 @@
+import 'package:mynt/domain/entities/dashboard_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
@@ -52,6 +53,8 @@ abstract class Repository {
   );
 
   Future<Either<Failure, SettingsData>> settingsData();
+
+  Future<Either<Failure, DashboardData>> dashboardData();
 
   Future<Either<Failure, SignupSuccess>> signup(
     SignupRequest signupRequest,

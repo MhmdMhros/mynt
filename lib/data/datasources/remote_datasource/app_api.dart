@@ -119,4 +119,7 @@ abstract class AppServiceClient {
   Future<HttpResponse<void>> editAccountPhone(
     @Body() EditPhoneRequest editPhoneRequest,
   );
+
+  @GET(Constants.getHomeDataPath)
+  Future<HttpResponse<DashboardDataResponse>> getHomeData();
 }

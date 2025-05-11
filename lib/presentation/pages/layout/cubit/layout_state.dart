@@ -51,14 +51,6 @@ class LogoutFailure extends LayoutState {
   const LogoutFailure(this.message);
 }
 
-class SocketDataUpdated extends LayoutState {
-  final dynamic data;
-  const SocketDataUpdated(this.data);
-
-  @override
-  List<Object> get props => [data];
-}
-
 final class SendOtpSuccess extends LayoutState {}
 
 final class SendOtpError extends LayoutState {

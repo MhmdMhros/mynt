@@ -33,6 +33,7 @@ import 'package:mynt/domain/usecases/logout_usecase.dart' as _i1009;
 import 'package:mynt/domain/usecases/edit_account_data_usecase.dart' as _i1010;
 import 'package:mynt/domain/usecases/edit_email_usecase.dart' as _i1011;
 import 'package:mynt/domain/usecases/edit_phone_usecase.dart' as _i1012;
+import 'package:mynt/domain/usecases/get_home_data_usecase.dart' as _i1013;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -40,6 +41,9 @@ import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart'
     as _i2001;
 import 'package:mynt/presentation/pages/email verification/cubit/verification_cubit.dart'
     as _i2003;
+import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart'
+    as _i2004;
+import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart' as _i2005;
 
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
@@ -179,6 +183,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i1009.LogoutUseCase>(
         () => _i1009.LogoutUseCase(gh<_i8.Repository>()));
 
+    gh.lazySingleton<_i1013.GetHomeDataUsecase>(
+        () => _i1013.GetHomeDataUsecase(gh<_i8.Repository>()));
+
     gh.factory<_i2001.LayoutCubit>(() => _i2001.LayoutCubit(
           gh<_i1005.GetUserUseCase>(),
           gh<_i1006.RefreshTokenUsecase>(),
@@ -186,6 +193,12 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1009.LogoutUseCase>(),
           gh<_i1003.SendOtpUsecase>(),
         ));
+
+    gh.factory<_i2004.DashboardCubit>(() => _i2004.DashboardCubit(
+          gh<_i1013.GetHomeDataUsecase>(),
+        ));
+
+    gh.factory<_i2005.UnitsCubit>(() => _i2005.UnitsCubit());
 
     return this;
   }
