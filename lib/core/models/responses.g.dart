@@ -250,3 +250,28 @@ DashboardDataResponse _$DashboardDataResponseFromJson(
           .toList(),
       balance: json['balance'] as int?,
     );
+
+NotificationResponse _$NotificationResponseFromJson(
+        Map<String, dynamic> json) =>
+    NotificationResponse(
+      id: json['id'] as int?,
+      notiObjectId: json['noti_object_id'] as int?,
+      entityId: json['entity_id'] as int?,
+      entityTypeId: json['entity_type_id'] as int?,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      url: json['url'] as String?,
+      encodedUrl: json['encoded_url'] as String?,
+      time: json['time'] as String?,
+      readAt: json['read_at'] as String?,
+    );
+
+NotificationsDataResponse _$NotificationsDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    NotificationsDataResponse(
+      total: json['total'] as int?,
+      notifications: (json['items'] as List<dynamic>?)
+          ?.map((e) => NotificationResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      totalUnReadCount: json['totalUnReadCount'] as int?,
+    );

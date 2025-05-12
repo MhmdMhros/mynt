@@ -11,8 +11,8 @@ class UserSecureStorage {
   static const _refreshToken = 'refresh_token';
   static const _expiresIn = 'expires_in';
   static const _tokenSavedAt = 'token_saved_at';
-  static const _device_token_key = 'device_token_key';
-  static const _device_type = 'device_type';
+  static const _deviceTokenKey = 'device_token_key';
+  static const _deviceType = 'device_type';
 
   const UserSecureStorage(this._secureStorage);
   final FlutterSecureStorage _secureStorage;
@@ -39,9 +39,9 @@ class UserSecureStorage {
       if (expiresIn != null)
         _secureStorage.write(key: _expiresIn, value: expiresIn.toString()),
       if (deviceToken != null)
-        _secureStorage.write(key: _device_token_key, value: deviceToken),
+        _secureStorage.write(key: _deviceTokenKey, value: deviceToken),
       if (deviceType != null)
-        _secureStorage.write(key: _device_type, value: deviceType),
+        _secureStorage.write(key: _deviceType, value: deviceType),
     ]);
 
     if (accessToken != null && expiresIn != null) {
@@ -87,8 +87,8 @@ class UserSecureStorage {
         _secureStorage.delete(key: _refreshToken),
         _secureStorage.delete(key: _expiresIn),
         _secureStorage.delete(key: _tokenSavedAt),
-        _secureStorage.delete(key: _device_token_key),
-        _secureStorage.delete(key: _device_type),
+        _secureStorage.delete(key: _deviceTokenKey),
+        _secureStorage.delete(key: _deviceType),
       ]);
 
   Future<int?> getUserId() async {
@@ -107,10 +107,9 @@ class UserSecureStorage {
 
   Future<String?> getRefreshToken() => _secureStorage.read(key: _refreshToken);
 
-  Future<String?> getDeviceToken() =>
-      _secureStorage.read(key: _device_token_key);
+  Future<String?> getDeviceToken() => _secureStorage.read(key: _deviceTokenKey);
 
-  Future<String?> getDeviceType() => _secureStorage.read(key: _device_type);
+  Future<String?> getDeviceType() => _secureStorage.read(key: _deviceType);
 
   Future<int?> getExpiresIn() async {
     final value = await _secureStorage.read(key: _expiresIn);

@@ -122,4 +122,7 @@ abstract class AppServiceClient {
 
   @GET(Constants.getHomeDataPath)
   Future<HttpResponse<DashboardDataResponse>> getHomeData();
+
+  @GET(Constants.getNotificationsPath)
+  Future<HttpResponse<NotificationsDataResponse>> getNotifications();
 }

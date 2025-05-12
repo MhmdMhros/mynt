@@ -148,11 +148,11 @@ class LayoutCubit extends Cubit<LayoutState> {
         showToast('Failed to send verification code. Please try again later.',
             ToastType.error);
         emit(SendOtpError(failure.message));
-        return true;
+        return false;
       },
       (success) {
         emit(SendOtpSuccess());
-        return false;
+        return true;
       },
     );
   }
@@ -163,6 +163,7 @@ class LayoutCubit extends Cubit<LayoutState> {
       await getIt<UserSecureStorage>().upsertUserInfo(
         email: user!.email,
       );
+      showToast('Doneeeeeeeeeeeeeeeeeeeeee.', ToastType.success);
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:mynt/domain/entities/dashboard_data.dart';
+import 'package:mynt/domain/entities/notifications_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 
@@ -309,6 +310,14 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, DashboardData>> dashboardData() async {
     return _repositoryHelpers.callApi<DashboardData>(
       () => _appServiceClient.getHomeData(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, NotificationsData>> notificationsData() async {
+    return _repositoryHelpers.callApi<NotificationsData>(
+      () => _appServiceClient.getNotifications(),
       statusCode: 200,
     );
   }

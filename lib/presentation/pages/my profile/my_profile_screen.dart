@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
@@ -199,6 +200,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         final success =
             await LayoutCubit.get(context).sendOtp(emailController.text);
         if (success) {
+          showToast(nameController.text, ToastType.error);
+          showToast(genderController.text, ToastType.error);
+          showToast(birthDateController.text, ToastType.error);
           final result = await Navigator.push(
             context,
             MaterialPageRoute(
@@ -243,7 +247,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         ? nameController
                         : type == 'gender'
                             ? genderController
-                            : type == 'birthday'
+                            : type == 'data'
                                 ? birthDateController
                                 : null,
             style: TextStyle(

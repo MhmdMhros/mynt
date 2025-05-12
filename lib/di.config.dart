@@ -34,6 +34,8 @@ import 'package:mynt/domain/usecases/edit_account_data_usecase.dart' as _i1010;
 import 'package:mynt/domain/usecases/edit_email_usecase.dart' as _i1011;
 import 'package:mynt/domain/usecases/edit_phone_usecase.dart' as _i1012;
 import 'package:mynt/domain/usecases/get_home_data_usecase.dart' as _i1013;
+import 'package:mynt/domain/usecases/get_notifications_data_usecase.dart'
+    as _i1014;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -44,6 +46,8 @@ import 'package:mynt/presentation/pages/email verification/cubit/verification_cu
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart'
     as _i2004;
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart' as _i2005;
+import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart'
+    as _i2006;
 
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
@@ -199,6 +203,13 @@ extension GetItInjectableX on _i1.GetIt {
         ));
 
     gh.factory<_i2005.UnitsCubit>(() => _i2005.UnitsCubit());
+
+    gh.lazySingleton<_i1014.GetNotificationsDataUsecase>(
+        () => _i1014.GetNotificationsDataUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i2006.NotificationsCubit>(() => _i2006.NotificationsCubit(
+          gh<_i1014.GetNotificationsDataUsecase>(),
+        ));
 
     return this;
   }

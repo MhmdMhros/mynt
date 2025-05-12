@@ -49,6 +49,7 @@ class Constants {
 
   static const String getUserPath = 'owner/data';
   static const String getHomeDataPath = 'owner/home-page';
+  static const String getNotificationsPath = 'notifications';
   static const String updateUserPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =
       'clients/{clientId}/body-photos';

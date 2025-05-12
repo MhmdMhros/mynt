@@ -20,6 +20,8 @@ import '../../domain/entities/banner.dart';
 import '../../domain/entities/booking.dart';
 import '../../domain/entities/ticket.dart';
 import '../../domain/entities/article.dart';
+import '../../domain/entities/notification.dart';
+import '../../domain/entities/notifications_data.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -73,6 +75,10 @@ part '../../data/responses/banner_response.dart';
 part '../../data/responses/booking_response.dart';
 
 part '../../data/responses/ticket_response.dart';
+
+part '../../data/responses/notification_response.dart';
+
+part '../../data/responses/notifications_data_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

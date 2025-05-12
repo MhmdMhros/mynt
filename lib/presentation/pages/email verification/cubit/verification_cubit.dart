@@ -56,7 +56,6 @@ class VerificationCubit extends Cubit<VerificationState> {
         return false;
       },
       (success) {
-        showToast("Login successfully!!!", ToastType.success);
         emit(VerificationSuccess());
         return true;
       },
