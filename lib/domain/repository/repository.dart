@@ -1,8 +1,18 @@
+import 'package:mynt/domain/entities/account_summary_data.dart';
+import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/domain/entities/bookings_data.dart';
+import 'package:mynt/domain/entities/create_ticket_success.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
+import 'package:mynt/domain/entities/images_data.dart';
 import 'package:mynt/domain/entities/notifications_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
+import 'package:mynt/domain/entities/request_service_data.dart';
+import 'package:mynt/domain/entities/restriction_success.dart';
+import 'package:mynt/domain/entities/review_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
+import 'package:mynt/domain/entities/tickets_data.dart';
+import 'package:mynt/domain/entities/un_read_notifications_count.dart';
 
 import '../../core/models/no_data.dart';
 import '../entities/user.dart';
@@ -57,7 +67,37 @@ abstract class Repository {
 
   Future<Either<Failure, DashboardData>> dashboardData();
 
-  Future<Either<Failure, NotificationsData>> notificationsData();
+  Future<Either<Failure, NotificationsData>> notificationsData(
+      GetAllNotificationsRequest getAllNotificationsRequest);
+
+  Future<Either<Failure, UnReadNotificationsCount>>
+      getUnReadNotificationsCount();
+
+  Future<Either<Failure, BookingsData>> bookingsData(
+      GetAllUnitsRequest getAllUnitsRequest);
+
+  Future<Either<Failure, TicketsData>> ticketsData(
+      GetAllTicketsRequest getAllTicketsRequest);
+
+  Future<Either<Failure, AccountSummaryData>> allAccountSummaryData();
+
+  Future<Either<Failure, AccountSummaryData>> bookingAccountSummaryData(
+      GetBookingAccountSummaryRequest getBookingAccountSummaryRequest);
+
+  Future<Either<Failure, Booking>> getBookingDetails(String bookingId);
+
+  Future<Either<Failure, RestrictionSuccess>> createRestriction(
+      CreateRestrictionRequest createRestrictionRequest);
+
+  Future<Either<Failure, ReviewSuccess>> createReview(
+      CreateReviewRequest createReviewRequest);
+
+  Future<Either<Failure, CreateTicketSuccess>> createTicket(
+      CreateTicketRequest createTicketRequest);
+
+  Future<Either<Failure, NoData>> readNotification(
+    String notificationId,
+  );
 
   Future<Either<Failure, SignupSuccess>> signup(
     SignupRequest signupRequest,
@@ -90,4 +130,10 @@ abstract class Repository {
   );
 
   Future<Either<Failure, NoData>> deleteAccount();
+
+  Future<Either<Failure, RequestServiceData>> requestServiceData();
+
+  Future<Either<Failure, ImagesData>> uploadTicketImages(
+    UploadImagesRequest uploadImagesRequest,
+  );
 }

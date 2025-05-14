@@ -275,3 +275,114 @@ NotificationsDataResponse _$NotificationsDataResponseFromJson(
           .toList(),
       totalUnReadCount: json['totalUnReadCount'] as int?,
     );
+
+BookingsDataResponse _$BookingsDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    BookingsDataResponse(
+      total: json['total'] as int?,
+      bookings: (json['items'] as List<dynamic>?)
+          ?.map((e) => BookingResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+TicketsDataResponse _$TicketsDataResponseFromJson(Map<String, dynamic> json) =>
+    TicketsDataResponse(
+      total: json['total'] as int?,
+      tickets: (json['items'] as List<dynamic>?)
+          ?.map((e) => TicketResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+RestrictionSuccessResponse _$RestrictionSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    RestrictionSuccessResponse(
+      message: json['message'] as String?,
+    );
+
+AccountSummaryResponse _$AccountSummaryResponseFromJson(
+        Map<String, dynamic> json) =>
+    AccountSummaryResponse(
+      id: json['id'] as int?,
+      propertyNumber: json['property_number'] as String?,
+      description: json['description'] as String?,
+      type: json['type'] as String?,
+      debit: json['debit'] as String?,
+      credit: json['credit'] as String?,
+      balance: json['balance'] as String?,
+      createdDate: json['created_date'] as String?,
+      createdAt: json['created_at'] as String?,
+    );
+
+AccountSummaryDataResponse _$AccountSummaryDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    AccountSummaryDataResponse(
+      total: json['total'] as int?,
+      accountSummary: (json['items'] as List<dynamic>?)
+          ?.map(
+              (e) => AccountSummaryResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      balance: json['balance'] as int?,
+    );
+
+UnReadNotificationsCountResponse _$UnReadNotificationsCountResponseFromJson(
+        int value) =>
+    UnReadNotificationsCountResponse(
+      unReadCount: value,
+    );
+
+ReviewSuccessResponse _$ReviewSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    ReviewSuccessResponse(
+      message: json['message'] as String?,
+    );
+
+CreateTicketSuccessResponse _$CreateTicketSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    CreateTicketSuccessResponse(
+      message: json['message'] as String?,
+    );
+
+ServiceTitleResponse _$ServiceTitleResponseFromJson(
+        Map<String, dynamic> json) =>
+    ServiceTitleResponse(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+    );
+
+BookingIdResponse _$BookingIdResponseFromJson(Map<String, dynamic> json) =>
+    BookingIdResponse(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+    );
+
+RequestServiceDataResponse _$RequestServiceDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    RequestServiceDataResponse(
+      serviceTitles: (json['complaint_titles'] as List<dynamic>?)
+          ?.map((e) => ServiceTitleResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      bookingIds: (json['properties'] as List<dynamic>?)
+          ?.map((e) => BookingIdResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+UploadedImageDataResponse _$UploadedImageDataResponseFromJson(
+        Map<String, dynamic> json) =>
+    UploadedImageDataResponse(
+      id: json['id'] as int?,
+      fileName: json['file_name'] as String?,
+      dir: json['dir'] as String?,
+      mimeType: json['mime_type'] as String?,
+      url: json['url'] as String?,
+      uploadPath: json['upload_path'] as String?,
+      background: json['background'] as String?,
+      field: json['field'] as String?,
+    );
+
+ImagesDataResponse _$ImagesDataResponseFromJson(Map<String, dynamic> json) =>
+    ImagesDataResponse(
+      uploaded: (json['uploaded'] as List<dynamic>?)
+          ?.map((e) =>
+              UploadedImageDataResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );

@@ -131,3 +131,35 @@ Map<String, dynamic> _$EditPhoneRequestToJson(EditPhoneRequest instance) =>
     <String, dynamic>{
       'phone': instance.phoneNumber,
     };
+
+Map<String, dynamic> _$CreateRestrictionRequestToJson(
+        CreateRestrictionRequest instance) =>
+    <String, dynamic>{
+      'property_id': instance.propertyId,
+      'date_from': instance.dateFrom,
+      'date_to': instance.dateTo,
+    };
+
+Map<String, dynamic> _$CreateReviewRequestToJson(
+        CreateReviewRequest instance) =>
+    <String, dynamic>{
+      'ticket_id': instance.ticketId,
+      'comment': instance.comment,
+      'score': instance.score,
+    };
+
+Map<String, dynamic> _$CreateTicketRequestToJson(
+        CreateTicketRequest instance) =>
+    <String, dynamic>{
+      'property_id': instance.propertyId,
+      'title_id': instance.titleId,
+      'description': instance.description,
+      'attachment[gallery][]': instance.attachments,
+    };
+
+Map<String, dynamic> _$UploadImagesRequestToJson(
+        UploadImagesRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'attachment[]': instance.files,
+    };

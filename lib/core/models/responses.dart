@@ -22,6 +22,19 @@ import '../../domain/entities/ticket.dart';
 import '../../domain/entities/article.dart';
 import '../../domain/entities/notification.dart';
 import '../../domain/entities/notifications_data.dart';
+import '../../domain/entities/bookings_data.dart';
+import '../../domain/entities/tickets_data.dart';
+import '../../domain/entities/restriction_success.dart';
+import '../../domain/entities/account_summary.dart';
+import '../../domain/entities/account_summary_data.dart';
+import '../../domain/entities/un_read_notifications_count.dart';
+import '../../domain/entities/review_success.dart';
+import '../../domain/entities/create_ticket_success.dart';
+import '../../domain/entities/service_title.dart';
+import '../../domain/entities/booking_id.dart';
+import '../../domain/entities/request_service_data.dart';
+import '../../domain/entities/uploaded_image_data.dart';
+import '../../domain/entities/images_data.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -79,6 +92,32 @@ part '../../data/responses/ticket_response.dart';
 part '../../data/responses/notification_response.dart';
 
 part '../../data/responses/notifications_data_response.dart';
+
+part '../../data/responses/bookings_data_response.dart';
+
+part '../../data/responses/tickets_data_response.dart';
+
+part '../../data/responses/restriction_success_response.dart';
+
+part '../../data/responses/account_summary_response.dart';
+
+part '../../data/responses/account_summary_data_response.dart';
+
+part '../../data/responses/un_read_count_notifications_response.dart';
+
+part '../../data/responses/review_success_response.dart';
+
+part '../../data/responses/create_ticket_success_response.dart';
+
+part '../../data/responses/service_title_response.dart';
+
+part '../../data/responses/booking_id_response.dart';
+
+part '../../data/responses/request_service_data_response.dart';
+
+part '../../data/responses/uploaded_image_data_response.dart';
+
+part '../../data/responses/images_data_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

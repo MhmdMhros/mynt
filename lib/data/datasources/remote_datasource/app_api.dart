@@ -124,5 +124,62 @@ abstract class AppServiceClient {
   Future<HttpResponse<DashboardDataResponse>> getHomeData();
 
   @GET(Constants.getNotificationsPath)
-  Future<HttpResponse<NotificationsDataResponse>> getNotifications();
+  Future<HttpResponse<NotificationsDataResponse>> getNotifications(
+    @Queries() Map<String, dynamic> query,
+  );
+
+  @GET(Constants.getBookingsPath)
+  Future<HttpResponse<BookingsDataResponse>> getBookings(
+    @Queries() Map<String, dynamic> query,
+  );
+
+  @GET(Constants.getTicketsPath)
+  Future<HttpResponse<TicketsDataResponse>> getTickets(
+    @Queries() Map<String, dynamic> query,
+  );
+
+  @GET(Constants.getBookingDetailsPath)
+  Future<HttpResponse<BookingResponse>> getBookingDetails(
+    @Path() String bookingId,
+  );
+
+  @POST(Constants.createRestrictionPath)
+  Future<HttpResponse<RestrictionSuccessResponse>> createRestriction(
+    @Body() CreateRestrictionRequest createRestrictionRequest,
+  );
+
+  @GET(Constants.getAccountSummary)
+  Future<HttpResponse<AccountSummaryDataResponse>> getBookingAccountSummary(
+    @Queries() Map<String, dynamic> query,
+  );
+
+  @GET(Constants.getAccountSummary)
+  Future<HttpResponse<AccountSummaryDataResponse>> getAllAccountSummary();
+
+  @POST(Constants.readNotification)
+  Future<HttpResponse<void>> readNotification(
+    @Path() String notificationId,
+  );
+
+  @GET(Constants.getNotificationsPath)
+  Future<HttpResponse<UnReadNotificationsCountResponse>>
+      getUnReadNotificationsCount();
+
+  @POST(Constants.createReviewPath)
+  Future<HttpResponse<ReviewSuccessResponse>> createReview(
+    @Body() CreateReviewRequest createReviewRequest,
+  );
+
+  @POST(Constants.createTicketPath)
+  Future<HttpResponse<CreateTicketSuccessResponse>> createTicket(
+    @Body() CreateTicketRequest createTicketRequest,
+  );
+
+  @GET(Constants.getRequestServiceDataPath)
+  Future<HttpResponse<RequestServiceDataResponse>> getRequestServiceData();
+
+  @POST(Constants.uploadTicketImagesPath)
+  Future<HttpResponse<ImagesDataResponse>> uploadTicketImages(
+    @Body() UploadImagesRequest uploadImagesRequest,
+  );
 }

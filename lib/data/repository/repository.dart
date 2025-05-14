@@ -1,10 +1,20 @@
+import 'package:mynt/domain/entities/account_summary_data.dart';
+import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/domain/entities/bookings_data.dart';
+import 'package:mynt/domain/entities/create_ticket_success.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
+import 'package:mynt/domain/entities/images_data.dart';
 import 'package:mynt/domain/entities/notifications_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
+import 'package:mynt/domain/entities/request_service_data.dart';
+import 'package:mynt/domain/entities/restriction_success.dart';
+import 'package:mynt/domain/entities/review_success.dart';
 import 'package:mynt/domain/entities/send_otp.dart';
 
 import 'package:dio/dio.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
+import 'package:mynt/domain/entities/tickets_data.dart';
+import 'package:mynt/domain/entities/un_read_notifications_count.dart';
 
 import '../../core/models/no_data.dart';
 import '../../domain/entities/user.dart';
@@ -315,9 +325,128 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, NotificationsData>> notificationsData() async {
+  Future<Either<Failure, NotificationsData>> notificationsData(
+    GetAllNotificationsRequest getAllNotificationsRequest,
+  ) async {
     return _repositoryHelpers.callApi<NotificationsData>(
-      () => _appServiceClient.getNotifications(),
+      () =>
+          _appServiceClient.getNotifications(getAllNotificationsRequest.query),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, BookingsData>> bookingsData(
+    GetAllUnitsRequest getAllUnitsRequest,
+  ) async {
+    return _repositoryHelpers.callApi<BookingsData>(
+      () => _appServiceClient.getBookings(getAllUnitsRequest.query),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, TicketsData>> ticketsData(
+    GetAllTicketsRequest getAllTicketsRequest,
+  ) async {
+    return _repositoryHelpers.callApi<TicketsData>(
+      () => _appServiceClient.getTickets(getAllTicketsRequest.query),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Booking>> getBookingDetails(
+    String bookingId,
+  ) async {
+    return _repositoryHelpers.callApi<Booking>(
+      () => _appServiceClient.getBookingDetails(bookingId),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, RestrictionSuccess>> createRestriction(
+    CreateRestrictionRequest createRestrictionRequest,
+  ) async {
+    return _repositoryHelpers.callApi<RestrictionSuccess>(
+      () => _appServiceClient.createRestriction(createRestrictionRequest),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, ReviewSuccess>> createReview(
+    CreateReviewRequest createReviewRequest,
+  ) async {
+    return _repositoryHelpers.callApi<ReviewSuccess>(
+      () => _appServiceClient.createReview(createReviewRequest),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, CreateTicketSuccess>> createTicket(
+    CreateTicketRequest createTicketRequest,
+  ) async {
+    return _repositoryHelpers.callApi<CreateTicketSuccess>(
+      () => _appServiceClient.createTicket(createTicketRequest),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, AccountSummaryData>> allAccountSummaryData() async {
+    return _repositoryHelpers.callApi<AccountSummaryData>(
+      () => _appServiceClient.getAllAccountSummary(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, AccountSummaryData>> bookingAccountSummaryData(
+    GetBookingAccountSummaryRequest getBookingAccountSummaryRequest,
+  ) async {
+    return _repositoryHelpers.callApi<AccountSummaryData>(
+      () => _appServiceClient
+          .getBookingAccountSummary(getBookingAccountSummaryRequest.query),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, NoData>> readNotification(
+    String notificationId,
+  ) async {
+    return _repositoryHelpers.callApi<NoData>(
+      () => _appServiceClient.readNotification(notificationId),
+      statusCode: 204,
+    );
+  }
+
+  @override
+  Future<Either<Failure, UnReadNotificationsCount>>
+      getUnReadNotificationsCount() async {
+    return _repositoryHelpers.callApi<UnReadNotificationsCount>(
+      () => _appServiceClient.getUnReadNotificationsCount(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, RequestServiceData>> requestServiceData() async {
+    return _repositoryHelpers.callApi<RequestServiceData>(
+      () => _appServiceClient.getRequestServiceData(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, ImagesData>> uploadTicketImages(
+    UploadImagesRequest uploadImagesRequest,
+  ) async {
+    return _repositoryHelpers.callApi<ImagesData>(
+      () => _appServiceClient.uploadTicketImages(uploadImagesRequest),
       statusCode: 200,
     );
   }

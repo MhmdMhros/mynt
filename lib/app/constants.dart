@@ -50,6 +50,18 @@ class Constants {
   static const String getUserPath = 'owner/data';
   static const String getHomeDataPath = 'owner/home-page';
   static const String getNotificationsPath = 'notifications';
+  static const String getBookingsPath = 'property-management';
+  static const String getTicketsPath = 'complaints';
+  static const String getBookingDetailsPath = 'property-management/';
+  static const String createRestrictionPath =
+      'property-management/restrictions';
+  static const String getAccountSummary = 'account-summary';
+  static const String readNotification = 'notifications/{notificationId}/read';
+  static const String createReviewPath = 'reviews';
+  static const String createTicketPath = 'complaints';
+  static const String getRequestServiceDataPath = 'complaints/create';
+  static const String uploadTicketImagesPath = 'complaints/upload';
+
   static const String updateUserPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =
       'clients/{clientId}/body-photos';
