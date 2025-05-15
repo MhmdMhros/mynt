@@ -44,11 +44,7 @@ class TicketsScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 12.h),
                   child: TicketWidget(
-                    ticketNum: ticket.propertyNumber ?? '',
-                    ticketTitle: ticket.propertyTitle ?? '',
-                    date:
-                        '${ticket.creationDate ?? ''} ${ticket.creationTime ?? ''}',
-                    status: ticket.statusText ?? '',
+                    ticket: ticket,
                   ),
                 ),
               );

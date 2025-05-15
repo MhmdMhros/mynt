@@ -191,3 +191,17 @@ void showToast(String message, ToastType type) {
     fontSize: 16.0,
   );
 }
+
+String normalizeEgyptianPhoneNumber(String phoneNumber) {
+  String cleaned = phoneNumber.replaceAll(RegExp(r'\D'), '').trim();
+
+  if (cleaned.startsWith('+20')) {
+    return cleaned;
+  } else if (cleaned.startsWith('20')) {
+    return '+$cleaned';
+  } else if (cleaned.startsWith('0')) {
+    return '+20${cleaned.substring(1)}';
+  } else {
+    return '+20$cleaned';
+  }
+}

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
 
 class RatingBottomSheet extends StatefulWidget {
-  const RatingBottomSheet({super.key});
+  final int ticketId;
+  const RatingBottomSheet(this.ticketId, {super.key});
 
   @override
   State<RatingBottomSheet> createState() => _RatingBottomSheetState();
@@ -15,112 +19,113 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.vertical(
-          top: Radius.circular(16.r)), // Rounded top corners
-      child: Container(
-        color: Colors.white, // Background color
-        padding: const EdgeInsets.all(16.0),
-        child: Stack(
-          children: [
-            Column(mainAxisSize: MainAxisSize.min, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(5, (index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 4.w, left: 4.w),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedRate = index + 1;
-                        });
-                      },
-                      child: Icon(
-                        index < (selectedRate ?? 0)
-                            ? Icons.star // Filled Star
-                            : Icons.star_border, // Outlined Star
-                        color: const Color(0xFFFFC107), // Star color
-                        size: 40.sp,
+    return BlocBuilder<TicketsCubit, TicketsState>(builder: (context, state) {
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(16.r)), // Rounded top corners
+        child: Container(
+          color: Colors.white, // Background color
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: [
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(5, (index) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: 4.w, left: 4.w),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedRate = index + 1;
+                          });
+                        },
+                        child: Icon(
+                          index < (selectedRate ?? 0)
+                              ? Icons.star // Filled Star
+                              : Icons.star_border, // Outlined Star
+                          color: const Color(0xFFFFC107), // Star color
+                          size: 40.sp,
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(height: 16.h),
+
+                // 2. Centered Text
+                Text(
+                  'How was your experience with the service?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                    color: AppColors.text1,
+                  ),
+                ),
+                SizedBox(height: 16.h),
+
+                // 3. Column with Text and TextField
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Comment',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.text1,
                       ),
                     ),
-                  );
-                }),
-              ),
-              SizedBox(height: 16.h),
+                    SizedBox(height: 10.h),
+                    TextField(
+                      controller: feedbackController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Write your comment here...',
+                        hintStyle:
+                            TextStyle(fontSize: 14.sp, color: Colors.grey),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide.none, // Removes border color
+                        ),
+                      ),
+                      style: TextStyle(fontSize: 14.sp),
+                      maxLines: 3,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16.h),
 
-              // 2. Centered Text
-              Text(
-                'How was your experience with the service?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat',
-                  color: AppColors.text1,
+                buildBottomButtons(context),
+              ]),
+              Positioned(
+                right: 0,
+                child: Container(
+                  width: 30.w, // Adjust width
+                  height: 30.h, // Adjust height
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF2F2F2),
+                    borderRadius:
+                        BorderRadius.circular(8.r), // Add border radius
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.close,
+                        size: 16, color: Color(0xFFA6A6A6)),
+                    padding: EdgeInsets.zero, // Remove default padding
+                    onPressed: () {
+                      Navigator.pop(context); // Dismiss Bottom Sheet
+                    },
+                  ),
                 ),
               ),
-              SizedBox(height: 16.h),
-
-              // 3. Column with Text and TextField
-              _buildTextField("Comment", "Write your comment here..."),
-              SizedBox(height: 16.h),
-
-              buildBottomButtons(context),
-            ]),
-            Positioned(
-              right: 0,
-              child: Container(
-                width: 30.w, // Adjust width
-                height: 30.h, // Adjust height
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF2F2F2),
-                  borderRadius: BorderRadius.circular(8.r), // Add border radius
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.close,
-                      size: 16, color: Color(0xFFA6A6A6)),
-                  padding: EdgeInsets.zero, // Remove default padding
-                  onPressed: () {
-                    Navigator.pop(context); // Dismiss Bottom Sheet
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(String title, String hint) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.text1,
+            ],
           ),
         ),
-        SizedBox(height: 10.h),
-        TextField(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            hintText: hint,
-            hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide.none, // Removes border color
-            ),
-          ),
-          style: TextStyle(fontSize: 14.sp),
-          maxLines: 3,
-        ),
-      ],
-    );
+      );
+    });
   }
 
   Widget buildBottomButtons(BuildContext context) {
@@ -142,8 +147,23 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
             width: 10.w,
           ),
           Expanded(
-            child: _buildButton("Send", AppColors.primary, Colors.white, () {
-              Navigator.pop(context);
+            child:
+                _buildButton("Send", AppColors.primary, Colors.white, () async {
+              if (selectedRate == null ||
+                  feedbackController.text.trim().isEmpty) {
+                showToast('Please provide both a score and a comment',
+                    ToastType.error);
+                return;
+              }
+              // Call cubit
+              final success = await TicketsCubit.get(context).createReview(
+                ticketId: widget.ticketId.toString(),
+                comment: feedbackController.text.trim(),
+                score: selectedRate.toString(),
+              );
+              if (success) {
+                Navigator.pop(context);
+              }
             }),
           ),
         ],

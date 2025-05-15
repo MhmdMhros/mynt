@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/ticket.dart';
 import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
 
 class TicketWidget extends StatelessWidget {
-  final String ticketNum;
-  final String ticketTitle;
-  final String date;
-  final String status;
+  final Ticket ticket;
 
   const TicketWidget({
     super.key,
-    required this.ticketNum,
-    required this.ticketTitle,
-    required this.date,
-    required this.status,
+    required this.ticket,
   });
 
   @override
@@ -24,13 +19,13 @@ class TicketWidget extends StatelessWidget {
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const TicketDetailsScreen(),
+                TicketDetailsScreen(ticket),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
-              ); // Uses a smoother transition
+              );
             },
           ),
         );
@@ -62,7 +57,7 @@ class TicketWidget extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            ticketTitle,
+                            ticket.title ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -76,7 +71,7 @@ class TicketWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    date,
+                    '${ticket.creationDate ?? ''} ${ticket.creationTime ?? ''}',
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.grey[600],
@@ -100,7 +95,7 @@ class TicketWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ticketNum,
+                        '#${ticket.id.toString()}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -114,14 +109,14 @@ class TicketWidget extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                     decoration: BoxDecoration(
-                      color: _getStatusBackgroundColor(status),
+                      color: _getStatusBackgroundColor(ticket.statusText ?? ''),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      status,
+                      ticket.statusText ?? '',
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: _getStatusTextColor(status),
+                        color: _getStatusTextColor(ticket.statusText ?? ''),
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
                       ),

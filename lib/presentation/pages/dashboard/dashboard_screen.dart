@@ -636,7 +636,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const TicketDetailsScreen(),
+                const UnitDetailsScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(
