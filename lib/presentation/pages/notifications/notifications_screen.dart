@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/app/functions.dart';
+import 'package:mynt/core/common/pagination/build_paged_list_view.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/notification.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/widgets/notification_widget.dart';
 
@@ -17,89 +18,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   void initState() {
     super.initState();
-    _getNotifications();
-  }
-
-  Future<void> _getNotifications() async {
-    final cubit = NotificationsCubit.get(context);
-    final notificationsFetched = await cubit.getNotifications();
-    if (notificationsFetched) {
-      showToast('Congratulations!!!.', ToastType.success);
-    } else {
-      showToast('Oooooooops!!!.', ToastType.error);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> notifications = [
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "New Message",
-        "description": "You have received a new message from John.",
-        "timeAgo": "5 mins ago",
-      },
-      {
-        "imageUrl":
-            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-        "name": "Order Update",
-        "description": "Your order #1234 has been shipped.",
-        "timeAgo": "1 hour ago",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/ddzepnwgb/image/upload/v1733960587/userImage1.png",
-        "name": "Reminder",
-        "description": "Don't forget your appointment tomorrow at 10 AM.",
-        "timeAgo": "Yesterday",
-      },
-    ];
-
     return BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
+      var cubit = NotificationsCubit.get(context);
       return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -125,19 +50,22 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
-          child: ListView.builder(
-            itemCount: notifications.length,
-            itemBuilder: (context, index) {
-              final item = notifications[index];
+          child: BuildPagedListView(
+            pagingController: cubit.pagingController,
+            fetchData: (page, limit) => cubit.getNotifications(page, limit),
+            disposeController: false,
+            buildItem: (item, index) {
+              final notification = item as Notification_R;
               return NotificationWidget(
-                imageUrl: item["imageUrl"]!,
-                name: item["name"]!,
-                description: item["description"]!,
-                timeAgo: item["timeAgo"]!,
-                onDelete: () {
-                  setState(() {
-                    notifications.removeAt(index);
-                  });
+                imageUrl: notification.url!,
+                name: notification.title ?? '',
+                description: notification.description ?? '',
+                timeAgo: notification.time ?? '',
+                isRead: notification.readAt == null || notification.readAt == ''
+                    ? false
+                    : true,
+                onRead: () async {
+                  await cubit.readNtification(notification.id.toString());
                 },
               );
             },

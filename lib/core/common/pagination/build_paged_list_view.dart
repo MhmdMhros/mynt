@@ -51,20 +51,22 @@ class BuildPagedListView<T> extends StatefulWidget {
 
 class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
   late final PagingController<int, T> _pagingController;
+  late void Function(int) _pageRequestListener;
 
   @override
   void initState() {
     super.initState();
     _pagingController = widget.pagingController as PagingController<int, T>;
-    _pagingController.addPageRequestListener((pageKey) {
+    _pageRequestListener = (pageKey) {
       _fetchPage(pageKey);
-    });
+    };
+    _pagingController.addPageRequestListener(_pageRequestListener);
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    if (!mounted) return;
     try {
       final newPage = await widget.fetchData(pageKey, 10);
+      if (!mounted) return;
 
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
@@ -79,14 +81,16 @@ class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
         _pagingController.appendPage(newItems, nextPageKey);
       }
     } catch (error) {
-      _pagingController.error = error;
+      if (mounted) {
+        _pagingController.error = error;
+      }
     }
   }
 
   @override
   void dispose() {
     if (widget.disposeController) {
-      _pagingController.removePageRequestListener((pageKey) {});
+      _pagingController.removePageRequestListener(_pageRequestListener);
       _pagingController.dispose();
     }
     super.dispose();
@@ -94,7 +98,6 @@ class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
 
   @override
   Widget build(BuildContext context) {
-    final padding = widget.padding ?? EdgeInsets.symmetric(vertical: 16.h);
     return RefreshIndicator(
       onRefresh: () => Future.sync(
         () => _pagingController.refresh(),
@@ -117,7 +120,6 @@ class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
                       parent: BouncingScrollPhysics()),
               pagingController: _pagingController,
               builderDelegate: buildDelegate(),
-              padding: padding,
             )
           : PagedListView<int, T>.separated(
               reverse: widget.isReverse,
@@ -130,9 +132,8 @@ class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
                       parent: BouncingScrollPhysics()),
               pagingController: _pagingController,
               builderDelegate: buildDelegate(),
-              padding: padding,
               separatorBuilder: (context, index) =>
-                  widget.separatorWidget ?? SizedBox(height: 16.h),
+                  widget.separatorWidget ?? SizedBox(height: 0.h),
             ),
     );
   }

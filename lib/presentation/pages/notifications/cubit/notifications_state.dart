@@ -17,3 +17,12 @@ class GetNotificationsFailure extends NotificationsState {
   final String message;
   const GetNotificationsFailure(this.message);
 }
+
+class ReadNotificationLoading extends NotificationsState {}
+
+class ReadNotificationSuccess extends NotificationsState {}
+
+class ReadNotificationFailure extends NotificationsState {
+  final String message;
+  const ReadNotificationFailure(this.message);
+}

@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';
 
-class NotificationWidget extends StatelessWidget {
+class NotificationWidget extends StatefulWidget {
   final String imageUrl;
   final String name;
   final String description;
   final String timeAgo;
-  final VoidCallback onDelete;
+  final bool isRead;
+  final Future<void> Function() onRead;
 
   const NotificationWidget({
     super.key,
@@ -17,8 +18,24 @@ class NotificationWidget extends StatelessWidget {
     required this.name,
     required this.description,
     required this.timeAgo,
-    required this.onDelete,
+    required this.isRead,
+    required this.onRead,
   });
+
+  @override
+  State<NotificationWidget> createState() => _NotificationWidgetState();
+}
+
+class _NotificationWidgetState extends State<NotificationWidget> {
+  bool isLoading = false;
+
+  Future<void> handleRead() async {
+    setState(() => isLoading = true);
+    await widget.onRead();
+    if (mounted) {
+      setState(() => isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,7 @@ class NotificationWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10.r)),
               child: CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: widget.imageUrl,
                 width: 40.w,
                 height: 40.h,
                 fit: BoxFit.cover,
@@ -70,7 +87,7 @@ class NotificationWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              name,
+                              widget.name,
                               style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontWeight: FontWeight.w600,
@@ -79,7 +96,7 @@ class NotificationWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 10.h),
                             Text(
-                              description,
+                              widget.description,
                               style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontWeight: FontWeight.w600,
@@ -91,7 +108,7 @@ class NotificationWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 10.h),
                             Text(
-                              timeAgo,
+                              widget.timeAgo,
                               style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontWeight: FontWeight.w600,
@@ -104,30 +121,37 @@ class NotificationWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Positioned(
-                    right: 0.w,
-                    top: 0.h,
-                    child: Container(
-                      width: 24.w,
-                      height: 24.h,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF9EBEC),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Center(
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.delete_outline_rounded,
-                            color: Colors.red,
-                            size: 15.w,
+                  if (!widget.isRead)
+                    Positioned(
+                      right: 0.w,
+                      top: 0.h,
+                      child: Container(
+                        width: 24.w,
+                        height: 24.h,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 229, 232, 251),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.visibility,
+                              color: Colors.blueAccent,
+                              size: 15.w,
+                            ),
+                            onPressed: widget.onRead,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
                           ),
-                          onPressed: onDelete,
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
                         ),
                       ),
                     ),
-                  ),
+                  if (!isLoading)
+                    const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
                 ],
               ),
             ),

@@ -24,4 +24,30 @@ class Notification_R {
     required this.time,
     required this.readAt,
   });
+
+  Notification_R copyWith({
+    int? id,
+    int? notiObjectId,
+    int? entityId,
+    int? entityTypeId,
+    String? title,
+    String? description,
+    String? url,
+    String? encodedUrl,
+    String? time,
+    String? readAt,
+  }) {
+    return Notification_R(
+      id: id ?? this.id,
+      notiObjectId: notiObjectId ?? this.notiObjectId,
+      entityId: entityId ?? this.entityId,
+      entityTypeId: entityTypeId ?? this.entityTypeId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      url: url ?? this.url,
+      encodedUrl: encodedUrl ?? this.encodedUrl,
+      time: time ?? this.time,
+      readAt: readAt ?? this.readAt,
+    );
+  }
 }

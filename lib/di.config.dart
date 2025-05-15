@@ -36,6 +36,7 @@ import 'package:mynt/domain/usecases/edit_phone_usecase.dart' as _i1012;
 import 'package:mynt/domain/usecases/get_home_data_usecase.dart' as _i1013;
 import 'package:mynt/domain/usecases/get_notifications_data_usecase.dart'
     as _i1014;
+import 'package:mynt/domain/usecases/read_notification_usecase.dart' as _i1015;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -207,8 +208,12 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i1014.GetNotificationsDataUsecase>(
         () => _i1014.GetNotificationsDataUsecase(gh<_i8.Repository>()));
 
+    gh.lazySingleton<_i1015.ReadNotificationUsecase>(
+        () => _i1015.ReadNotificationUsecase(gh<_i8.Repository>()));
+
     gh.factory<_i2006.NotificationsCubit>(() => _i2006.NotificationsCubit(
           gh<_i1014.GetNotificationsDataUsecase>(),
+          gh<_i1015.ReadNotificationUsecase>(),
         ));
 
     return this;

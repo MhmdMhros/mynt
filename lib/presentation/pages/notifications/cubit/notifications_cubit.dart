@@ -2,38 +2,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mynt/app/functions.dart';
-import 'package:mynt/core/base_usecase.dart';
-import 'package:mynt/domain/entities/notifications_data.dart';
+import 'package:mynt/core/common/pagination/list_page.dart';
+import 'package:mynt/data/requests/requests.dart';
+import 'package:mynt/domain/entities/notification.dart';
 import 'package:mynt/domain/usecases/get_notifications_data_usecase.dart';
+import 'package:mynt/domain/usecases/read_notification_usecase.dart';
 
 part 'notifications_state.dart';
 
 @injectable
 class NotificationsCubit extends Cubit<NotificationsState> {
-  NotificationsCubit(this._getNotificationsDataUsecase)
+  NotificationsCubit(
+      this._getNotificationsDataUsecase, this._readNotificationUsecase)
       : super(NotificationsInitial());
   final GetNotificationsDataUsecase _getNotificationsDataUsecase;
+  final ReadNotificationUsecase _readNotificationUsecase;
 
   static NotificationsCubit get(BuildContext context) =>
       BlocProvider.of(context);
 
-  NotificationsData? notificationsData;
+  PagingController<int, Notification_R> pagingController =
+      PagingController<int, Notification_R>(
+    firstPageKey: 1,
+  );
 
-  Future<bool> getNotifications() async {
+  Future<ListPage<Notification_R>> getNotifications(int page, int limit) async {
     emit(GetNotificationsLoading());
-    final res = await _getNotificationsDataUsecase(NoParams());
+    final res = await _getNotificationsDataUsecase(
+      GetAllNotificationsRequest(query: {
+        'page': page,
+        'paginate': limit,
+      }),
+    );
+    return res.fold(
+      (l) {
+        emit(GetNotificationsFailure(l.message));
+        throw l.message;
+      },
+      (r) {
+        emit(GetNotificationsSuccess());
+        return ListPage(
+          grandTotalCount: r.total,
+          itemList: r.notifications,
+        );
+      },
+    );
+  }
+
+  Future<bool> readNtification(String notificationId) async {
+    emit(ReadNotificationLoading());
+    final res = await _readNotificationUsecase(notificationId);
 
     return await res.fold(
-      (failure) {
-        showToast('Failed!!!.', ToastType.error);
-        emit(GetNotificationsFailure(failure.message));
+      (f) {
+        emit(ReadNotificationFailure(f.message));
         return false;
       },
-      (notificationsData) {
-        this.notificationsData = notificationsData;
-        emit(GetNotificationsSuccess());
+      (s) {
+        emit(ReadNotificationSuccess());
+        // تعديل العنصر داخل PagingController
+        final currentItems = pagingController.itemList;
+        if (currentItems == null) return true;
+
+        final index = currentItems
+            .indexWhere((item) => item.id.toString() == notificationId);
+        if (index != -1) {
+          final updatedItem = currentItems[index].copyWith(readAt: 'true');
+          final updatedItems = [...currentItems];
+          updatedItems[index] = updatedItem;
+
+          pagingController.itemList = updatedItems;
+        }
         return true;
       },
     );
