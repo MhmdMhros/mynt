@@ -1,18 +1,25 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/success_request_bottom_sheet.dart';
-import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
-class EnterDateBottomSheet extends StatefulWidget {
-  const EnterDateBottomSheet({super.key});
+class BlockUnitBottomSheet extends StatefulWidget {
+  final int unitId;
+  const BlockUnitBottomSheet(this.unitId, {super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _EnterDateBottomSheetState createState() => _EnterDateBottomSheetState();
+  _BlockUnitBottomSheetState createState() => _BlockUnitBottomSheetState();
 }
 
-class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
+class _BlockUnitBottomSheetState extends State<BlockUnitBottomSheet> {
+  TextEditingController checkInController = TextEditingController();
+  TextEditingController checkOutController = TextEditingController();
   void showSuccessRequestBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -20,89 +27,86 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return const SuccessRequestBottomSheet();
+        return const SuccessRequestBottomSheet(
+            'You request has been successfully  sent to the administration, and they will review it and respond');
       },
     );
 
     // Delay navigation by 4 seconds
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LayoutScreen()),
-      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      child: Container(
-        color: AppColors.background,
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Enter Dates",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
+    return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+        child: Container(
+          color: AppColors.background,
+          padding: EdgeInsets.all(16.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Enter Dates",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F2F2),
-                    borderRadius: BorderRadius.circular(8.r),
+                  Container(
+                    width: 30.w,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF2F2F2),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.close,
+                          size: 16, color: Color(0xFFA6A6A6)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                  child: IconButton(
-                    icon: const Icon(Icons.close,
-                        size: 16, color: Color(0xFFA6A6A6)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Divider(
-              height: 1.h,
-              color: Colors.grey[200],
-            ),
-            SizedBox(height: 5.h),
-            Column(mainAxisSize: MainAxisSize.min, children: [
-              _buildTextField("Check-in", "Enter check-in date",
-                  Icons.calendar_month_outlined, context),
-              SizedBox(height: 16.h),
-              _buildTextField("Check-out", "Enter Check-out date",
-                  Icons.calendar_month_outlined, context),
-              SizedBox(height: 16.h),
-              buildBottomButtons(context),
-            ]),
-          ],
+                ],
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Divider(
+                height: 1.h,
+                color: Colors.grey[200],
+              ),
+              SizedBox(height: 5.h),
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                _buildTextField("Check-in", "Enter check-in date",
+                    Icons.calendar_month_outlined, context, checkInController),
+                SizedBox(height: 16.h),
+                _buildTextField("Check-out", "Enter Check-out date",
+                    Icons.calendar_month_outlined, context, checkOutController),
+                SizedBox(height: 16.h),
+                buildBottomButtons(context),
+              ]),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _buildTextField(
-      String title, String hint, IconData suffixIcon, BuildContext context) {
-    TextEditingController controller = TextEditingController();
-
+  Widget _buildTextField(String title, String hint, IconData suffixIcon,
+      BuildContext context, TextEditingController controller) {
     Future<void> selectDate() async {
       DateTime? pickedDate = await showDatePicker(
         context: context,
@@ -113,7 +117,7 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
 
       if (pickedDate != null) {
         controller.text =
-            "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+            "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
       }
     }
 
@@ -196,8 +200,23 @@ class _EnterDateBottomSheetState extends State<EnterDateBottomSheet> {
             width: 10.w,
           ),
           Expanded(
-            child: _buildButton("Send", AppColors.primary, Colors.white, () {
-              showSuccessRequestBottomSheet(context);
+            child:
+                _buildButton("Send", AppColors.primary, Colors.white, () async {
+              if (checkInController.text.isEmpty ||
+                  checkOutController.text.isEmpty) {
+                showToast('Please provide both a check in and check out.',
+                    ToastType.error);
+                return;
+              } else {
+                final success = await UnitsCubit.get(context).createRestriction(
+                  propertyId: widget.unitId.toString(),
+                  dateFrom: checkInController.text,
+                  dateTo: checkOutController.text,
+                );
+                if (success) {
+                  showSuccessRequestBottomSheet(context);
+                }
+              }
             }),
           ),
         ],

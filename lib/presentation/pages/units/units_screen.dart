@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/common/pagination/build_paged_list_view.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
 class UnitsScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Total Units ${cubit.pagingController.itemList == null ? 0 : cubit.pagingController.itemList!.length}",
+                  "Total Units ${cubit.total}",
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontFamily: "Montserrat",
@@ -80,102 +81,122 @@ class _UnitsScreenState extends State<UnitsScreen> {
   }
 
   Widget _buildUnitContainer(Booking unit) {
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 24.r,
-                backgroundImage: CachedNetworkImageProvider(
-                    unit.gallery == null || unit.gallery!.isEmpty
-                        ? ''
-                        : unit.gallery!.first),
-              ),
-              SizedBox(width: 10.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            unit.title ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
-                              fontFamily: "Montserrat",
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 8.w),
-                        if (unit.bookedDates!.isNotEmpty)
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 5.h),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFE9F9FB),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                UnitDetailsScreen(unit),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              ); // Uses a smoother transition
+            },
+          ),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(10.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 24.r,
+                  backgroundImage: CachedNetworkImageProvider(
+                      unit.gallery == null || unit.gallery!.isEmpty
+                          ? ''
+                          : unit.gallery!.first),
+                ),
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
                             child: Text(
-                              'RENTED',
+                              unit.title ?? '',
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 fontSize: 12.sp,
-                                color: const Color(0xFF0F525B),
-                                fontWeight: FontWeight.w600,
                                 fontFamily: "Montserrat",
                               ),
                             ),
                           ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Unit ID: ",
-                          style: TextStyle(
-                            color: Colors.grey[800],
-                            fontSize: 10.sp,
-                            fontFamily: "Montserrat",
+                          SizedBox(width: 8.w),
+                          if (unit.bookedDates!.isNotEmpty)
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 5.h),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE9F9FB),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Text(
+                                'RENTED',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: const Color(0xFF0F525B),
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Montserrat",
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Unit ID: ",
+                            style: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: 10.sp,
+                              fontFamily: "Montserrat",
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          unit.bookingId.toString(),
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Montserrat",
+                          Text(
+                            '#${unit.bookingId.toString()}',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Montserrat",
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          _buildRow(
-              Icons.bookmark_border_rounded,
-              "Booking Duration    ",
-              unit.checkin!.isEmpty
-                  ? '--'
-                  : '${unit.checkin} - ${unit.checkout}'),
-          SizedBox(height: 10.h),
-          _buildRow(Icons.balance_rounded, "Balance      ",
-              unit.checkin!.isEmpty ? '--' : 'EGP ${unit.balance}', Colors.red),
-        ],
+              ],
+            ),
+            SizedBox(height: 10.h),
+            _buildRow(
+                Icons.bookmark_border_rounded,
+                "Booking Duration    ",
+                unit.checkin!.isEmpty
+                    ? '--'
+                    : '${unit.checkin} - ${unit.checkout}'),
+            SizedBox(height: 10.h),
+            _buildRow(
+                Icons.balance_rounded,
+                "Balance      ",
+                unit.checkin!.isEmpty ? '--' : 'EGP ${unit.balance}',
+                Colors.red),
+          ],
+        ),
       ),
     );
   }

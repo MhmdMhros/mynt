@@ -1,111 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MonthlyCalendar extends StatelessWidget {
-  final Map<int, List<int>> highlightedDays; // Map of month -> highlighted days
+class SingleCalendarView extends StatefulWidget {
+  final Map<int, Map<int, List<int>>> highlightedDays;
 
-  const MonthlyCalendar({super.key, required this.highlightedDays});
+  const SingleCalendarView({super.key, required this.highlightedDays});
+
+  @override
+  State<SingleCalendarView> createState() => _SingleCalendarViewState();
+}
+
+class _SingleCalendarViewState extends State<SingleCalendarView> {
+  DateTime? _focusedDay;
+  DateTime? _firstDay;
+  DateTime? _lastDay;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final months = <DateTime>[];
+
+    widget.highlightedDays.forEach((year, monthMap) {
+      monthMap.forEach((month, _) {
+        months.add(DateTime(year, month));
+      });
+    });
+
+    months.sort((a, b) => a.compareTo(b));
+
+    if (months.isNotEmpty) {
+      _firstDay = DateTime(months.first.year, months.first.month, 1);
+      _lastDay = DateTime(months.last.year, months.last.month + 1, 0);
+      _focusedDay = _firstDay;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final int currentYear = DateTime.now().year;
+    if (_firstDay == null || _lastDay == null || _focusedDay == null) {
+      return Container();
+    }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: List.generate(12, (index) {
-          DateTime firstDayOfMonth = DateTime(currentYear, index + 1, 1);
-          DateTime lastDayOfMonth = DateTime(currentYear, index + 2, 0);
+    return TableCalendar(
+      firstDay: _firstDay!,
+      lastDay: _lastDay!,
+      focusedDay: _focusedDay!,
+      calendarFormat: CalendarFormat.month,
+      headerStyle: const HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+      ),
+      calendarStyle: const CalendarStyle(
+        todayDecoration: BoxDecoration(
+          color: AppColors.primary,
+          shape: BoxShape.circle,
+        ),
+      ),
+      calendarBuilders: CalendarBuilders(
+        defaultBuilder: (context, date, _) {
+          final year = date.year;
+          final month = date.month;
+          final day = date.day;
 
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${_monthName(index + 1)}.$currentYear",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  TableCalendar(
-                    firstDay: firstDayOfMonth,
-                    lastDay: lastDayOfMonth,
-                    focusedDay: firstDayOfMonth,
-                    calendarFormat: CalendarFormat.month,
-                    headerVisible: false,
-                    daysOfWeekVisible: true,
-                    rowHeight: 35.h, // Adjust row height for better visibility
-                    calendarStyle: CalendarStyle(
-                      defaultTextStyle: TextStyle(
-                        fontSize: 14.sp,
-                      ),
-                      todayDecoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.5),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    calendarBuilders: CalendarBuilders(
-                      defaultBuilder: (context, date, _) {
-                        bool isHighlighted =
-                            highlightedDays[date.month]?.contains(date.day) ??
-                                false;
+          final isHighlighted =
+              widget.highlightedDays[year]?[month]?.contains(day) ?? false;
 
-                        return Container(
-                          width: 26.w,
-                          height: 26.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: isHighlighted
-                                ? const Color(0xFFE7EEEF)
-                                : Colors.transparent,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            '${date.day}',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: const Color(0xFF0B3A41),
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+          return Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: isHighlighted
+                  ? const Color.fromARGB(255, 129, 195, 204)
+                  : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+            child: Text(
+              '${date.day}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF0B3A41),
+                fontSize: 14.sp,
               ),
             ),
           );
-        }),
+        },
       ),
+      onPageChanged: (focusedDay) {
+        setState(() {
+          _focusedDay = focusedDay;
+        });
+      },
     );
-  }
-
-  /// Returns month name from month number
-  String _monthName(int month) {
-    const List<String> months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-    return months[month - 1];
   }
 }

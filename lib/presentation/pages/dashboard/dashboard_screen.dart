@@ -310,19 +310,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const UnitDetailsScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    ); // Uses a smoother transition
-                  },
-                ),
-              );
+              // Navigator.of(context).push(
+              //   PageRouteBuilder(
+              //     pageBuilder: (context, animation, secondaryAnimation) =>
+              //         const UnitDetailsScreen(),
+              //     transitionsBuilder:
+              //         (context, animation, secondaryAnimation, child) {
+              //       return FadeTransition(
+              //         opacity: animation,
+              //         child: child,
+              //       ); // Uses a smoother transition
+              //     },
+              //   ),
+              // );
             },
             child: IntrinsicWidth(
               child: Container(
@@ -633,19 +633,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget _buildTicketCard(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const UnitDetailsScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              ); // Uses a smoother transition
-            },
-          ),
-        );
+        // Navigator.of(context).push(
+        //   PageRouteBuilder(
+        //     pageBuilder: (context, animation, secondaryAnimation) =>
+        //         const UnitDetailsScreen(),
+        //     transitionsBuilder:
+        //         (context, animation, secondaryAnimation, child) {
+        //       return FadeTransition(
+        //         opacity: animation,
+        //         child: child,
+        //       ); // Uses a smoother transition
+        //     },
+        //   ),
+        // );
       },
       child: Container(
         padding: EdgeInsets.all(10.w),

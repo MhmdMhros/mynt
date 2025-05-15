@@ -40,6 +40,7 @@ import 'package:mynt/domain/usecases/read_notification_usecase.dart' as _i1015;
 import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart' as _i1016;
 import 'package:mynt/domain/usecases/get_tickets_data_usecase.dart' as _i1017;
 import 'package:mynt/domain/usecases/create_review_usecase.dart' as _i1018;
+import 'package:mynt/domain/usecases/create_restriction_usecase.dart' as _i1019;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -210,9 +211,12 @@ extension GetItInjectableX on _i1.GetIt {
 
     gh.lazySingleton<_i1016.GetBookingsDataUsecase>(
         () => _i1016.GetBookingsDataUsecase(gh<_i8.Repository>()));
+    gh.lazySingleton<_i1019.CreateRestrictionUsecase>(
+        () => _i1019.CreateRestrictionUsecase(gh<_i8.Repository>()));
 
     gh.factory<_i2005.UnitsCubit>(() => _i2005.UnitsCubit(
           gh<_i1016.GetBookingsDataUsecase>(),
+          gh<_i1019.CreateRestrictionUsecase>(),
         ));
 
     gh.lazySingleton<_i1017.GetTicketsDataUsecase>(

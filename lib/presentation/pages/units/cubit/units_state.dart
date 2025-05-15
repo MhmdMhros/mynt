@@ -17,3 +17,13 @@ class GetUnitsFailure extends UnitsState {
   final String message;
   const GetUnitsFailure(this.message);
 }
+
+class CreateRestrictionLoading extends UnitsState {}
+
+class CreateRestrictionSuccess extends UnitsState {}
+
+class CreateRestrictionFailure extends UnitsState {
+  final String error;
+
+  const CreateRestrictionFailure(this.error);
+}

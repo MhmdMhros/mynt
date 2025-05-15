@@ -97,8 +97,8 @@ class TicketsCubit extends Cubit<TicketsState> {
       },
       (success) {
         emit(CreateReviewSuccess());
-        showToast(
-            'Your rate has been submitted successfully.', ToastType.success);
+        // showToast(
+        //     'Your rate has been submitted successfully.', ToastType.success);
         return true;
       },
     );

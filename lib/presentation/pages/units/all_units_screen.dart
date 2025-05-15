@@ -150,7 +150,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                   Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const UnitDetailsScreen(),
+                          UnitDetailsScreen(unit),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(

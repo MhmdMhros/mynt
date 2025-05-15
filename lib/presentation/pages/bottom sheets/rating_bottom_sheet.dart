@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/bottom%20sheets/success_request_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
 
 class RatingBottomSheet extends StatefulWidget {
@@ -16,6 +19,23 @@ class RatingBottomSheet extends StatefulWidget {
 class _RatingBottomSheetState extends State<RatingBottomSheet> {
   int? selectedRate;
   TextEditingController feedbackController = TextEditingController();
+  void showSuccessRequestBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return const SuccessRequestBottomSheet(
+            'Your rate has been submitted successfully.');
+      },
+    );
+
+    // Delay navigation by 4 seconds
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pop(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +182,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
                 score: selectedRate.toString(),
               );
               if (success) {
-                Navigator.pop(context);
+                showSuccessRequestBottomSheet(context);
               }
             }),
           ),

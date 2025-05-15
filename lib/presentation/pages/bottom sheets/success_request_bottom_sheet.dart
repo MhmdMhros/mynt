@@ -4,7 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 
 class SuccessRequestBottomSheet extends StatelessWidget {
-  const SuccessRequestBottomSheet({super.key});
+  final String message;
+  const SuccessRequestBottomSheet(this.message, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class SuccessRequestBottomSheet extends StatelessWidget {
 
                   // 3. Centered Text 2
                   Text(
-                    'You request has been successfully  sent to the administration, and they will review it and respond',
+                    message,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.sp,

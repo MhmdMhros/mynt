@@ -4,17 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/common/pagination/list_page.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/domain/usecases/create_restriction_usecase.dart';
 import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart';
 
 part 'units_state.dart';
 
 @injectable
 class UnitsCubit extends Cubit<UnitsState> {
-  UnitsCubit(this._getBookingsDataUsecase) : super(UnitsInitial());
+  UnitsCubit(this._getBookingsDataUsecase, this._createRestrictionUsecase)
+      : super(UnitsInitial());
   final GetBookingsDataUsecase _getBookingsDataUsecase;
+  final CreateRestrictionUsecase _createRestrictionUsecase;
 
   static UnitsCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -22,6 +26,7 @@ class UnitsCubit extends Cubit<UnitsState> {
       PagingController<int, Booking>(
     firstPageKey: 1,
   );
+  int total = 0;
 
   Future<ListPage<Booking>> getUnits(int page, int limit) async {
     emit(GetUnitsLoading());
@@ -38,10 +43,42 @@ class UnitsCubit extends Cubit<UnitsState> {
       },
       (r) {
         emit(GetUnitsSuccess());
+        total = r.total;
         return ListPage(
           grandTotalCount: r.total,
           itemList: r.bookings,
         );
+      },
+    );
+  }
+
+  Future<bool> createRestriction({
+    required String propertyId,
+    required String dateFrom,
+    required String dateTo,
+  }) async {
+    emit(CreateRestrictionLoading());
+
+    final result = await _createRestrictionUsecase(
+      CreateRestrictionRequest(
+        propertyId: propertyId,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+      ),
+    );
+
+    return await result.fold(
+      (failure) {
+        emit(CreateRestrictionFailure(failure.message));
+        showToast('Unable to submit your restrction. Please try again shortly.',
+            ToastType.error);
+        return false;
+      },
+      (success) {
+        emit(CreateRestrictionSuccess());
+        // showToast('Your restriction has been submitted successfully.',
+        //     ToastType.success);
+        return true;
       },
     );
   }
