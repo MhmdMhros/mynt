@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/core/common/pagination/build_paged_list_view.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
 class UnitsScreen extends StatefulWidget {
   const UnitsScreen({super.key});
@@ -11,78 +15,71 @@ class UnitsScreen extends StatefulWidget {
 }
 
 class _UnitsScreenState extends State<UnitsScreen> {
-  final List<Map<String, String>> units = [
-    {
-      "title": "Monte Galala studio",
-      "uid": "1220",
-      "booking_duration": "07/1/2025 - 30/3/2025",
-      "balance": "-3,500 EGP",
-      "image":
-          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
-      "status": "Rented"
-    },
-    {
-      "title": "Palm Hills Villa",
-      "uid": "1550",
-      "booking_duration": "10/2/2025 - 15/5/2025",
-      "balance": "-5,200 EGP",
-      "image":
-          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
-      "status": "Pending"
-    },
-    {
-      "title": "Palm Hills Villa",
-      "uid": "..",
-      "booking_duration": "..",
-      "balance": "..",
-      "image":
-          "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__",
-      "status": ""
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 30.w),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
-            onPressed: () => Navigator.pop(context),
+    return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
+      var cubit = UnitsCubit.get(context);
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: const Text(""),
+          elevation: 0,
+          title: Text(
+            "Units",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontWeight: FontWeight.w600,
+              fontSize: 16.sp,
+              color: AppColors.text1,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Total Units ${cubit.pagingController.itemList == null ? 0 : cubit.pagingController.itemList!.length}",
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontFamily: "Montserrat",
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text1,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              Expanded(
+                child: BuildPagedListView(
+                  pagingController: cubit.pagingController,
+                  fetchData: (page, limit) => cubit.getUnits(page, limit),
+                  disposeController: false,
+                  buildItem: (item, index) {
+                    final unit = item as Booking;
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 16.h),
+                      child: _buildUnitContainer(unit),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-        title: Text(
-          "Units",
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.w600,
-            color: AppColors.text1,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.w),
-        child: ListView.builder(
-          itemCount: units.length,
-          itemBuilder: (context, index) {
-            final unit = units[index];
-            return Padding(
-              padding: EdgeInsets.only(bottom: 16.h),
-              child: _buildUnitContainer(unit),
-            );
-          },
-        ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _buildUnitContainer(Map<String, String> unit) {
+  Widget _buildUnitContainer(Booking unit) {
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
@@ -97,7 +94,10 @@ class _UnitsScreenState extends State<UnitsScreen> {
             children: [
               CircleAvatar(
                 radius: 24.r,
-                backgroundImage: CachedNetworkImageProvider(unit["image"]!),
+                backgroundImage: CachedNetworkImageProvider(
+                    unit.gallery == null || unit.gallery!.isEmpty
+                        ? ''
+                        : unit.gallery!.first),
               ),
               SizedBox(width: 10.w),
               Expanded(
@@ -108,7 +108,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            unit["title"]!,
+                            unit.title ?? '',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 12.sp,
@@ -117,23 +117,19 @@ class _UnitsScreenState extends State<UnitsScreen> {
                           ),
                         ),
                         SizedBox(width: 8.w),
-                        if (unit["status"]!.isNotEmpty)
+                        if (unit.bookedDates!.isNotEmpty)
                           Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.w, vertical: 5.h),
                             decoration: BoxDecoration(
-                              color: unit["status"]! == "Rented"
-                                  ? const Color(0xFFE9F9FB)
-                                  : const Color(0xFFFFF8E5),
+                              color: const Color(0xFFE9F9FB),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Text(
-                              unit["status"]!,
+                              'RENTED',
                               style: TextStyle(
                                 fontSize: 12.sp,
-                                color: unit["status"]! == "Rented"
-                                    ? const Color(0xFF0F525B)
-                                    : const Color(0xFFCC9D00),
+                                color: const Color(0xFF0F525B),
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "Montserrat",
                               ),
@@ -153,7 +149,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          unit["uid"]!,
+                          unit.bookingId.toString(),
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 12.sp,
@@ -170,11 +166,15 @@ class _UnitsScreenState extends State<UnitsScreen> {
             ],
           ),
           SizedBox(height: 10.h),
-          _buildRow(Icons.bookmark_border_rounded, "Booking Duration    ",
-              unit["booking_duration"]!),
+          _buildRow(
+              Icons.bookmark_border_rounded,
+              "Booking Duration    ",
+              unit.checkin!.isEmpty
+                  ? '--'
+                  : '${unit.checkin} - ${unit.checkout}'),
           SizedBox(height: 10.h),
-          _buildRow(Icons.balance_rounded, "January Balance      ",
-              unit["balance"]!, Colors.red),
+          _buildRow(Icons.balance_rounded, "Balance      ",
+              unit.checkin!.isEmpty ? '--' : 'EGP ${unit.balance}', Colors.red),
         ],
       ),
     );

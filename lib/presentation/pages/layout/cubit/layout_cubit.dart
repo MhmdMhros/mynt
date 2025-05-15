@@ -19,7 +19,7 @@ import 'package:mynt/domain/usecases/settings_data_usecase.dart';
 import 'package:mynt/presentation/pages/dashboard/dashboard_screen.dart';
 import 'package:mynt/presentation/pages/more/more_screen.dart';
 import 'package:mynt/presentation/pages/tickets/tickets_screen.dart';
-import 'package:mynt/presentation/pages/units/all_units_screen.dart';
+import 'package:mynt/presentation/pages/units/units_screen.dart';
 
 part 'layout_state.dart';
 
@@ -51,7 +51,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   final List<Widget> screens = [
     const DashBoardScreen(),
-    const AllUnitsScreen(),
+    const UnitsScreen(),
     const TicketsScreen(),
     const MoreScreen(),
   ];
