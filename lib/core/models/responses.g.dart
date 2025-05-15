@@ -192,7 +192,7 @@ BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>
       bookingId: json['booking_id'] as int?,
       accountId: json['account_id'] as int?,
       netTotal: json['net_total'] as String?,
-      balance: json['balance'] as String?,
+      balance: 1,
       customerName: json['customer_name'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,

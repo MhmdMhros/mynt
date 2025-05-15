@@ -44,10 +44,10 @@ class RepositoryHelpers {
       } else {
         return _returnFailureIfStatusCodeIsNotSuccess<T>(result);
       }
-    } catch (e) {
-      // rethrow;
+    } catch (e, stackTrace) {
       log("||||||||||||||||||||ERROR FROM REPOSITORY CALLAPI||||||||||||||||||||");
-      log(e.toString());
+      log("Error: $e");
+      log("StackTrace: $stackTrace");
       return Left(ErrorHandler.handle(e).failure);
     }
   }
@@ -118,11 +118,15 @@ class RepositoryHelpers {
       } else {
         return none();
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stackTrace) {
+      log("||||||||||||||||||||ERROR FROM uploadFile||||||||||||||||||||");
+      log("Error: $e");
+      log("StackTrace: $stackTrace");
       return some(
         Failure(
-            code: ResponseCode.badCertificate, message: 'Something went wrong'),
+          code: ResponseCode.badCertificate,
+          message: 'Something went wrong',
+        ),
       );
     }
   }

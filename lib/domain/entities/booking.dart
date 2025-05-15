@@ -5,7 +5,7 @@ class Booking {
   final int? bookingId;
   final int? accountId;
   final String? netTotal;
-  final String? balance;
+  final int? balance;
   final String? customerName;
   final String? title;
   final String? description;

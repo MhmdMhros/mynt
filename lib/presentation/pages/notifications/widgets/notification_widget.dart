@@ -146,7 +146,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                         ),
                       ),
                     ),
-                  if (!isLoading)
+                  if (isLoading)
                     const SizedBox(
                       width: 20,
                       height: 20,

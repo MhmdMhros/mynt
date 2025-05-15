@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/core/common/pagination/build_paged_list_view.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
@@ -49,6 +51,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
+      var cubit = UnitsCubit.get(context);
       return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -76,7 +79,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Total Units 12",
+                  "Total Units ${cubit.pagingController.itemList == null ? 0 : cubit.pagingController.itemList!.length}",
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontFamily: "Montserrat",
@@ -89,10 +92,12 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                 height: 14,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: allUnits.length,
-                  itemBuilder: (context, index) {
-                    final unit = allUnits[index];
+                child: BuildPagedListView(
+                  pagingController: cubit.pagingController,
+                  fetchData: (page, limit) => cubit.getUnits(page, limit),
+                  disposeController: false,
+                  buildItem: (item, index) {
+                    final unit = item as Booking;
                     return Padding(
                       padding: EdgeInsets.only(bottom: 16.h),
                       child: _buildUnitContainer(unit),
@@ -107,7 +112,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
     });
   }
 
-  Widget _buildUnitContainer(Map<String, String> unit) {
+  Widget _buildUnitContainer(Booking unit) {
     return Container(
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
@@ -122,7 +127,10 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
             children: [
               CircleAvatar(
                 radius: 24.r,
-                backgroundImage: CachedNetworkImageProvider(unit["image"]!),
+                backgroundImage: CachedNetworkImageProvider(
+                    unit.gallery == null || unit.gallery!.isEmpty
+                        ? ''
+                        : unit.gallery!.first),
               ),
               SizedBox(width: 10.w),
               Expanded(
@@ -133,7 +141,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            unit["title"]!,
+                            unit.title ?? '',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 12.sp,
@@ -155,7 +163,7 @@ class _AllUnitsScreenState extends State<AllUnitsScreen> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          unit["uid"]!,
+                          unit.bookingId.toString(),
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 12.sp,
