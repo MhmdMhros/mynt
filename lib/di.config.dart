@@ -38,6 +38,7 @@ import 'package:mynt/domain/usecases/get_notifications_data_usecase.dart'
     as _i1014;
 import 'package:mynt/domain/usecases/read_notification_usecase.dart' as _i1015;
 import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart' as _i1016;
+import 'package:mynt/domain/usecases/get_tickets_data_usecase.dart' as _i1017;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -50,6 +51,8 @@ import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart'
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart' as _i2005;
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart'
     as _i2006;
+import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart'
+    as _i2007;
 
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
@@ -209,6 +212,13 @@ extension GetItInjectableX on _i1.GetIt {
 
     gh.factory<_i2005.UnitsCubit>(() => _i2005.UnitsCubit(
           gh<_i1016.GetBookingsDataUsecase>(),
+        ));
+
+    gh.lazySingleton<_i1017.GetTicketsDataUsecase>(
+        () => _i1017.GetTicketsDataUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i2007.TicketsCubit>(() => _i2007.TicketsCubit(
+          gh<_i1017.GetTicketsDataUsecase>(),
         ));
 
     gh.lazySingleton<_i1014.GetNotificationsDataUsecase>(

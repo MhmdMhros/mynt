@@ -9,6 +9,7 @@ import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/splash_screen.dart';
+import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 
 void main() async {
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<UnitsCubit>(
             create: (_) => getIt<UnitsCubit>(),
+          ),
+          BlocProvider<TicketsCubit>(
+            create: (_) => getIt<TicketsCubit>(),
           ),
           BlocProvider<NotificationsCubit>(
             create: (_) => getIt<NotificationsCubit>(),

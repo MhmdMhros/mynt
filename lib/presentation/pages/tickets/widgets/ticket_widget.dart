@@ -5,14 +5,14 @@ import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.d
 
 class TicketWidget extends StatelessWidget {
   final String ticketNum;
-  final String ticketSort;
+  final String ticketTitle;
   final String date;
   final String status;
 
   const TicketWidget({
     super.key,
     required this.ticketNum,
-    required this.ticketSort,
+    required this.ticketTitle,
     required this.date,
     required this.status,
   });
@@ -49,25 +49,31 @@ class TicketWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Ticket Num: ",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Montserrat",
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Text(
+                          "Ticket Title: ",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Montserrat",
+                          ),
                         ),
-                      ),
-                      Text(
-                        "#$ticketNum",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Montserrat",
+                        Expanded(
+                          child: Text(
+                            ticketTitle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Montserrat",
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Text(
                     date,
@@ -86,7 +92,7 @@ class TicketWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Ticket Sort: ",
+                        "Ticket Num: ",
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -94,7 +100,7 @@ class TicketWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ticketSort,
+                        ticketNum,
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -133,15 +139,15 @@ class TicketWidget extends StatelessWidget {
   // Helper functions to get colors based on status
   Color _getStatusBackgroundColor(String status) {
     switch (status) {
-      case "Open":
+      case "OPEN":
         return const Color(0xFFE9F9FB);
-      case "Pending":
+      case "PENDING":
         return const Color(0xFFFFF8E5);
-      case "In Progress":
+      case "IN PROGRESS":
         return const Color(0xFFEDF8EE);
-      case "Canceled":
+      case "CANCELED":
         return const Color(0xFFF0F0F0);
-      case "Rejected":
+      case "REJECTED":
         return const Color(0xFFFFE8E5);
       default:
         return Colors.grey[200]!; // Default background color
@@ -150,15 +156,15 @@ class TicketWidget extends StatelessWidget {
 
   Color _getStatusTextColor(String status) {
     switch (status) {
-      case "Open":
+      case "OPEN":
         return AppColors.primary;
-      case "Pending":
+      case "PENDING":
         return const Color(0xFFCC9D00);
-      case "In Progress":
+      case "IN PROGRESS":
         return const Color(0xFF328039);
-      case "Canceled":
+      case "CANCELED":
         return const Color(0xFF666666);
-      case "Rejected":
+      case "REJECTED":
         return const Color(0xFFBF4C43);
       default:
         return Colors.black; // Default text color
