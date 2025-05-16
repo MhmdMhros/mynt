@@ -6,17 +6,22 @@ import 'package:injectable/injectable.dart';
 import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
 import 'package:mynt/domain/usecases/get_home_data_usecase.dart';
+import 'package:mynt/domain/usecases/get_un_read_notifications_count_usecase.dart';
 
 part 'dashboard_state.dart';
 
 @injectable
 class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit(this._getHomeDataUsecase) : super(DashboardInitial());
+  DashboardCubit(
+      this._getHomeDataUsecase, this._getUnReadNotificationsCountUsecase)
+      : super(DashboardInitial());
   final GetHomeDataUsecase _getHomeDataUsecase;
+  final GetUnReadNotificationsCountUsecase _getUnReadNotificationsCountUsecase;
 
   static DashboardCubit get(BuildContext context) => BlocProvider.of(context);
 
   DashboardData? dashboardData;
+  int unreadNotificationsCount = 0;
 
   Future<bool> getHomeData() async {
     emit(GetHomeDataLoading());
@@ -33,5 +38,26 @@ class DashboardCubit extends Cubit<DashboardState> {
         return true;
       },
     );
+  }
+
+  Future<void> getUnreadNotificationsCount() async {
+    emit(GetUnreadNotificationsCountLoading());
+
+    final result = await _getUnReadNotificationsCountUsecase(NoParams());
+
+    result.fold(
+      (failure) {
+        emit(GetUnreadNotificationsCountFailure(failure.message));
+      },
+      (unReadCountData) {
+        unreadNotificationsCount = unReadCountData.unReadCount;
+        emit(GetUnreadNotificationsCountSuccess());
+      },
+    );
+  }
+
+  void decreamentCountOfNotifications() {
+    unreadNotificationsCount--;
+    emit(DecreamentUnreadNotificationsCountSuccess());
   }
 }

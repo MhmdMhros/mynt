@@ -17,3 +17,14 @@ class GetHomeDataFailure extends DashboardState {
   final String message;
   const GetHomeDataFailure(this.message);
 }
+
+class GetUnreadNotificationsCountLoading extends DashboardState {}
+
+class GetUnreadNotificationsCountSuccess extends DashboardState {}
+
+class GetUnreadNotificationsCountFailure extends DashboardState {
+  final String message;
+  const GetUnreadNotificationsCountFailure(this.message);
+}
+
+class DecreamentUnreadNotificationsCountSuccess extends DashboardState {}

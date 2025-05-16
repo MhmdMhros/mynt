@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/article.dart';
 import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
 
 class NewsWidget extends StatelessWidget {
-  final Map<String, String> item;
+  final Article item;
 
   const NewsWidget({super.key, required this.item});
 
@@ -34,8 +35,9 @@ class NewsWidget extends StatelessWidget {
                 topRight: Radius.circular(10.r),
               ),
               child: CachedNetworkImage(
-                imageUrl: item["image"]!,
+                imageUrl: item.image ?? '',
                 width: double.infinity,
+                height: 140.h,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
@@ -53,7 +55,7 @@ class NewsWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               child: Text(
-                item["description"]!,
+                item.description ?? '',
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: AppColors.text1,
@@ -72,7 +74,7 @@ class NewsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    item["date"]!,
+                    item.publishedAt ?? '',
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: Colors.grey[700],
@@ -88,7 +90,7 @@ class NewsWidget extends StatelessWidget {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const NewsDetailsScreen(),
+                                    NewsDetailsScreen(item),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               return FadeTransition(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,16 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/article.dart';
 import 'package:mynt/presentation/pages/balances/balances_Screen.dart';
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/maintenance%20service/maintenance_service_screen.dart';
 import 'package:mynt/presentation/pages/news%20details/news_details_screen.dart';
 import 'package:mynt/presentation/pages/news/news_screen.dart';
 import 'package:mynt/presentation/pages/notifications/notifications_screen.dart';
-import 'package:mynt/presentation/pages/required%20actions/required_actions_screen.dart';
 import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
 import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
-import 'package:mynt/presentation/pages/units/units_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -31,13 +33,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     _handleHomeLogic();
   }
 
-  Future<void> _handleHomeLogic() async {
+  void _handleHomeLogic() async {
     final cubit = DashboardCubit.get(context);
     final homeFetched = await cubit.getHomeData();
     if (homeFetched) {
-      showToast('Congratulations!!!.', ToastType.success);
+      await cubit.getUnreadNotificationsCount();
     } else {
-      showToast('Oooooooops!!!.', ToastType.error);
+      showToast('Error to fetch data!!!.', ToastType.error);
     }
   }
 
@@ -46,7 +48,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return BlocBuilder<DashboardCubit, DashboardState>(
         builder: (context, state) {
       final cubit = DashboardCubit.get(context);
-      if (state is GetHomeDataSuccess) {
+      if (state is GetHomeDataSuccess ||
+          state is GetUnreadNotificationsCountSuccess) {
         return Scaffold(
           backgroundColor: Colors.grey[200],
           body: Stack(
@@ -83,18 +86,52 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ),
                               );
                             },
-                            child: Container(
-                              padding: EdgeInsets.all(8.w),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              child: Icon(
-                                Icons.notifications_outlined,
-                                color: const Color(0xFF0F525B),
-                                size: 20.sp,
-                              ),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(8.w),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                  child: Icon(
+                                    Icons.notifications_outlined,
+                                    color: const Color(0xFF0F525B),
+                                    size: 20.sp,
+                                  ),
+                                ),
+                                if (cubit.unreadNotificationsCount > 0)
+                                  Positioned(
+                                    top: -4,
+                                    right: -4,
+                                    child: Container(
+                                      padding: EdgeInsets.all(4.w),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 18.w,
+                                        minHeight: 18.w,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          cubit.unreadNotificationsCount > 9
+                                              ? '9+'
+                                              : cubit.unreadNotificationsCount
+                                                  .toString(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ],
@@ -121,20 +158,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
                               // Rented Units Section
                               _buildSectionTitle("Rented Units", () {
-                                Navigator.of(context).push(
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const UnitsScreen(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      ); // Uses a smoother transition
-                                    },
-                                  ),
-                                );
+                                LayoutCubit.get(context)
+                                    .changeCurrentSelectedBottomNavIndex(1);
                               }, true),
                               SizedBox(height: 10.h),
                               _buildRentedUnitsList(),
@@ -142,90 +167,59 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               SizedBox(height: 16.h),
 
                               // Required Action Section
-                              _buildSectionTitle("Required Action", () {
-                                Navigator.of(context).push(
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const RequiredActionsScreen(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      ); // Uses a smoother transition
-                                    },
-                                  ),
-                                );
-                              }, true),
-                              SizedBox(height: 10.h),
-                              _buildActionCard(context),
+                              // _buildSectionTitle("Required Action", () {
+                              //   Navigator.of(context).push(
+                              //     PageRouteBuilder(
+                              //       pageBuilder: (context, animation,
+                              //               secondaryAnimation) =>
+                              //           const RequiredActionsScreen(),
+                              //       transitionsBuilder: (context, animation,
+                              //           secondaryAnimation, child) {
+                              //         return FadeTransition(
+                              //           opacity: animation,
+                              //           child: child,
+                              //         ); // Uses a smoother transition
+                              //       },
+                              //     ),
+                              //   );
+                              // }, true),
+                              // SizedBox(height: 10.h),
+                              // _buildActionCard(context),
 
-                              SizedBox(height: 16.h),
+                              // SizedBox(height: 16.h),
 
                               // Last Tickets Section
                               _buildSectionTitle("Tickets", () {
-                                // Navigator.of(context).push(
-                                //   PageRouteBuilder(
-                                //     pageBuilder:
-                                //         (context, animation, secondaryAnimation) =>
-                                //             const TicketsScreen(),
-                                //     transitionsBuilder: (context, animation,
-                                //         secondaryAnimation, child) {
-                                //       return FadeTransition(
-                                //         opacity: animation,
-                                //         child: child,
-                                //       ); // Uses a smoother transition
-                                //     },
-                                //   ),
-                                // );
-                              }, false),
+                                LayoutCubit.get(context)
+                                    .changeCurrentSelectedBottomNavIndex(2);
+                              }, true),
                               SizedBox(height: 10.h),
                               _buildTicketCard(context),
 
                               SizedBox(height: 16.h),
                               _buildSectionTitle("News", () {
-                                Navigator.of(context).push(
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const NewsScreen(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      ); // Uses a smoother transition
-                                    },
-                                  ),
-                                );
+                                final articles = cubit.dashboardData?.articles;
+                                if (articles != null) {
+                                  Navigator.of(context).push(
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          NewsScreen(articles),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        ); // Uses a smoother transition
+                                      },
+                                    ),
+                                  );
+                                }
                               }, true),
                               SizedBox(height: 10.h),
                               Column(
                                 children: [
-                                  buildProductList([
-                                    {
-                                      "image":
-                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                      "description":
-                                          "This is a great product with amazing features.",
-                                      "date": "2/5/2023"
-                                    },
-                                    {
-                                      "image":
-                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                      "description":
-                                          "Another amazing product with high-quality design.",
-                                      "date": "10/6/2023"
-                                    },
-                                    {
-                                      "image":
-                                          "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-                                      "description":
-                                          "Best-selling product with great user reviews.",
-                                      "date": "15/7/2023"
-                                    },
-                                  ], context),
+                                  buildProductList(context),
                                 ],
                               ),
                             ],
@@ -301,93 +295,102 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Widget _buildRentedUnitsList() {
+    var cubit = DashboardCubit.get(context);
     return SizedBox(
       height: 140.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 3,
+        itemCount: cubit.dashboardData?.bookings?.length ?? 0,
         itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              // Navigator.of(context).push(
-              //   PageRouteBuilder(
-              //     pageBuilder: (context, animation, secondaryAnimation) =>
-              //         const UnitDetailsScreen(),
-              //     transitionsBuilder:
-              //         (context, animation, secondaryAnimation, child) {
-              //       return FadeTransition(
-              //         opacity: animation,
-              //         child: child,
-              //       ); // Uses a smoother transition
-              //     },
-              //   ),
-              // );
-            },
-            child: IntrinsicWidth(
-              child: Container(
-                margin: EdgeInsets.only(right: 10.w),
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 24.r,
-                          backgroundImage: const CachedNetworkImageProvider(
-                              "https://s3-alpha-sig.figma.com/img/4192/e064/bb665d65b39d3dc5aa3969c64a25d37d?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YFRhjKapoPJqEyLOR~x5A05Em6wR43AtW7RILTmAbc5NT5rziyxF~TsEo9U~J7R9zADzhe8jC~QHAwHHmX1oF3pccnYeWzXPsN0~P1hqSIRiToMkY9I7nAz2QRhGkJrcD8X~cD0c~0RdtEmEcknz8i4I51zI9EjF2llLPHy9xT3iNNjRQu4miwVoG4kxf0Ilkns6XjdAMr4P0GZ0oE0W~VXfLVaiQlXBL~WEdEr8qwoVi2y2RCkq3Xq-eFsXP7PU3h1CqjJHGaOek3XDgSQBNxJcAwkpPUTQhtb2LyFMSvt5RwOCAogAifm2--f7nortBVIuhAr6gVj341P3FNiePQ__"),
-                        ),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Monte Galala studio",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.sp,
-                                    fontFamily: "Montserrat"),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(Icons.location_on_outlined,
-                                      size: 18.sp, color: Colors.grey),
-                                  SizedBox(width: 4.w),
-                                  Expanded(
-                                    child: Text(
-                                      "Mount Ai Jalala, Suiz, Egypt",
-                                      style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontSize: 10.sp,
-                                          fontFamily: "Montserrat"),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+          final booking = cubit.dashboardData?.bookings?[index];
+          if (booking != null) {
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        UnitDetailsScreen(booking),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ); // Uses a smoother transition
+                    },
+                  ),
+                );
+              },
+              child: IntrinsicWidth(
+                child: Container(
+                  margin: EdgeInsets.only(right: 10.w),
+                  padding: EdgeInsets.all(10.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 24.r,
+                            backgroundImage: CachedNetworkImageProvider(
+                              booking.gallery?.first ?? '',
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    _buildRow(Icons.bookmark_border_rounded, "Booking Duration",
-                        "07/1/2025 - 30/3/2025"),
-                    SizedBox(height: 10.h),
-                    _buildRow(Icons.balance_rounded, "January Balance",
-                        "-3,500 EGP", Colors.red),
-                  ],
+                          SizedBox(width: 10.w),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  booking.title ?? '',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.sp,
+                                      fontFamily: "Montserrat"),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(Icons.location_on_outlined,
+                                        size: 18.sp, color: Colors.grey),
+                                    SizedBox(width: 4.w),
+                                    Expanded(
+                                      child: Text(
+                                        booking.projectAddress ?? '',
+                                        style: TextStyle(
+                                            color: Colors.grey[800],
+                                            fontSize: 10.sp,
+                                            fontFamily: "Montserrat"),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      _buildRow(
+                          Icons.bookmark_border_rounded,
+                          "Booking Duration",
+                          "${booking.checkin ?? ''} - ${booking.checkout ?? ''}"),
+                      SizedBox(height: 10.h),
+                      _buildRow(Icons.balance_rounded, "Balance",
+                          "EGP ${booking.balance ?? 0}", Colors.red),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
+          } else {
+            return const SizedBox();
+          }
         },
       ),
     );
@@ -556,7 +559,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontFamily: "Montserrat"),
                 ),
                 Text(
-                  "33,700.0",
+                  DashboardCubit.get(context).dashboardData!.balance.toString(),
                   style: TextStyle(
                       fontSize: 16.sp,
                       color: const Color(0xFF0F525B),
@@ -574,11 +577,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget _buildNewAds() {
     final PageController pageController = PageController();
 
-    final List<String> images = [
-      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-      "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
-    ];
+    // final List<String> images = [
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    // ];
 
     return Column(
       children: [
@@ -593,10 +596,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             borderRadius: BorderRadius.circular(10.r),
             child: PageView.builder(
               controller: pageController,
-              itemCount: images.length,
+              itemCount:
+                  DashboardCubit.get(context).dashboardData?.banners?.length ??
+                      0,
               itemBuilder: (context, index) {
                 return CachedNetworkImage(
-                  imageUrl: images[index],
+                  imageUrl: DashboardCubit.get(context)
+                          .dashboardData
+                          ?.banners
+                          ?.elementAt(index)
+                          .featuredImage ??
+                      '',
                   fit: BoxFit.cover,
                   width: double.infinity,
                   placeholder: (context, url) => Container(
@@ -617,7 +627,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         SizedBox(height: 16.h),
         SmoothPageIndicator(
           controller: pageController,
-          count: images.length,
+          count:
+              DashboardCubit.get(context).dashboardData?.banners?.length ?? 0,
           effect: JumpingDotEffect(
             dotHeight: 10.h,
             dotWidth: 10.w,
@@ -631,21 +642,27 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Widget _buildTicketCard(BuildContext context) {
+    var cubit = DashboardCubit.get(context);
+    final status = cubit.dashboardData?.tickets?.last.statusText ?? '';
+    final ticket = cubit.dashboardData?.tickets?.last;
+    if (ticket == null) {
+      return const SizedBox();
+    }
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(
-        //   PageRouteBuilder(
-        //     pageBuilder: (context, animation, secondaryAnimation) =>
-        //         const UnitDetailsScreen(),
-        //     transitionsBuilder:
-        //         (context, animation, secondaryAnimation, child) {
-        //       return FadeTransition(
-        //         opacity: animation,
-        //         child: child,
-        //       ); // Uses a smoother transition
-        //     },
-        //   ),
-        // );
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                TicketDetailsScreen(ticket),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              ); // Uses a smoother transition
+            },
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(10.w),
@@ -665,7 +682,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "Ticket Num: ",
+                          "Ticket Title: ",
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
@@ -673,7 +690,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),
                         Text(
-                          "#637893",
+                          ticket.title ?? '',
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
@@ -684,7 +701,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   Text(
-                    "18/1/2025 3:45PM",
+                    "${ticket.creationDate} ${ticket.creationTime}",
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.grey[600],
@@ -702,7 +719,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Row(
                     children: [
                       Text(
-                        "Ticket Sort: ",
+                        "Ticket Num: ",
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -710,7 +727,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         ),
                       ),
                       Text(
-                        "Gate Pass",
+                        '#${ticket.id.toString()}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -724,14 +741,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 231, 217, 219),
+                      color: getStatusBackgroundColor(status),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      "Expired",
+                      status,
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: Colors.red,
+                        color: getStatusTextColor(status),
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
                       ),
@@ -746,22 +763,27 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
-  Widget buildProductList(
-      List<Map<String, String>> products, BuildContext context) {
+  Widget buildProductList(BuildContext context) {
+    var cubit = DashboardCubit.get(context);
     return SizedBox(
       height: 320.h, // Responsive height
       child: ListView.builder(
         padding: EdgeInsets.only(bottom: 10.h),
         scrollDirection: Axis.horizontal,
-        itemCount: products.length,
+        itemCount: min(cubit.dashboardData?.articles?.length ?? 0, 3),
         itemBuilder: (context, index) {
-          return _buildProductCard(products[index], context);
+          final article = cubit.dashboardData?.articles?[index];
+          if (article != null) {
+            return _buildProductCard(article, context);
+          } else {
+            return const SizedBox();
+          }
         },
       ),
     );
   }
 
-  Widget _buildProductCard(Map<String, String> product, BuildContext context) {
+  Widget _buildProductCard(Article article, BuildContext context) {
     return Container(
       width: 300.w, // Responsive width
       margin: EdgeInsets.only(right: 12.w),
@@ -779,7 +801,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 topRight: Radius.circular(10.r),
               ),
               child: CachedNetworkImage(
-                imageUrl: product["image"]!,
+                imageUrl: article.image ?? '',
                 width: double.infinity,
                 height: 180.h, // Adjust height responsively
                 fit: BoxFit.cover,
@@ -799,7 +821,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               child: Text(
-                product["description"]!,
+                article.description ?? '',
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
@@ -817,7 +839,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    product["date"]!,
+                    article.publishedAt ?? '',
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: Colors.grey[700],
@@ -833,7 +855,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const NewsDetailsScreen(),
+                                    NewsDetailsScreen(article),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               return FadeTransition(

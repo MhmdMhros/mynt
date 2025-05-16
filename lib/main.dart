@@ -7,6 +7,7 @@ import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';
+import 'package:mynt/presentation/pages/request%20service/cubit/request_service_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/splash_screen.dart';
 import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<NotificationsCubit>(
             create: (_) => getIt<NotificationsCubit>(),
+          ),
+          BlocProvider<RequestServiceCubit>(
+            create: (_) => getIt<RequestServiceCubit>(),
           ),
         ],
         child: MaterialApp(

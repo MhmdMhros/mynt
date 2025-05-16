@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/domain/entities/article.dart';
 
 class NewsDetailsScreen extends StatelessWidget {
-  const NewsDetailsScreen({super.key});
+  final Article article;
+  const NewsDetailsScreen(this.article, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,7 @@ class NewsDetailsScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.r),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      "https://s3-alpha-sig.figma.com/img/94de/0cbf/3e90a09eca6036d75eaa148a4caaab08?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OC6s4HmXioTVQylDSGsMMSpwVYoaEauEppt52KIzvqR0dhP1nxnRtlsnmWDBhGporNdtww42tCYrmjJvmVIfjLfxLonNO75b5GJpBcLt8CGFXRl8gUeoLsLZ2jAVD-ipyiIk9hOGPx2GKEPGnu31qTlwITBx-Uzm1maR1f6vnwyK~i~t0Lqi4O2VOcTOBtWziqxpux8QhLSXgwwqbciGwSnnqrXm2F1KtD4KHJTc9SPkWSikl~kBBkGP~bMMTOUt7fzwefSwhiXstLsYQkDeW29FHBoAiKQpxcsAcp11jLhXEuvgqF2WvEWAiCVlxJyruFC6lsrYCNi6htRD3dfnaw__",
+                  imageUrl: article.image ?? '',
                   height: 200.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -58,7 +59,7 @@ class NewsDetailsScreen extends StatelessWidget {
 
               // Date
               Text(
-                "2/5/2023",
+                article.publishedAt ?? '',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontFamily: "Montserrat",
@@ -68,18 +69,7 @@ class NewsDetailsScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Text(
-                "Opening of the New ${"Flowers"} Compound in Sheikh Zayed Area",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text1,
-                ),
-              ),
-              SizedBox(height: 10.h),
-
-              Text(
-                "${"Future Real Estate"} company announced the opening of the new ${"Flowers"} compound, located in the heart of Sheikh Zayed. The compound features modern and luxurious design, offering a variety of residential units ranging from small apartments to standalone villas. Project Details Location: Sheikh Zayed, Cairo. Number of Units: 300 residential units. Types of Units: Apartments (2 to 4 bedrooms) and villas. Amenities:The compound includes swimming pools, a fitness area, a social club, and a children's garden. Opening Date:January 2025. Unit Prices:Prices start from 1.5 million Egyptian pounds. The opening ceremony was attended by several public figures and investors, highlighting the unique features of the project.",
+                article.description ?? '',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontFamily: "Montserrat",
@@ -88,201 +78,200 @@ class NewsDetailsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10.h),
+              // Text(
+              //   "Project Details",
+              //   style: TextStyle(
+              //     fontSize: 14.sp,
+              //     fontFamily: "Montserrat",
+              //     fontWeight: FontWeight.w600,
+              //     color: AppColors.text1,
+              //   ),
+              // ),
+              // SizedBox(height: 10.h),
 
-              Text(
-                "Project Details",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text1,
-                ),
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Location: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "Sheikh Zayed, Cairo.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Location: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Sheikh Zayed, Cairo.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Number of Units: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "300 residential units.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Number of Units: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "300 residential units.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Types of Units: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "Apartments (2 to 4 bedrooms) and villas.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Types of Units: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Apartments (2 to 4 bedrooms) and villas.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Amenities: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "The compound includes swimming pools, a fitness area, a social club, and a children's garden.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Amenities: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "The compound includes swimming pools, a fitness area, a social club, and a children's garden.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Opening Date: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "January 2025.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Opening Date: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "January 2025.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+              // Row(
+              //   crossAxisAlignment:
+              //       CrossAxisAlignment.start, // Aligns text at the top
 
-              Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Aligns text at the top
+              //   children: [
+              //     Text(
+              //       "Unit Prices: ",
+              //       style: TextStyle(
+              //         fontSize: 14.sp,
+              //         fontFamily: "Montserrat",
+              //         fontWeight: FontWeight.w600,
+              //         color: AppColors.text1,
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Text(
+              //         "Prices start from 1.5 million Egyptian pounds.",
+              //         style: TextStyle(
+              //           fontSize: 14.sp,
+              //           fontFamily: "Montserrat",
+              //           fontWeight: FontWeight.w500,
+              //           color: AppColors.text1,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(height: 10.h),
 
-                children: [
-                  Text(
-                    "Unit Prices: ",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text1,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Prices start from 1.5 million Egyptian pounds.",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.text1,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
-
-              Text(
-                "The opening ceremony was attended by several public figures and investors, highlighting the unique features of the project.",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.text1,
-                ),
-              ),
+              // Text(
+              //   "The opening ceremony was attended by several public figures and investors, highlighting the unique features of the project.",
+              //   style: TextStyle(
+              //     fontSize: 14.sp,
+              //     fontFamily: "Montserrat",
+              //     fontWeight: FontWeight.w500,
+              //     color: AppColors.text1,
+              //   ),
+              // ),
             ],
           ),
         ),

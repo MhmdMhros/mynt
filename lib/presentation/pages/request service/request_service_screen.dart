@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
-import 'package:mynt/presentation/pages/bottom%20sheets/compound_bottom_sheet.dart';
+// import 'package:mynt/presentation/pages/bottom%20sheets/compound_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/dr_service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/unit_number_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/request%20service/cubit/request_service_cubit.dart';
 
 class RequestServiceScreen extends StatefulWidget {
   const RequestServiceScreen({super.key});
@@ -37,23 +39,23 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
   }
 
   /// Show the Compound Selection Bottom Sheet
-  void showCompoundBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      ),
-      builder: (context) {
-        return CompoundBottomSheet(
-          onSubmit: (text) {
-            setState(() {
-              selectedCompound = text;
-            });
-          },
-        );
-      },
-    );
-  }
+  // void showCompoundBottomSheet(BuildContext context) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+  //     ),
+  //     builder: (context) {
+  //       return CompoundBottomSheet(
+  //         onSubmit: (text) {
+  //           setState(() {
+  //             selectedCompound = text;
+  //           });
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   /// Show the Unit Number Selection Bottom Sheet
   void showUnitNumBottomSheet(BuildContext context) {
@@ -76,69 +78,72 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 30.w),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
-            onPressed: () => Navigator.pop(context),
+    return BlocBuilder<RequestServiceCubit, RequestServiceState>(
+        builder: (context, state) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: Padding(
+            padding: EdgeInsets.only(left: 30.w),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
-        ),
-        title: Text(
-          "Request Service",
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.w600,
-            color: AppColors.text1,
+          title: Text(
+            "Request Service",
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontFamily: "Montserrat",
+              fontWeight: FontWeight.w600,
+              color: AppColors.text1,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _buildDropdownField(
-                      title: "Compound",
-                      hint: "Choose Compound",
-                      selectedValue: selectedCompound,
-                      onTap: () => showCompoundBottomSheet(context),
-                    ),
-                    SizedBox(height: 15.h),
-                    _buildDropdownField(
-                      title: "Unit number",
-                      hint: "Choose Unit Number",
-                      selectedValue: selectedUnitNumber,
-                      onTap: () => showUnitNumBottomSheet(context),
-                    ),
-                    SizedBox(height: 15.h),
-                    _buildDropdownField(
-                      title: "Service type",
-                      hint: "Choose Service Type",
-                      selectedValue: selectServiceType,
-                      onTap: () => showServiceTypeBottomSheet(context),
-                    ),
-                    SizedBox(height: 15.h),
-                    _buildTextField(
-                        "Description", "Write your comment here..."),
-                  ],
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // _buildDropdownField(
+                      //   title: "Compound",
+                      //   hint: "Choose Compound",
+                      //   selectedValue: selectedCompound,
+                      //   onTap: () => showCompoundBottomSheet(context),
+                      // ),
+                      // SizedBox(height: 15.h),
+                      _buildDropdownField(
+                        title: "Unit number",
+                        hint: "Choose Unit Number",
+                        selectedValue: selectedUnitNumber,
+                        onTap: () => showUnitNumBottomSheet(context),
+                      ),
+                      SizedBox(height: 15.h),
+                      _buildDropdownField(
+                        title: "Service type",
+                        hint: "Choose Service Type",
+                        selectedValue: selectServiceType,
+                        onTap: () => showServiceTypeBottomSheet(context),
+                      ),
+                      SizedBox(height: 15.h),
+                      _buildTextField(
+                          "Description", "Write your comment here..."),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            _buildSubmitButton(),
-          ],
+              _buildSubmitButton(),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   /// **Custom Dropdown Field that Opens Bottom Sheet**

@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/common/pagination/build_paged_list_view.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/notification.dart';
+import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/widgets/notification_widget.dart';
 
@@ -66,6 +69,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     : true,
                 onRead: () async {
                   await cubit.readNtification(notification.id.toString());
+                  DashboardCubit.get(context).decreamentCountOfNotifications();
                 },
               );
             },

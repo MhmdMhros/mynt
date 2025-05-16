@@ -41,6 +41,8 @@ import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart' as _i1016;
 import 'package:mynt/domain/usecases/get_tickets_data_usecase.dart' as _i1017;
 import 'package:mynt/domain/usecases/create_review_usecase.dart' as _i1018;
 import 'package:mynt/domain/usecases/create_restriction_usecase.dart' as _i1019;
+import 'package:mynt/domain/usecases/get_un_read_notifications_count_usecase.dart'
+    as _i1020;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -197,6 +199,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i1013.GetHomeDataUsecase>(
         () => _i1013.GetHomeDataUsecase(gh<_i8.Repository>()));
 
+    gh.lazySingleton<_i1020.GetUnReadNotificationsCountUsecase>(
+        () => _i1020.GetUnReadNotificationsCountUsecase(gh<_i8.Repository>()));
+
     gh.factory<_i2001.LayoutCubit>(() => _i2001.LayoutCubit(
           gh<_i1005.GetUserUseCase>(),
           gh<_i1006.RefreshTokenUsecase>(),
@@ -207,6 +212,7 @@ extension GetItInjectableX on _i1.GetIt {
 
     gh.factory<_i2004.DashboardCubit>(() => _i2004.DashboardCubit(
           gh<_i1013.GetHomeDataUsecase>(),
+          gh<_i1020.GetUnReadNotificationsCountUsecase>(),
         ));
 
     gh.lazySingleton<_i1016.GetBookingsDataUsecase>(
