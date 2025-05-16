@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/domain/usecases/check_account_usecase.dart';
@@ -31,6 +32,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool staySignIn = false;
 
+  bool isConnected = false;
+
   void onStaySignInChange(bool staySignIn) => this.staySignIn = staySignIn;
 
   void initializeLoginData(String? email, String? password) {
@@ -51,7 +54,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<bool> checkAndLogin() async {
     emit(LoginLoading());
-
+    checkLoginConnectivity();
     final checkResult = await _checkAccountUsecase(
       CheckAccountRequest(login: glopalUserName!),
     );
@@ -110,5 +113,24 @@ class LoginCubit extends Cubit<LoginState> {
         );
       },
     );
+  }
+
+  void checkLoginConnectivity() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile)) {
+      isConnected = true;
+      emit(LoginConnectivityChanged(isConnected));
+    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+      isConnected = true;
+      emit(LoginConnectivityChanged(isConnected));
+    } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+      isConnected = true;
+      emit(LoginConnectivityChanged(isConnected));
+    } else {
+      isConnected = false;
+      emit(LoginConnectivityChanged(isConnected));
+    }
   }
 }

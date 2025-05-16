@@ -26,106 +26,221 @@ class _SignInScreenState extends State<SignInScreen> {
   final passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    LoginCubit.get(context).checkLoginConnectivity();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         var cubit = LoginCubit.get(context);
-        return Scaffold(
-          backgroundColor: AppColors.background,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: Text(
-              "Sign In",
-              style: TextStyle(
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-                color: AppColors.text1,
+        if (cubit.isConnected) {
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              title: Text(
+                "Sign In",
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.sp,
+                  color: AppColors.text1,
+                ),
               ),
+              centerTitle: true,
             ),
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    SizedBox(height: 24.h),
-                    Center(
-                      child: SvgPicture.asset(
-                        'assets/images/mynt.svg',
-                        height: 120.h,
-                        width: 120.w,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      controller: emailController,
-                      hintText: "Email",
-                      isBorderEnabled: false,
-                      prefixIcon: Icon(Icons.person_2_outlined, size: 24.sp),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Email is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16.h),
-                    AppTextFormField(
-                      controller: passwordController,
-                      hintText: "Password",
-                      isObscureText: !_isPasswordVisible,
-                      isBorderEnabled: false,
-                      prefixIcon: Icon(Icons.lock_clock_outlined, size: 24.sp),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          size: 20.sp,
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 24.h),
+                      Center(
+                        child: SvgPicture.asset(
+                          'assets/images/mynt.svg',
+                          height: 120.h,
+                          width: 120.w,
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
+                      ),
+                      SizedBox(height: 16.h),
+                      AppTextFormField(
+                        controller: emailController,
+                        hintText: "Email",
+                        isBorderEnabled: false,
+                        prefixIcon: Icon(Icons.person_2_outlined, size: 24.sp),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Email is required';
+                          }
+                          return null;
                         },
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Password is required';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16.h),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          if (emailController.text.trim().isNotEmpty) {
+                      SizedBox(height: 16.h),
+                      AppTextFormField(
+                        controller: passwordController,
+                        hintText: "Password",
+                        isObscureText: !_isPasswordVisible,
+                        isBorderEnabled: false,
+                        prefixIcon:
+                            Icon(Icons.lock_clock_outlined, size: 24.sp),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            size: 20.sp,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Password is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 16.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            if (emailController.text.trim().isNotEmpty) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => CreatePasswordScreen(
+                                      emailController.text),
+                                ),
+                              );
+                            } else {
+                              showToast(
+                                  "Email is required.", ToastType.warning);
+                            }
+                          },
+                          child: Text(
+                            'Forget My Password?',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.text1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: AppTextButton(
+                buttonHeight: 48.h,
+                backgroundColor: AppColors.primary,
+                onPressed: state is LoginLoading
+                    ? () {}
+                    : () async {
+                        if (_formKey.currentState!.validate()) {
+                          cubit.initializeLoginData(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                          final success = await cubit.checkAndLogin();
+                          if (success) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) =>
-                                    CreatePasswordScreen(emailController.text),
+                                builder: (context) => EmailVerification(
+                                    emailController.text,
+                                    '',
+                                    '',
+                                    '',
+                                    '',
+                                    '',
+                                    'auth_login'),
                               ),
                             );
-                          } else {
-                            showToast("Email is required.", ToastType.warning);
                           }
-                        },
-                        child: Text(
-                          'Forget My Password?',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.text1,
-                          ),
+                        }
+                      },
+                child: state is LoginLoading
+                    ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+              ),
+            ),
+          );
+        } else {
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.wifi_off,
+                      size: 80.sp,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      'No Internet Connection',
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat',
+                        color: AppColors.text1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Please check your connection and try again.',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.grey,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 24.h),
+                    AppTextButton(
+                      buttonHeight: 48.h,
+                      backgroundColor: AppColors.primary,
+                      onPressed: () {
+                        LoginCubit.get(context).checkLoginConnectivity();
+                      },
+                      child: Text(
+                        'Retry',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -133,58 +248,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
             ),
-          ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: AppTextButton(
-              buttonHeight: 48.h,
-              backgroundColor: AppColors.primary,
-              onPressed: state is LoginLoading
-                  ? () {}
-                  : () async {
-                      if (_formKey.currentState!.validate()) {
-                        cubit.initializeLoginData(
-                          emailController.text,
-                          passwordController.text,
-                        );
-                        final success = await cubit.checkAndLogin();
-                        if (success) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EmailVerification(
-                                  emailController.text,
-                                  '',
-                                  '',
-                                  '',
-                                  '',
-                                  '',
-                                  'auth_login'),
-                            ),
-                          );
-                        }
-                      }
-                    },
-              child: state is LoginLoading
-                  ? const SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-            ),
-          ),
-        );
+          );
+        }
       },
     );
   }

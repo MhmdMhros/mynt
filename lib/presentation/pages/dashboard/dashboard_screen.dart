@@ -43,208 +43,189 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     }
   }
 
+  // ✅ FIXED WIDGET TREE
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
-        builder: (context, state) {
-      final cubit = DashboardCubit.get(context);
-      if (state is GetHomeDataSuccess ||
-          state is GetUnreadNotificationsCountSuccess) {
-        return Scaffold(
-          backgroundColor: Colors.grey[200],
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    height: 0.25.sh,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF0F525B),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          right: 24.w, left: 24.w, bottom: 60.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      builder: (context, state) {
+        final cubit = DashboardCubit.get(context);
+        if (state is GetHomeDataSuccess ||
+            state is GetUnreadNotificationsCountSuccess) {
+          return Scaffold(
+            backgroundColor: Colors.grey[200],
+            body: LayoutBuilder(builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Stack(
+                    children: [
+                      Column(
                         children: [
-                          Flexible(
-                            child: SvgPicture.asset(
-                              "assets/images/myntNameImage2.svg",
-                              height: 50.h,
-                              width: 100.w,
-                              fit: BoxFit.contain,
+                          Container(
+                            height: 0.25.sh,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF0F525B),
                             ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NotificationsScreen(),
-                                ),
-                              );
-                            },
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8.w),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  child: Icon(
-                                    Icons.notifications_outlined,
-                                    color: const Color(0xFF0F525B),
-                                    size: 20.sp,
-                                  ),
-                                ),
-                                if (cubit.unreadNotificationsCount > 0)
-                                  Positioned(
-                                    top: -4,
-                                    right: -4,
-                                    child: Container(
-                                      padding: EdgeInsets.all(4.w),
-                                      decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 18.w,
-                                        minHeight: 18.w,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          cubit.unreadNotificationsCount > 9
-                                              ? '9+'
-                                              : cubit.unreadNotificationsCount
-                                                  .toString(),
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  right: 24.w, left: 24.w, bottom: 60.h),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: SvgPicture.asset(
+                                      "assets/images/myntNameImage2.svg",
+                                      height: 50.h,
+                                      width: 100.w,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
-                              ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NotificationsScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(8.w),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
+                                          ),
+                                          child: Icon(
+                                            Icons.notifications_outlined,
+                                            color: const Color(0xFF0F525B),
+                                            size: 20.sp,
+                                          ),
+                                        ),
+                                        if (cubit.unreadNotificationsCount > 0)
+                                          Positioned(
+                                            top: -4,
+                                            right: -4,
+                                            child: Container(
+                                              padding: EdgeInsets.all(4.w),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.red,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              constraints: BoxConstraints(
+                                                minWidth: 18.w,
+                                                minHeight: 18.w,
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  cubit.unreadNotificationsCount >
+                                                          9
+                                                      ? '9+'
+                                                      : cubit
+                                                          .unreadNotificationsCount
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 70.h),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 50.h),
+                                  _buildSectionTitle(
+                                      "Current Balance", () {}, false),
+                                  SizedBox(height: 10.h),
+                                  _buildCurrentBalance(context),
+                                  SizedBox(height: 16.h),
+                                  _buildSectionTitle("Rented Units", () {
+                                    LayoutCubit.get(context)
+                                        .changeCurrentSelectedBottomNavIndex(1);
+                                  }, true),
+                                  SizedBox(height: 10.h),
+                                  _buildRentedUnitsList(),
+                                  SizedBox(height: 16.h),
+                                  _buildSectionTitle("Tickets", () {
+                                    LayoutCubit.get(context)
+                                        .changeCurrentSelectedBottomNavIndex(2);
+                                  }, true),
+                                  SizedBox(height: 10.h),
+                                  _buildTicketCard(context),
+                                  SizedBox(height: 16.h),
+                                  _buildSectionTitle("News", () {
+                                    final articles =
+                                        cubit.dashboardData?.articles;
+                                    if (articles != null) {
+                                      Navigator.of(context).push(
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              NewsScreen(articles),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                  }, true),
+                                  SizedBox(height: 10.h),
+                                  buildProductList(context),
+                                  SizedBox(height: 30.h),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 70.h),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 50.h),
-                              _buildSectionTitle(
-                                  "Current Balance", () {}, false),
-                              SizedBox(height: 10.h),
-
-                              _buildCurrentBalance(context),
-                              SizedBox(height: 16.h),
-
-                              // Rented Units Section
-                              _buildSectionTitle("Rented Units", () {
-                                LayoutCubit.get(context)
-                                    .changeCurrentSelectedBottomNavIndex(1);
-                              }, true),
-                              SizedBox(height: 10.h),
-                              _buildRentedUnitsList(),
-
-                              SizedBox(height: 16.h),
-
-                              // Required Action Section
-                              // _buildSectionTitle("Required Action", () {
-                              //   Navigator.of(context).push(
-                              //     PageRouteBuilder(
-                              //       pageBuilder: (context, animation,
-                              //               secondaryAnimation) =>
-                              //           const RequiredActionsScreen(),
-                              //       transitionsBuilder: (context, animation,
-                              //           secondaryAnimation, child) {
-                              //         return FadeTransition(
-                              //           opacity: animation,
-                              //           child: child,
-                              //         ); // Uses a smoother transition
-                              //       },
-                              //     ),
-                              //   );
-                              // }, true),
-                              // SizedBox(height: 10.h),
-                              // _buildActionCard(context),
-
-                              // SizedBox(height: 16.h),
-
-                              // Last Tickets Section
-                              _buildSectionTitle("Tickets", () {
-                                LayoutCubit.get(context)
-                                    .changeCurrentSelectedBottomNavIndex(2);
-                              }, true),
-                              SizedBox(height: 10.h),
-                              _buildTicketCard(context),
-
-                              SizedBox(height: 16.h),
-                              _buildSectionTitle("News", () {
-                                final articles = cubit.dashboardData?.articles;
-                                if (articles != null) {
-                                  Navigator.of(context).push(
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          NewsScreen(articles),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return FadeTransition(
-                                          opacity: animation,
-                                          child: child,
-                                        ); // Uses a smoother transition
-                                      },
-                                    ),
-                                  );
-                                }
-                              }, true),
-                              SizedBox(height: 10.h),
-                              Column(
-                                children: [
-                                  buildProductList(context),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 120.h, left: 15.w, right: 15.w),
+                        child: _buildNewAds(),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 120.h, left: 15.w, right: 15.w),
-                child: _buildNewAds(),
-              )
-            ],
-          ),
-        );
-      } else {
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }
-    });
+                ),
+              );
+            }),
+          );
+        } else {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget _buildSectionTitle(

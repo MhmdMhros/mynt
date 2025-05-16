@@ -37,3 +37,12 @@ final class VerifyOtpError extends LoginState {
   final String error;
   const VerifyOtpError(this.error);
 }
+
+class LoginConnectivityChanged extends LoginState {
+  final bool isConnected;
+
+  const LoginConnectivityChanged(this.isConnected);
+
+  @override
+  List<Object> get props => [isConnected];
+}

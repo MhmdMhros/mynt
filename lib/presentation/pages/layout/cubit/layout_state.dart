@@ -57,3 +57,12 @@ final class SendOtpError extends LayoutState {
   final String error;
   const SendOtpError(this.error);
 }
+
+class LayoutConnectivityChanged extends LayoutState {
+  final bool isConnected;
+
+  const LayoutConnectivityChanged(this.isConnected);
+
+  @override
+  List<Object> get props => [isConnected];
+}
