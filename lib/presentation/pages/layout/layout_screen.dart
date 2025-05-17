@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
@@ -22,9 +23,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
   void initState() {
     super.initState();
     LayoutCubit.get(context).checkLayoutConnectivity();
-    if (LayoutCubit.get(context).isConnected) {
-      _handleUserLogic();
-    }
+    _handleUserLogic();
+  }
+
+  Future<void> _initConnectivityAndHandleLogic() async {
+    final bool connect = await initialyConnectivity();
+    if (connect) {}
   }
 
   Future<void> resetIsInMainLayout() async {
@@ -35,11 +39,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
   Future<void> _handleUserLogic() async {
     final cubit = LayoutCubit.get(context);
     final userFetched = await cubit.getUser();
-    if (!userFetched) {
+    if (userFetched != 200 && userFetched != -7) {
       final refreshed = await cubit.refreshToken();
       if (refreshed) {
         final retried = await cubit.getUser();
-        if (!retried) {
+        if (retried != 200 && retried != -7) {
           _showLoginPopup();
         } else {
           await cubit.getSettingsData();

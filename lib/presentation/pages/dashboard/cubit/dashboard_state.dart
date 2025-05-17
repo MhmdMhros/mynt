@@ -28,3 +28,12 @@ class GetUnreadNotificationsCountFailure extends DashboardState {
 }
 
 class DecreamentUnreadNotificationsCountSuccess extends DashboardState {}
+
+class GetAccountSummaryLoading extends DashboardState {}
+
+class GetAccountSummarySuccess extends DashboardState {}
+
+class GetAccountSummaryFailure extends DashboardState {
+  final String error;
+  const GetAccountSummaryFailure(this.error);
+}

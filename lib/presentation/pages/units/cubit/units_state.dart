@@ -27,3 +27,13 @@ class CreateRestrictionFailure extends UnitsState {
 
   const CreateRestrictionFailure(this.error);
 }
+
+class GetBookingAccountSummaryLoading extends UnitsState {}
+
+class GetBookingAccountSummarySuccess extends UnitsState {}
+
+class GetBookingAccountSummaryFailure extends UnitsState {
+  final String error;
+
+  const GetBookingAccountSummaryFailure(this.error);
+}

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
-import 'package:mynt/presentation/pages/balance%20details/balance_details_screen.dart';
+import 'package:mynt/domain/entities/account_summary_data.dart';
+import 'package:mynt/presentation/pages/balances/account_summary_details_screen.dart';
 
 class BalancesScreen extends StatelessWidget {
-  const BalancesScreen({super.key});
+  final AccountSummaryData accountSummaryData;
+  const BalancesScreen(this.accountSummaryData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,6 @@ class BalancesScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(16.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               decoration: InputDecoration(
@@ -62,7 +63,6 @@ class BalancesScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  // Prefix Icon
                   Icon(Icons.filter_list,
                       color: AppColors.primary, size: 24.sp),
                   SizedBox(width: 10.w),
@@ -85,7 +85,6 @@ class BalancesScreen extends StatelessWidget {
                                 ))
                             .toList(),
                         onChanged: (value) {},
-                        // Custom Suffix Icon
                         icon: Icon(Icons.keyboard_arrow_down_outlined,
                             color: AppColors.text1, size: 30.sp),
                       ),
@@ -95,41 +94,77 @@ class BalancesScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
+
+            // Header Row
             Container(
-              padding: EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
+              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
               decoration: BoxDecoration(
                 color: const Color(0xFFF0F4F5),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.r),
-                    bottomLeft: Radius.circular(10.r)),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Unit ID", style: _headerStyle()),
-                  Text("Check in/out", style: _headerStyle()),
-                  Text("Net", style: _headerStyle()),
-                  Text("More", style: _headerStyle()),
+                  _buildHeaderCell("Id", flex: 1),
+                  _buildHeaderCell("Unit Number", flex: 2),
+                  _buildHeaderCell("Balance", flex: 2),
+                  _buildHeaderCell("More", flex: 1),
                 ],
               ),
             ),
             SizedBox(height: 10.h),
 
-            // List of widgets (each is a row)
+            // Data List
             Expanded(
               child: ListView.separated(
-                itemCount: 9, // Example data count
-                separatorBuilder: (_, __) => SizedBox(height: 10.h),
+                itemCount: accountSummaryData.accountSummary.length,
+                separatorBuilder: (_, __) => SizedBox(height: 8.h),
                 itemBuilder: (context, index) {
-                  return _buildBalanceRow(
-                      unitId: "12225",
-                      checkInOut: "2/5/2023 - 19/7/2023",
-                      net: -4150.00,
-                      context: context);
+                  final item = accountSummaryData.accountSummary[index];
+                  return Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Row(
+                      children: [
+                        _buildDataCell(item.id.toString(), flex: 1),
+                        _buildDataCell(item.propertyNumber ?? '', flex: 2),
+                        _buildDataCell(
+                          "${item.balance ?? '0'} EGP",
+                          flex: 2,
+                          color: double.tryParse(item.balance ?? '0') != null &&
+                                  double.parse(item.balance!) > 0
+                              ? const Color(0xFF007D8B)
+                              : const Color(0xFFDD6D5C),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_forward_ios,
+                                color: AppColors.primary, size: 16.w),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AccountSummaryDetailsScreen(
+                                    accountSummary: item,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
             ),
-            // Download Buttons
+
+            SizedBox(height: 10.h),
             Column(
               children: [
                 _buildDownloadButton(
@@ -145,72 +180,40 @@ class BalancesScreen extends StatelessWidget {
     );
   }
 
-  // Widget for list item row
-  Widget _buildBalanceRow(
-      {required String unitId,
-      required String checkInOut,
-      required double net,
-      required BuildContext context}) {
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(unitId,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w600,
-                color: AppColors.primary,
-              )),
-          Padding(
-            padding: EdgeInsets.only(left: 40.w),
-            child: Text(checkInOut,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                )),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.w),
-            child: Text(
-              "${net}EGP",
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w600,
-                color:
-                    net > 0 ? const Color(0xFF007D8B) : const Color(0xFFDD6D5C),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 30.w),
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColors.primary,
-                  size: 16.w,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BalanceDetailsScreen()),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+  Widget _buildHeaderCell(String text, {int flex = 1}) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontFamily: "Montserrat",
+          fontWeight: FontWeight.w600,
+          color: AppColors.text1,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  // Widget for download buttons
+  Widget _buildDataCell(String text, {int flex = 1, Color? color}) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12.sp,
+          fontFamily: "Montserrat",
+          fontWeight: FontWeight.w500,
+          color: color ?? Colors.black,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
   Widget _buildDownloadButton(String text, Color textColor, Color backColor) {
     return SizedBox(
       height: 60.h,
@@ -223,9 +226,8 @@ class BalancesScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.r),
             side: const BorderSide(
-              color:
-                  AppColors.primary, // Change this to your desired border color
-              width: 1, // Change this to your desired border width
+              color: AppColors.primary,
+              width: 1,
             ),
           ),
         ),
@@ -241,19 +243,4 @@ class BalancesScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Styles for text widgets
-  TextStyle _headerStyle() => TextStyle(
-        fontSize: 14.sp,
-        fontFamily: "Montserrat",
-        fontWeight: FontWeight.w600,
-        color: AppColors.text1,
-      );
-
-  TextStyle textStyle() => TextStyle(
-        fontSize: 12.sp,
-        fontFamily: "Montserrat",
-        fontWeight: FontWeight.w600,
-        color: AppColors.primary,
-      );
 }

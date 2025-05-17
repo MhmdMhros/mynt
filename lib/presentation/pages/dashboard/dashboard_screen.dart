@@ -38,6 +38,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     final homeFetched = await cubit.getHomeData();
     if (homeFetched) {
       await cubit.getUnreadNotificationsCount();
+      await cubit.getAllAccountSummary();
     } else {
       showToast('Error to fetch data!!!.', ToastType.error);
     }
@@ -50,7 +51,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       builder: (context, state) {
         final cubit = DashboardCubit.get(context);
         if (state is GetHomeDataSuccess ||
-            state is GetUnreadNotificationsCountSuccess) {
+            state is GetUnreadNotificationsCountSuccess ||
+            state is GetAccountSummarySuccess) {
           return Scaffold(
             backgroundColor: Colors.grey[200],
             body: LayoutBuilder(builder: (context, constraints) {
@@ -455,6 +457,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   Widget _buildCurrentBalance(BuildContext context) {
+    var cubit = DashboardCubit.get(context);
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
@@ -506,11 +509,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BalancesScreen()),
-                    );
+                    if (cubit.accountSummaryData != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BalancesScreen(cubit.accountSummaryData!)),
+                      );
+                    } else {
+                      showToast('Try again later.', ToastType.info);
+                    }
                   },
                   child: Container(
                     padding: EdgeInsets.all(6.w),

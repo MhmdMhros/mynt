@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -239,5 +240,20 @@ Color getStatusTextColor(String status) {
       return const Color(0xFFBF4C43);
     default:
       return Colors.black; // Default text color
+  }
+}
+
+Future<bool> initialyConnectivity() async {
+  final List<ConnectivityResult> connectivityResult =
+      await (Connectivity().checkConnectivity());
+
+  if (connectivityResult.contains(ConnectivityResult.mobile)) {
+    return true;
+  } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+    return true;
+  } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+    return true;
+  } else {
+    return false;
   }
 }

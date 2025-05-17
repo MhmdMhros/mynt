@@ -89,18 +89,19 @@ class LayoutCubit extends Cubit<LayoutState> {
     );
   }
 
-  Future<bool> getUser() async {
+  Future<int> getUser() async {
     emit(GetUserLoading());
     final res = await _getUserUseCase(NoParams());
     return await res.fold(
       (l) {
         emit(GetUserFailure(l.message));
-        return false;
+        showToast(l.code.toString(), ToastType.info);
+        return l.code;
       },
       (user) {
         this.user = user;
         emit(GetUserSuccess());
-        return true;
+        return 200;
       },
     );
   }
@@ -161,7 +162,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   Future<void> editData() async {
     final success = await getUser();
-    if (success) {
+    if (success == 200) {
       await getIt<UserSecureStorage>().upsertUserInfo(
         email: user!.email,
       );

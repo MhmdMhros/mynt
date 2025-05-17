@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/presentation/pages/balances/balances_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/block_unit_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/unit%20details/widgets/monthly_calendar_widget.dart';
@@ -47,43 +48,43 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<BookedDateModel> bookedDates = [
-      BookedDateModel(bookingId: 16, date: "2025-06-01"),
-      BookedDateModel(bookingId: 16, date: "2025-06-02"),
-      BookedDateModel(bookingId: 17, date: "2025-06-10"),
-      BookedDateModel(bookingId: 17, date: "2025-06-11"),
-      BookedDateModel(bookingId: 17, date: "2025-06-12"),
-      BookedDateModel(bookingId: 17, date: "2025-06-13"),
-      BookedDateModel(bookingId: 21, date: "2025-05-09"),
-      BookedDateModel(bookingId: 21, date: "2025-05-10"),
-      BookedDateModel(bookingId: 21, date: "2025-05-11"),
-      BookedDateModel(bookingId: 21, date: "2025-05-12"),
-      BookedDateModel(bookingId: 21, date: "2025-05-13"),
-      BookedDateModel(bookingId: 23, date: "2025-05-29"),
-      BookedDateModel(bookingId: 23, date: "2025-05-30"),
-      BookedDateModel(bookingId: 27, date: "2025-09-01"),
-      BookedDateModel(bookingId: 27, date: "2025-09-02"),
-      BookedDateModel(bookingId: 27, date: "2025-09-03"),
-      BookedDateModel(bookingId: 27, date: "2025-09-04"),
-      BookedDateModel(bookingId: 27, date: "2025-09-05"),
-      BookedDateModel(bookingId: 27, date: "2025-09-06"),
-      BookedDateModel(bookingId: 27, date: "2025-09-07"),
-      BookedDateModel(bookingId: 27, date: "2025-09-08"),
-      BookedDateModel(bookingId: 27, date: "2025-09-09"),
-      BookedDateModel(bookingId: 29, date: "2025-06-04"),
-      BookedDateModel(bookingId: 29, date: "2025-06-05"),
-      BookedDateModel(bookingId: 30, date: "2025-07-04"),
-      BookedDateModel(bookingId: 30, date: "2025-07-05"),
-      BookedDateModel(bookingId: 31, date: "2025-10-01"),
-      BookedDateModel(bookingId: 31, date: "2025-10-02"),
-      BookedDateModel(bookingId: 31, date: "2025-10-03"),
-      BookedDateModel(bookingId: 31, date: "2025-10-04"),
-      BookedDateModel(bookingId: 31, date: "2025-10-05"),
-      BookedDateModel(bookingId: 31, date: "2025-10-06"),
-      BookedDateModel(bookingId: 31, date: "2025-10-07"),
-      BookedDateModel(bookingId: 31, date: "2025-10-08"),
-      BookedDateModel(bookingId: 31, date: "2025-10-09"),
-    ];
+    // final List<BookedDateModel> bookedDates = [
+    //   BookedDateModel(bookingId: 16, date: "2025-06-01"),
+    //   BookedDateModel(bookingId: 16, date: "2025-06-02"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-10"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-11"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-12"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-13"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-09"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-10"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-11"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-12"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-13"),
+    //   BookedDateModel(bookingId: 23, date: "2025-05-29"),
+    //   BookedDateModel(bookingId: 23, date: "2025-05-30"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-01"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-02"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-03"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-04"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-05"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-06"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-07"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-08"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-09"),
+    //   BookedDateModel(bookingId: 29, date: "2025-06-04"),
+    //   BookedDateModel(bookingId: 29, date: "2025-06-05"),
+    //   BookedDateModel(bookingId: 30, date: "2025-07-04"),
+    //   BookedDateModel(bookingId: 30, date: "2025-07-05"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-01"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-02"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-03"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-04"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-05"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-06"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-07"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-08"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-09"),
+    // ];
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.background,
@@ -350,14 +351,35 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
               style: TextStyle(fontSize: 14.sp, fontFamily: "Montserrat")),
         ),
         SizedBox(width: 30.w),
-        Text(
-          value,
-          style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: valueColor ?? Colors.black,
-              fontFamily: "Montserrat"),
-        ),
+        label == "Balance"
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BalancesScreen(
+                          UnitsCubit.get(context).bookingAccountSummaryData!),
+                    ),
+                  );
+                },
+                child: Text(
+                  value,
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: valueColor ?? Colors.blue,
+                      fontFamily: "Montserrat",
+                      decoration: TextDecoration.underline),
+                ),
+              )
+            : Text(
+                value,
+                style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: valueColor ?? Colors.black,
+                    fontFamily: "Montserrat"),
+              ),
       ],
     );
   }

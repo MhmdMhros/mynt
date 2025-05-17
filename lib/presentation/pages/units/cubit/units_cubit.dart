@@ -7,18 +7,22 @@ import 'package:injectable/injectable.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/common/pagination/list_page.dart';
 import 'package:mynt/data/requests/requests.dart';
+import 'package:mynt/domain/entities/account_summary_data.dart';
 import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/domain/usecases/create_restriction_usecase.dart';
+import 'package:mynt/domain/usecases/get_booking_account_summary_usecase.dart';
 import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart';
 
 part 'units_state.dart';
 
 @injectable
 class UnitsCubit extends Cubit<UnitsState> {
-  UnitsCubit(this._getBookingsDataUsecase, this._createRestrictionUsecase)
+  UnitsCubit(this._getBookingsDataUsecase, this._createRestrictionUsecase,
+      this._getBookingAccountSummaryUsecase)
       : super(UnitsInitial());
   final GetBookingsDataUsecase _getBookingsDataUsecase;
   final CreateRestrictionUsecase _createRestrictionUsecase;
+  final GetBookingAccountSummaryUsecase _getBookingAccountSummaryUsecase;
 
   static UnitsCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -27,6 +31,7 @@ class UnitsCubit extends Cubit<UnitsState> {
     firstPageKey: 1,
   );
   int total = 0;
+  AccountSummaryData? bookingAccountSummaryData;
 
   Future<ListPage<Booking>> getUnits(int page, int limit) async {
     emit(GetUnitsLoading());
@@ -76,9 +81,25 @@ class UnitsCubit extends Cubit<UnitsState> {
       },
       (success) {
         emit(CreateRestrictionSuccess());
-        // showToast('Your restriction has been submitted successfully.',
-        //     ToastType.success);
         return true;
+      },
+    );
+  }
+
+  Future<void> fetchBookingAccountSummary(String unitId) async {
+    emit(GetBookingAccountSummaryLoading());
+
+    final result = await _getBookingAccountSummaryUsecase(
+        GetBookingAccountSummaryRequest(query: {
+      'property_id': unitId,
+    }));
+    result.fold(
+      (failure) {
+        emit(GetBookingAccountSummaryFailure(failure.message));
+      },
+      (data) {
+        emit(GetBookingAccountSummarySuccess());
+        bookingAccountSummaryData = data;
       },
     );
   }

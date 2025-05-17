@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,7 +84,10 @@ class _UnitsScreenState extends State<UnitsScreen> {
 
   Widget _buildUnitContainer(Booking unit) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
+        await UnitsCubit.get(context)
+            .fetchBookingAccountSummary(unit.id.toString());
+        if (!context.mounted) return;
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
