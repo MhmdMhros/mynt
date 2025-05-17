@@ -45,14 +45,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
         final retried = await cubit.getUser();
         if (retried != 200 && retried != -7) {
           _showLoginPopup();
-        } else {
-          await cubit.getSettingsData();
         }
       } else {
         _showLoginPopup();
       }
-    } else {
-      await cubit.getSettingsData();
     }
   }
 

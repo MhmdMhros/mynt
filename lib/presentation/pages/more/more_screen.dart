@@ -5,7 +5,7 @@ import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/about%20us/about_us_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/log_out_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/contact%20us/contact_us_screen.dart';
-import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/more/widgets/more_widget.dart';
 import 'package:mynt/presentation/pages/my%20profile/my_profile_screen.dart';
 import 'package:mynt/presentation/pages/privacy%20and%20security/privacy_security_screen.dart';
@@ -13,6 +13,7 @@ import 'package:mynt/presentation/pages/request%20service/request_service_screen
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
+
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -27,7 +28,8 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LayoutCubit, LayoutState>(builder: (context, state) {
+    return BlocBuilder<MoreCubit, MoreState>(builder: (context, state) {
+      var cubit = MoreCubit.get(context);
       return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -80,7 +82,7 @@ class MoreScreen extends StatelessWidget {
                         return FadeTransition(
                           opacity: animation,
                           child: child,
-                        ); // Uses a smoother transition
+                        );
                       },
                     ),
                   );
@@ -100,7 +102,7 @@ class MoreScreen extends StatelessWidget {
                         return FadeTransition(
                           opacity: animation,
                           child: child,
-                        ); // Uses a smoother transition
+                        );
                       },
                     ),
                   );
@@ -114,13 +116,14 @@ class MoreScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const AboutUsScreen(),
+                          AboutUsScreen(
+                              cubit.settingsData?.aboutUsContentText ?? ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(
                           opacity: animation,
                           child: child,
-                        ); // Uses a smoother transition
+                        );
                       },
                     ),
                   );
@@ -134,7 +137,8 @@ class MoreScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const PrivacySecurityScreen(),
+                          PrivacySecurityScreen(
+                              cubit.settingsData?.privacyContentText ?? ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(

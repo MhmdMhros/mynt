@@ -47,6 +47,11 @@ import 'package:mynt/domain/usecases/get_all_account_summary_usecase.dart'
     as _i1021;
 import 'package:mynt/domain/usecases/get_booking_account_summary_usecase.dart'
     as _i1022;
+import 'package:mynt/domain/usecases/create_ticket_usecase.dart' as _i1023;
+import 'package:mynt/domain/usecases/get_request_service_data_usecase.dart'
+    as _i1024;
+import 'package:mynt/domain/usecases/upload_ticket_images_usecase.dart'
+    as _i1025;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -63,6 +68,9 @@ import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart'
     as _i2007;
 import 'package:mynt/presentation/pages/balances/cubit/balances_cubit.dart'
     as _i2008;
+import 'package:mynt/presentation/pages/request service/cubit/request_service_cubit.dart'
+    as _i2009;
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart' as _i2010;
 
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
@@ -214,8 +222,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i2001.LayoutCubit>(() => _i2001.LayoutCubit(
           gh<_i1005.GetUserUseCase>(),
           gh<_i1006.RefreshTokenUsecase>(),
-          gh<_i1008.SettingsDataUsecase>(),
-          gh<_i1009.LogoutUseCase>(),
           gh<_i1003.SendOtpUsecase>(),
         ));
 
@@ -249,6 +255,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1018.CreateReviewUsecase>(),
         ));
 
+    gh.factory<_i2010.MoreCubit>(() => _i2010.MoreCubit(
+          gh<_i1008.SettingsDataUsecase>(),
+          gh<_i1009.LogoutUseCase>(),
+        ));
+
     gh.lazySingleton<_i1014.GetNotificationsDataUsecase>(
         () => _i1014.GetNotificationsDataUsecase(gh<_i8.Repository>()));
 
@@ -261,6 +272,20 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i2008.BalancesCubit>(() => _i2008.BalancesCubit());
 
+    gh.lazySingleton<_i1023.CreateTicketUsecase>(
+        () => _i1023.CreateTicketUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1024.GetRequestServiceDataUsecase>(
+        () => _i1024.GetRequestServiceDataUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1025.UploadTicketImagesUsecase>(
+        () => _i1025.UploadTicketImagesUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i2009.RequestServiceCubit>(() => _i2009.RequestServiceCubit(
+          gh<_i1024.GetRequestServiceDataUsecase>(),
+          gh<_i1023.CreateTicketUsecase>(),
+          gh<_i1025.UploadTicketImagesUsecase>(),
+        ));
     return this;
   }
 }

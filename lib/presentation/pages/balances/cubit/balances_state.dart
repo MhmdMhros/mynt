@@ -1,4 +1,3 @@
-// balances_state.dart
 part of 'balances_cubit.dart';
 
 abstract class BalancesState extends Equatable {

@@ -8,7 +8,7 @@ import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/di.dart';
-import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class LogOutBottomSheet extends StatelessWidget {
@@ -21,7 +21,7 @@ class LogOutBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LayoutCubit, LayoutState>(builder: (context, state) {
+    return BlocBuilder<MoreCubit, MoreState>(builder: (context, state) {
       return ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
         child: Container(
@@ -110,7 +110,7 @@ class LogOutBottomSheet extends StatelessWidget {
               Colors.white,
               const Color(0xFFBF4C43),
               () async {
-                final cubit = LayoutCubit.get(context);
+                final cubit = MoreCubit.get(context);
                 final success = await cubit.logout();
                 if (success && context.mounted) {
                   await resetIsInMainLayout();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/request%20service/cubit/request_service_cubit.dart';
 
 class UnitNumberBottomSheet extends StatefulWidget {
   final Function(String?) onSubmit;
@@ -15,79 +17,85 @@ class UnitNumberBottomSheet extends StatefulWidget {
 class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
   String? _selectedUnitNumber;
 
-  final List<String> _unitNumbers = [
-    "23",
-    "41",
-    "67",
-    "3",
-  ];
+  // final List<String> _unitNumbers = [
+  //   "23",
+  //   "41",
+  //   "67",
+  //   "3",
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      child: Container(
-        color: AppColors.background,
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Unit Number",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
+    return BlocBuilder<RequestServiceCubit, RequestServiceState>(
+        builder: (context, state) {
+      var cubit = RequestServiceCubit.get(context);
+      final bookingIds = cubit.requestServiceData?.bookingIds ?? [];
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+        child: Container(
+          color: AppColors.background,
+          padding: EdgeInsets.all(16.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Unit Number",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F2F2),
-                    borderRadius: BorderRadius.circular(8.r),
+                  Container(
+                    width: 30.w,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF2F2F2),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.close,
+                          size: 16, color: Color(0xFFA6A6A6)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                  child: IconButton(
-                    icon: const Icon(Icons.close,
-                        size: 16, color: Color(0xFFA6A6A6)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                ],
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Divider(
+                height: 1.h,
+                color: Colors.grey[200],
+              ),
+              SizedBox(height: 5.h),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: bookingIds
+                        .map((booking) => _buildUnitNumItem(
+                            booking.id.toString(), booking.title ?? ''))
+                        .toList(),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Divider(
-              height: 1.h,
-              color: Colors.grey[200],
-            ),
-            SizedBox(height: 5.h),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: _unitNumbers
-                      .map((unitNum) => _buildUnitNumItem(unitNum))
-                      .toList(),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   /// **Service Item Widget**
-  Widget _buildUnitNumItem(String unitNum) {
+  Widget _buildUnitNumItem(String unitNum, String unitTitle) {
     bool isSelected = _selectedUnitNumber == unitNum;
 
     return GestureDetector(
@@ -113,7 +121,7 @@ class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
           children: [
             Expanded(
               child: Text(
-                unitNum,
+                '$unitNum: $unitTitle',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,

@@ -33,24 +33,6 @@ final class RefreshTokenFailure extends LayoutState {
   const RefreshTokenFailure(this.message);
 }
 
-class GetSettingsDataLoading extends LayoutState {}
-
-class GetSettingsDataSuccess extends LayoutState {}
-
-class GetSettingsDataFailure extends LayoutState {
-  final String message;
-  const GetSettingsDataFailure(this.message);
-}
-
-class LogoutLoading extends LayoutState {}
-
-class LogoutSuccess extends LayoutState {}
-
-class LogoutFailure extends LayoutState {
-  final String message;
-  const LogoutFailure(this.message);
-}
-
 final class SendOtpSuccess extends LayoutState {}
 
 final class SendOtpError extends LayoutState {
