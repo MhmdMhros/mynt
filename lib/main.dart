@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynt/core/services/BlocObserver.dart';
 import 'package:mynt/di.dart';
+import 'package:mynt/presentation/pages/balances/cubit/balances_cubit.dart';
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
 import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.dart';

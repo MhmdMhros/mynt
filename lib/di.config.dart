@@ -61,6 +61,8 @@ import 'package:mynt/presentation/pages/notifications/cubit/notifications_cubit.
     as _i2006;
 import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart'
     as _i2007;
+import 'package:mynt/presentation/pages/balances/cubit/balances_cubit.dart'
+    as _i2008;
 
 import 'package:dio/dio.dart' as _i4;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
@@ -257,6 +259,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1014.GetNotificationsDataUsecase>(),
           gh<_i1015.ReadNotificationUsecase>(),
         ));
+    gh.factory<_i2008.BalancesCubit>(() => _i2008.BalancesCubit());
 
     return this;
   }
