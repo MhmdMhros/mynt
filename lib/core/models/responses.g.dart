@@ -192,7 +192,7 @@ BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>
       bookingId: json['booking_id'] as int?,
       accountId: json['account_id'] as int?,
       netTotal: json['net_total'] as String?,
-      balance: 1,
+      balance: json['balance'] as String?,
       customerName: json['customer_name'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -385,4 +385,16 @@ ImagesDataResponse _$ImagesDataResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) =>
               UploadedImageDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+    );
+
+DownloadPdfSuccessResponse _$DownloadPdfSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    DownloadPdfSuccessResponse(
+      url: json['url'] as String?,
+    );
+
+DownloadExcelSuccessResponse _$DownloadExcelSuccessResponseFromJson(
+        Map<String, dynamic> json) =>
+    DownloadExcelSuccessResponse(
+      url: json['url'] as String?,
     );

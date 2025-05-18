@@ -3,6 +3,8 @@ import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/domain/entities/bookings_data.dart';
 import 'package:mynt/domain/entities/create_ticket_success.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
+import 'package:mynt/domain/entities/download_excel_success.dart';
+import 'package:mynt/domain/entities/download_pdf_success.dart';
 import 'package:mynt/domain/entities/images_data.dart';
 import 'package:mynt/domain/entities/notifications_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
@@ -135,5 +137,21 @@ abstract class Repository {
 
   Future<Either<Failure, ImagesData>> uploadTicketImages(
     UploadImagesRequest uploadImagesRequest,
+  );
+
+  Future<Either<Failure, DownloadPdfSuccess>> downloadPDFAllAccountSummary();
+
+  Future<Either<Failure, DownloadPdfSuccess>> downloadPDFBookingAccountSummary(
+    DownloadPdfBookingAccountSummaryRequest
+        downloadPdfBookingAccountSummaryRequest,
+  );
+
+  Future<Either<Failure, DownloadExcelSuccess>>
+      downloadExcelAllAccountSummary();
+
+  Future<Either<Failure, DownloadExcelSuccess>>
+      downloadExcelBookingAccountSummary(
+    DownloadExcelBookingAccountSummaryRequest
+        downloadExcelBookingAccountSummaryRequest,
   );
 }

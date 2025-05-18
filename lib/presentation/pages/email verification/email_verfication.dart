@@ -19,12 +19,11 @@ class EmailVerification extends StatefulWidget {
   final String phoneNumber;
   final String name;
   final String gender;
-  final String birthDate;
   final String newPassword;
   final String
       type; //  type = 'edit_email', 'edit_phone', 'edit_data' or 'auth'
   const EmailVerification(this.email, this.phoneNumber, this.name, this.gender,
-      this.birthDate, this.newPassword, this.type,
+      this.newPassword, this.type,
       {super.key});
 
   @override
@@ -247,12 +246,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                           }
                         } else if (widget.type == 'edit_data') {
                           final editSuccess = await cubit.editAccountData(
-                              widget.name, widget.gender, widget.birthDate);
+                              widget.name, widget.gender);
                           if (editSuccess) {
                             Navigator.pop(context, {
                               'name': widget.name,
                               'gender': widget.gender,
-                              'birthDate': widget.birthDate,
                             });
                           } else {
                             Navigator.pop(context);

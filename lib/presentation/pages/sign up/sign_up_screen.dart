@@ -120,7 +120,7 @@ class SignupScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const EmailVerification(
-                        '', '', '', '', '', '', 'auth_register')));
+                        '', '', '', '', '', 'auth_register')));
           },
         ),
       ),

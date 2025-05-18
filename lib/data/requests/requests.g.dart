@@ -119,7 +119,6 @@ Map<String, dynamic> _$EditAccountDataRequestToJson(
     <String, dynamic>{
       'name': instance.name,
       'gender': instance.gender,
-      'birthdate': instance.birthDate,
     };
 
 Map<String, dynamic> _$EditEmailRequestToJson(EditEmailRequest instance) =>

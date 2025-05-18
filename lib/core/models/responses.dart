@@ -35,6 +35,8 @@ import '../../domain/entities/booking_id.dart';
 import '../../domain/entities/request_service_data.dart';
 import '../../domain/entities/uploaded_image_data.dart';
 import '../../domain/entities/images_data.dart';
+import '../../domain/entities/download_pdf_success.dart';
+import '../../domain/entities/download_excel_success.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -118,6 +120,10 @@ part '../../data/responses/request_service_data_response.dart';
 part '../../data/responses/uploaded_image_data_response.dart';
 
 part '../../data/responses/images_data_response.dart';
+
+part '../../data/responses/download_pdf_success_response.dart';
+
+part '../../data/responses/download_excel_success_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

@@ -11,7 +11,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
   final int? accountId;
   @JsonKey(name: 'net_total')
   final String? netTotal;
-  final int? balance;
+  final String? balance;
   @JsonKey(name: 'customer_name')
   final String? customerName;
   final String? title;
@@ -53,7 +53,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
       bookingId: bookingId.orZero(),
       accountId: accountId.orZero(),
       netTotal: netTotal.orEmpty(),
-      balance: balance.orZero(),
+      balance: balance.orEmpty(),
       customerName: customerName.orEmpty(),
       title: title.orEmpty(),
       description: description.orEmpty(),

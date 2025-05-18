@@ -513,8 +513,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                BalancesScreen(cubit.accountSummaryData!)),
+                            builder: (context) => BalancesScreen(
+                                cubit.accountSummaryData!, true, '')),
                       );
                     } else {
                       showToast('Try again later.', ToastType.info);

@@ -182,4 +182,24 @@ abstract class AppServiceClient {
   Future<HttpResponse<ImagesDataResponse>> uploadTicketImages(
     @Body() UploadImagesRequest uploadImagesRequest,
   );
+
+  @GET(Constants.downloadPDFPath)
+  Future<HttpResponse<DownloadPdfSuccessResponse>>
+      downloadPDFAllAccountSummary();
+
+  @GET(Constants.downloadExcelPath)
+  Future<HttpResponse<DownloadExcelSuccessResponse>>
+      downloadExcelAllAccountSummary();
+
+  @GET(Constants.downloadPDFPath)
+  Future<HttpResponse<DownloadPdfSuccessResponse>>
+      downloadPDFBookingAccountSummary(
+    @Queries() Map<String, dynamic> query,
+  );
+
+  @GET(Constants.downloadExcelPath)
+  Future<HttpResponse<DownloadExcelSuccessResponse>>
+      downloadExcelBookingAccountSummary(
+    @Queries() Map<String, dynamic> query,
+  );
 }

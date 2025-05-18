@@ -358,7 +358,9 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BalancesScreen(
-                          UnitsCubit.get(context).bookingAccountSummaryData!),
+                          UnitsCubit.get(context).bookingAccountSummaryData!,
+                          false,
+                          widget.booking.id.toString()),
                     ),
                   );
                 },

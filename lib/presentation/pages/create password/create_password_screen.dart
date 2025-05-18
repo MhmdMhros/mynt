@@ -197,14 +197,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmailVerification(
-                          widget.userName,
-                          '',
-                          '',
-                          '',
-                          '',
-                          _passwordController.text,
-                          'auth_reset'),
+                      builder: (context) => EmailVerification(widget.userName,
+                          '', '', '', _passwordController.text, 'auth_reset'),
                     ),
                   );
                 }

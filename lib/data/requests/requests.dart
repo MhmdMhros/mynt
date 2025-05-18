@@ -52,6 +52,10 @@ part 'create_restriction_request.dart';
 
 part 'get_booking_account_summary_request.dart';
 
+part 'download_pdf_booking_account_summary_request.dart';
+
+part 'download_excel_booking_account_summary_request.dart';
+
 part 'create_review_request.dart';
 
 part 'create_ticket_request.dart';

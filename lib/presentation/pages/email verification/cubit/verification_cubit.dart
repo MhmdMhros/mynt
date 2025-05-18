@@ -111,12 +111,11 @@ class VerificationCubit extends Cubit<VerificationState> {
     );
   }
 
-  Future<bool> editAccountData(
-      String name, String gender, String birthDate) async {
+  Future<bool> editAccountData(String name, String gender) async {
     emit(EditAccountDataLoading());
 
-    final result = await _editAccountDataUsecase(EditAccountDataRequest(
-        name: name, gender: gender, birthDate: birthDate));
+    final result = await _editAccountDataUsecase(
+        EditAccountDataRequest(name: name, gender: gender));
     return await result.fold(
       (failure) {
         showToast('Failed to update account data, please try again.',

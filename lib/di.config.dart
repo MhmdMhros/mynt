@@ -52,6 +52,14 @@ import 'package:mynt/domain/usecases/get_request_service_data_usecase.dart'
     as _i1024;
 import 'package:mynt/domain/usecases/upload_ticket_images_usecase.dart'
     as _i1025;
+import 'package:mynt/domain/usecases/download_pdf_all_account_summary_usecase.dart'
+    as _i1026;
+import 'package:mynt/domain/usecases/download_excel_all_account_summary_usecase.dart'
+    as _i1027;
+import 'package:mynt/domain/usecases/download_pdf_booking_account_summary_usecase.dart'
+    as _i1028;
+import 'package:mynt/domain/usecases/download_excel_booking_account_summary_usecase.dart'
+    as _i1029;
 
 import 'package:mynt/presentation/pages/sign in/cubit/login_cubit.dart'
     as _i2000;
@@ -270,7 +278,25 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1014.GetNotificationsDataUsecase>(),
           gh<_i1015.ReadNotificationUsecase>(),
         ));
-    gh.factory<_i2008.BalancesCubit>(() => _i2008.BalancesCubit());
+
+    gh.lazySingleton<_i1026.DownloadPdfAllAccountSummaryUsecase>(
+        () => _i1026.DownloadPdfAllAccountSummaryUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1027.DownloadExcelAllAccountSummaryUsecase>(() =>
+        _i1027.DownloadExcelAllAccountSummaryUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1028.DownloadPdfBookingAccountSummaryUsecase>(() =>
+        _i1028.DownloadPdfBookingAccountSummaryUsecase(gh<_i8.Repository>()));
+
+    gh.lazySingleton<_i1029.DownloadExcelBookingAccountSummaryUsecase>(() =>
+        _i1029.DownloadExcelBookingAccountSummaryUsecase(gh<_i8.Repository>()));
+
+    gh.factory<_i2008.BalancesCubit>(() => _i2008.BalancesCubit(
+          gh<_i1026.DownloadPdfAllAccountSummaryUsecase>(),
+          gh<_i1027.DownloadExcelAllAccountSummaryUsecase>(),
+          gh<_i1028.DownloadPdfBookingAccountSummaryUsecase>(),
+          gh<_i1029.DownloadExcelBookingAccountSummaryUsecase>(),
+        ));
 
     gh.lazySingleton<_i1023.CreateTicketUsecase>(
         () => _i1023.CreateTicketUsecase(gh<_i8.Repository>()));

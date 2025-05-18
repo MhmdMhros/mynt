@@ -61,8 +61,8 @@ class Constants {
   static const String createTicketPath = 'complaints';
   static const String getRequestServiceDataPath = 'complaints/create';
   static const String uploadTicketImagesPath = 'complaints/upload';
-  static const String uploadTicketImagesPath = 'complaints/upload';
-  static const String uploadTicketImagesPath = 'complaints/upload';
+  static const String downloadPDFPath = 'account-summary/export/pdf';
+  static const String downloadExcelPath = 'account-summary/export/excel';
 
   static const String updateUserPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =

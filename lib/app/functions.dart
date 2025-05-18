@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/widgets/simple_toast.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> launchURL({
@@ -105,6 +107,33 @@ Future<File?> getAPdfFile() async {
 Future<String> fileToBase64(File file) async {
   List<int> bytes = await file.readAsBytes();
   return base64Encode(bytes);
+}
+
+Future<void> downloadToDocuments(String url, String fileName) async {
+  try {
+    Directory? directory;
+
+    if (Platform.isAndroid || Platform.isWindows || Platform.isLinux) {
+      directory = Directory('/storage/emulated/0/Documents');
+    } else if (Platform.isMacOS) {
+      directory = Directory('${Platform.environment['HOME']}/Documents');
+    } else if (Platform.isIOS) {
+      directory = await getApplicationDocumentsDirectory();
+    }
+
+    if (!await directory!.exists()) {
+      await directory.create(recursive: true);
+    }
+
+    String savePath = '${directory.path}/$fileName';
+
+    Dio dio = Dio();
+    await dio.download(url, savePath);
+
+    showToast("Downloaded to: $savePath", ToastType.success);
+  } catch (e) {
+    showToast("Download error: $e", ToastType.error);
+  }
 }
 
 bool isEmail(String email) => RegExp(

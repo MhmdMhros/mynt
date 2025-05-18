@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
@@ -20,7 +19,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late TextEditingController phoneController;
   late TextEditingController nameController;
   late TextEditingController genderController;
-  late TextEditingController birthDateController;
 
   @override
   void initState() {
@@ -34,8 +32,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     genderController = TextEditingController(
       text: LayoutCubit.get(context).user?.gender == 1 ? 'Male' : 'Female',
     );
-    birthDateController = TextEditingController(
-        text: LayoutCubit.get(context).user?.birthDate ?? '');
   }
 
   @override
@@ -44,7 +40,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     phoneController.dispose();
     nameController.dispose();
     genderController.dispose();
-    birthDateController.dispose();
     super.dispose();
   }
 
@@ -137,9 +132,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 _buildInfoWidget(
                   "Gender",
                   cubit.user!.gender == 1 ? Icons.male : Icons.female,
-                  "gender",
+                  "data",
                 ),
-                _buildInfoWidget("Birthday", Icons.calendar_today, "data"),
               ],
             ),
           ),
@@ -166,7 +160,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             context,
             MaterialPageRoute(
               builder: (_) => EmailVerification(
-                  emailController.text, '', '', '', '', '', 'edit_email'),
+                  emailController.text, '', '', '', '', 'edit_email'),
             ),
           );
 
@@ -185,7 +179,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             context,
             MaterialPageRoute(
               builder: (_) => EmailVerification(
-                  '', phoneController.text, '', '', '', '', 'edit_phone'),
+                  '', phoneController.text, '', '', '', 'edit_phone'),
             ),
           );
 
@@ -200,20 +194,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         final success =
             await LayoutCubit.get(context).sendOtp(emailController.text);
         if (success) {
-          showToast(nameController.text, ToastType.error);
-          showToast(genderController.text, ToastType.error);
-          showToast(birthDateController.text, ToastType.error);
           final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => EmailVerification(
-                  emailController.text,
-                  '',
-                  nameController.text,
-                  genderController.text,
-                  birthDateController.text,
-                  '',
-                  'edit_data'),
+              builder: (_) => EmailVerification(emailController.text, '',
+                  nameController.text, genderController.text, '', 'edit_data'),
             ),
           );
           if (result != null) {
@@ -245,11 +230,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     ? phoneController
                     : type == 'name'
                         ? nameController
-                        : type == 'gender'
+                        : type == 'data'
                             ? genderController
-                            : type == 'data'
-                                ? birthDateController
-                                : null,
+                            : null,
             style: TextStyle(
               fontFamily: "Montserrat",
               fontSize: 14.sp,

@@ -10,7 +10,10 @@ import 'package:mynt/presentation/pages/balances/cubit/balances_cubit.dart';
 
 class BalancesScreen extends StatelessWidget {
   final AccountSummaryData accountSummaryData;
-  const BalancesScreen(this.accountSummaryData, {super.key});
+  final bool isAll;
+  final String bookingId;
+  const BalancesScreen(this.accountSummaryData, this.isAll, this.bookingId,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +26,18 @@ class BalancesScreen extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           child: BlocBuilder<BalancesCubit, BalancesState>(
             builder: (context, state) {
-              if (state is BalancesLoaded) {
-                return Column(
-                  children: [
-                    _buildFilterDropdown(context, state),
-                    SizedBox(height: 10.h),
-                    _buildHeaderRow(),
-                    SizedBox(height: 10.h),
-                    _buildListView(context, state.filteredList),
-                    SizedBox(height: 10.h),
-                    _buildDownloadSection(),
-                  ],
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
+              var cubit = BalancesCubit.get(context);
+              return Column(
+                children: [
+                  _buildFilterDropdown(context),
+                  SizedBox(height: 10.h),
+                  _buildHeaderRow(),
+                  SizedBox(height: 10.h),
+                  _buildListView(context, cubit.filteredList),
+                  SizedBox(height: 10.h),
+                  _buildDownloadSection(context),
+                ],
+              );
             },
           ),
         ),
@@ -68,7 +69,8 @@ class BalancesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterDropdown(BuildContext context, BalancesLoaded state) {
+  Widget _buildFilterDropdown(BuildContext context) {
+    var cubit = BalancesCubit.get(context);
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -83,8 +85,8 @@ class BalancesScreen extends StatelessWidget {
           Expanded(
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: state.selectedUnit,
-                items: state.unitNumbers.map((e) {
+                value: cubit.selectedUnit,
+                items: cubit.unitNumbers.map((e) {
                   return DropdownMenuItem(
                     value: e,
                     child: Text(
@@ -182,12 +184,14 @@ class BalancesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDownloadSection() {
+  Widget _buildDownloadSection(BuildContext context) {
     return Column(
       children: [
-        _buildDownloadButton("Download PDF", Colors.white, AppColors.primary),
+        _buildDownloadButton(
+            "Download PDF", Colors.white, AppColors.primary, context),
         SizedBox(height: 10.h),
-        _buildDownloadButton("Download XLSX", AppColors.primary, Colors.white),
+        _buildDownloadButton(
+            "Download XLSX", AppColors.primary, Colors.white, context),
       ],
     );
   }
@@ -226,12 +230,24 @@ class BalancesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDownloadButton(String text, Color textColor, Color backColor) {
+  Widget _buildDownloadButton(
+      String text, Color textColor, Color backColor, BuildContext context) {
+    var cubit = BalancesCubit.get(context);
     return SizedBox(
       height: 60.h,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (text == "Download PDF" && isAll) {
+            await cubit.downloadAllAccountSummaryPdf();
+          } else if (text == "Download PDF" && !isAll) {
+            await cubit.downloadbookingAccountSummaryPdf(bookingId);
+          } else if (text == "Download XLSX" && isAll) {
+            await cubit.downloadAllAccountSummaryExcel();
+          } else if (text == "Download XLSX" && !isAll) {
+            await cubit.downloadbookingAccountSummaryExcel(bookingId);
+          }
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: backColor,
           padding: EdgeInsets.symmetric(vertical: 12.h),
