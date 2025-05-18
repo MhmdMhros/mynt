@@ -61,6 +61,8 @@ class Constants {
   static const String createTicketPath = 'complaints';
   static const String getRequestServiceDataPath = 'complaints/create';
   static const String uploadTicketImagesPath = 'complaints/upload';
+  static const String uploadTicketImagesPath = 'complaints/upload';
+  static const String uploadTicketImagesPath = 'complaints/upload';
 
   static const String updateUserPath = 'users/{userId}';
   static const String getAllClientBodyPhotosPath =

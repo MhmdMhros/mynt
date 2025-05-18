@@ -3,6 +3,8 @@ import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/domain/entities/bookings_data.dart';
 import 'package:mynt/domain/entities/create_ticket_success.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
+import 'package:mynt/domain/entities/download_excel_success.dart';
+import 'package:mynt/domain/entities/download_pdf_success.dart';
 import 'package:mynt/domain/entities/images_data.dart';
 import 'package:mynt/domain/entities/notifications_data.dart';
 import 'package:mynt/domain/entities/refresh_token_success.dart';
@@ -447,6 +449,49 @@ class RepositoryImpl implements Repository {
   ) async {
     return _repositoryHelpers.callApi<ImagesData>(
       () => _appServiceClient.uploadTicketImages(uploadImagesRequest),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, DownloadPdfSuccess>>
+      downloadPDFAllAccountSummary() async {
+    return _repositoryHelpers.callApi<DownloadPdfSuccess>(
+      () => _appServiceClient.downloadPDFAllAccountSummary(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, DownloadExcelSuccess>>
+      downloadExcelAllAccountSummary() async {
+    return _repositoryHelpers.callApi<DownloadExcelSuccess>(
+      () => _appServiceClient.downloadExcelAllAccountSummary(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, DownloadPdfSuccess>> downloadPDFBookingAccountSummary(
+    DownloadPdfBookingAccountSummaryRequest
+        downloadPdfBookingAccountSummaryRequest,
+  ) async {
+    return _repositoryHelpers.callApi<DownloadPdfSuccess>(
+      () => _appServiceClient.downloadPDFBookingAccountSummary(
+          downloadPdfBookingAccountSummaryRequest.query),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, DownloadExcelSuccess>>
+      downloadExcelBookingAccountSummary(
+    DownloadExcelBookingAccountSummaryRequest
+        downloadExcelBookingAccountSummaryRequest,
+  ) async {
+    return _repositoryHelpers.callApi<DownloadExcelSuccess>(
+      () => _appServiceClient.downloadExcelBookingAccountSummary(
+          downloadExcelBookingAccountSummaryRequest.query),
       statusCode: 200,
     );
   }
