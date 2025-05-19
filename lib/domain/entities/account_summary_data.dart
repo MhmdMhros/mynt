@@ -3,7 +3,7 @@ import 'package:mynt/domain/entities/account_summary.dart';
 class AccountSummaryData {
   final int total;
   final List<AccountSummary> accountSummary;
-  final int balance;
+  final String balance;
 
   AccountSummaryData({
     required this.total,

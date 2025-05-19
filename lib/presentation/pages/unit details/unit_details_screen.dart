@@ -214,7 +214,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                             "Balance",
                             widget.booking.checkin!.isEmpty
                                 ? '--'
-                                : 'EGP ${widget.booking.balance}',
+                                : 'EGP ${widget.booking.balance ?? ''}',
                             Colors.red),
                       ],
                     ),

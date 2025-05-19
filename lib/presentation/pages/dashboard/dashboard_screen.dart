@@ -365,7 +365,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           "${booking.checkin ?? ''} - ${booking.checkout ?? ''}"),
                       SizedBox(height: 10.h),
                       _buildRow(Icons.balance_rounded, "Balance",
-                          "EGP ${booking.balance ?? 0}", Colors.red),
+                          "EGP ${booking.balance ?? ''}", Colors.red),
                     ],
                   ),
                 ),
@@ -495,7 +495,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      "for all unitsfor all units",
+                      "for all units",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12.sp,
@@ -548,7 +548,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       fontFamily: "Montserrat"),
                 ),
                 Text(
-                  DashboardCubit.get(context).dashboardData!.balance.toString(),
+                  DashboardCubit.get(context).dashboardData!.balance ?? '',
                   style: TextStyle(
                       fontSize: 16.sp,
                       color: const Color(0xFF0F525B),

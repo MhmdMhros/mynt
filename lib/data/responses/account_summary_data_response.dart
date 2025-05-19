@@ -5,7 +5,7 @@ class AccountSummaryDataResponse extends Equatable
     implements DataResponse<AccountSummaryData> {
   final int? total;
   final List<AccountSummaryResponse>? accountSummary;
-  final int? balance;
+  final String? balance;
 
   const AccountSummaryDataResponse({
     required this.total,
@@ -18,7 +18,7 @@ class AccountSummaryDataResponse extends Equatable
     return AccountSummaryData(
       total: total.orZero(),
       accountSummary: accountSummary?.map((e) => e.toDomain()).toList() ?? [],
-      balance: balance.orZero(),
+      balance: balance.orEmpty(),
     );
   }
 

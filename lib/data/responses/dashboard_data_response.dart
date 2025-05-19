@@ -7,7 +7,7 @@ class DashboardDataResponse extends Equatable
   final List<BookingResponse>? bookings;
   final List<TicketResponse>? tickets;
   final List<ArticleResponse>? articles;
-  final int? balance;
+  final String? balance;
 
   const DashboardDataResponse({
     required this.banners,
@@ -24,7 +24,7 @@ class DashboardDataResponse extends Equatable
       bookings: bookings?.map((e) => e.toDomain()).toList() ?? [],
       tickets: tickets?.map((e) => e.toDomain()).toList() ?? [],
       articles: articles?.map((e) => e.toDomain()).toList() ?? [],
-      balance: balance.orZero(),
+      balance: balance.orEmpty(),
     );
   }
 

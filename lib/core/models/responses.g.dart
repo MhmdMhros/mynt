@@ -248,7 +248,7 @@ DashboardDataResponse _$DashboardDataResponseFromJson(
       articles: (json['articles'] as List<dynamic>?)
           ?.map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      balance: json['balance'] as int?,
+      balance: json['balance'] as String?,
     );
 
 NotificationResponse _$NotificationResponseFromJson(
@@ -321,7 +321,7 @@ AccountSummaryDataResponse _$AccountSummaryDataResponseFromJson(
           ?.map(
               (e) => AccountSummaryResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      balance: json['balance'] as int?,
+      balance: json['balance'] as String?,
     );
 
 UnReadNotificationsCountResponse _$UnReadNotificationsCountResponseFromJson(

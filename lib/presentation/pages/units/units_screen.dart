@@ -198,7 +198,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
             _buildRow(
                 Icons.balance_rounded,
                 "Balance      ",
-                unit.checkin!.isEmpty ? '--' : 'EGP ${unit.balance}',
+                unit.checkin!.isEmpty ? '--' : 'EGP ${unit.balance ?? ''}',
                 Colors.red),
           ],
         ),
