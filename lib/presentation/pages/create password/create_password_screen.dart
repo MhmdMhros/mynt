@@ -181,28 +181,37 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         return null;
                       },
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: AppTextButton(
+                        buttonText: 'Continue',
+                        buttonHeight: 48.h,
+                        backgroundColor: AppColors.primary,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            final success = await LoginCubit.get(context)
+                                .sendOtpRequest(widget.userName);
+                            if (success) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EmailVerification(
+                                      widget.userName,
+                                      '',
+                                      '',
+                                      '',
+                                      _passwordController.text,
+                                      'auth_reset'),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: AppTextButton(
-              buttonText: 'Continue',
-              buttonHeight: 48.h,
-              backgroundColor: AppColors.primary,
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EmailVerification(widget.userName,
-                          '', '', '', _passwordController.text, 'auth_reset'),
-                    ),
-                  );
-                }
-              },
             ),
           ),
         );

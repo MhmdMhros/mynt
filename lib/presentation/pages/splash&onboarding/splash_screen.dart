@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isLoggedIn) {
       nextScreen = const LayoutScreen(); // Main layout/home screen
     } else if (isOnBoardingViewed) {
-      nextScreen = const SignInScreen();
+      nextScreen = const SignInScreen('');
     } else {
       nextScreen = const OnboardingScreen();
     }

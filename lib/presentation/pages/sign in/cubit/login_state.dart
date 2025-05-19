@@ -11,7 +11,12 @@ sealed class LoginState extends Equatable {
 
 final class LoginInitial extends LoginState {}
 
-final class LoginLoading extends LoginState {}
+final class LoginLoading extends LoginState {
+  final String userName;
+  const LoginLoading(this.userName);
+  @override
+  List<Object> get props => [userName];
+}
 
 final class LoginSuccess extends LoginState {}
 

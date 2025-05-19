@@ -9,6 +9,7 @@ import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/email%20verification/cubit/verification_cubit.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
@@ -233,13 +234,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                               newPassword: widget.newPassword,
                               confirmPassword: widget.newPassword);
                           if (resetSuccess) {
-                            showToast("You’ve just joined Mynt! 🎉",
-                                ToastType.success);
-                            await isUserLogged();
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LayoutScreen()),
+                                  builder: (context) =>
+                                      SignInScreen(widget.email)),
                               (route) => false,
                             );
                           } else {
@@ -318,35 +317,35 @@ class _EmailVerificationState extends State<EmailVerification> {
                       ),
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: AppTextButton(
+                      buttonText: 'Confirm',
+                      buttonHeight: 48.h,
+                      backgroundColor: AppColors.primary,
+                      onPressed: () async {
+                        final success = await cubit.verifyOtp(
+                            widget.phoneNumber == ''
+                                ? widget.email
+                                : widget.phoneNumber,
+                            otpController.text);
+                        if (success) {
+                          if (widget.type == 'auth') {
+                            await isUserLogged();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LayoutScreen()),
+                              (route) => false,
+                            );
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        }
+                      },
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AppTextButton(
-                buttonText: 'Confirm',
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: () async {
-                  final success = await cubit.verifyOtp(
-                      widget.phoneNumber == ''
-                          ? widget.email
-                          : widget.phoneNumber,
-                      otpController.text);
-                  if (success) {
-                    if (widget.type == 'auth') {
-                      await isUserLogged();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LayoutScreen()),
-                        (route) => false,
-                      );
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  }
-                },
               ),
             ),
           );

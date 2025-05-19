@@ -35,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await onBoardingScreenViewed();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
+      MaterialPageRoute(builder: (context) => const SignInScreen('')),
     );
   }
 
@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       await onBoardingScreenViewed();
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SignInScreen()),
+        MaterialPageRoute(builder: (context) => const SignInScreen('')),
       );
     }
   }

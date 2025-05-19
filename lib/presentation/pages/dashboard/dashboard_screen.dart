@@ -54,7 +54,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         final cubit = DashboardCubit.get(context);
         if (state is GetHomeDataSuccess ||
             state is GetUnreadNotificationsCountSuccess ||
-            state is GetAccountSummarySuccess) {
+            state is GetAccountSummarySuccess ||
+            state is DecreamentUnreadNotificationsCountSuccess) {
           return Scaffold(
             backgroundColor: Colors.grey[200],
             body: LayoutBuilder(builder: (context, constraints) {
@@ -780,6 +781,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return Container(
       width: 300.w, // Responsive width
       margin: EdgeInsets.only(right: 12.w),
+      color: Colors.white,
       child: Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),

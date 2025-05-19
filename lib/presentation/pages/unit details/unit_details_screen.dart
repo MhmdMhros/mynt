@@ -9,6 +9,7 @@ import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/presentation/pages/balances/balances_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/block_unit_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/request%20service/request_service_screen.dart';
 import 'package:mynt/presentation/pages/unit%20details/widgets/monthly_calendar_widget.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -406,7 +407,19 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
           Expanded(
             child: _buildContainerButton(
                 "Maintenance Request", Colors.white, AppColors.primary, () {
-              showServiceTypesBottomSheet(context);
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const RequestServiceScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
             }),
           ),
           SizedBox(width: 15.w), // Add spacing between buttons

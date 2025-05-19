@@ -52,9 +52,41 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  Future<bool> checkUserIsExist(String userName) async {
+    emit(LoginLoading(userName));
+    final checkResult = await _checkAccountUsecase(
+      CheckAccountRequest(login: userName),
+    );
+    return await checkResult.fold((failure) {
+      showToast('No account found with this email. Please check and try again.',
+          ToastType.error);
+      emit(LoginError(failure.message));
+      return false;
+    }, (success) {
+      return true;
+    });
+  }
+
+  Future<bool> sendOtpRequest(String userName) async {
+    emit(LoginLoading(userName));
+    final sendSuccess = await _sendOtpUsecase(
+      SendOtpRequest(identifier: userName),
+    );
+    return await sendSuccess.fold((failure) {
+      showToast('Failed to send verification code. Please try again later.',
+          ToastType.error);
+      emit(LoginError(failure.message));
+      return false;
+    }, (success) {
+      showToast('Verify your account to complete the login process.',
+          ToastType.warning);
+      return true;
+    });
+  }
+
   Future<bool> checkAndLogin() async {
-    emit(LoginLoading());
-    checkLoginConnectivity();
+    emit(LoginLoading(glopalUserName!));
+    // checkLoginConnectivity();
     final checkResult = await _checkAccountUsecase(
       CheckAccountRequest(login: glopalUserName!),
     );
@@ -62,7 +94,7 @@ class LoginCubit extends Cubit<LoginState> {
     return await checkResult.fold(
       (failure) {
         showToast(
-            'No account found with this email or phone number. Please check and try again.',
+            'No account found with this email. Please check and try again.',
             ToastType.error);
         emit(LoginError(failure.message));
         return false;

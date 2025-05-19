@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
@@ -112,12 +113,14 @@ class LogOutBottomSheet extends StatelessWidget {
               () async {
                 final cubit = MoreCubit.get(context);
                 final success = await cubit.logout();
+                final userName =
+                    await getIt<UserSecureStorage>().getUserEmail();
                 if (success && context.mounted) {
                   await resetIsInMainLayout();
                   Navigator.of(context).pushReplacement(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const SignInScreen(),
+                          SignInScreen(userName ?? ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(

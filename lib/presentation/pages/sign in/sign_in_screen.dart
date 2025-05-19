@@ -13,7 +13,8 @@ import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  final String email;
+  const SignInScreen(this.email, {super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -28,6 +29,9 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.email != '') {
+      emailController.text = widget.email;
+    }
     LoginCubit.get(context).checkLoginConnectivity();
   }
 
@@ -159,15 +163,19 @@ class _SignInScreenState extends State<SignInScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (emailController.text.trim().isNotEmpty) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => CreatePasswordScreen(
-                                      emailController.text),
-                                ),
-                              );
+                              final success = await cubit
+                                  .checkUserIsExist(emailController.text);
+                              if (success) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => CreatePasswordScreen(
+                                        emailController.text),
+                                  ),
+                                );
+                              }
                             } else {
                               showToast(
                                   "Email is required.", ToastType.warning);
@@ -184,58 +192,59 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: AppTextButton(
+                          buttonHeight: 48.h,
+                          backgroundColor: AppColors.primary,
+                          onPressed: state is LoginLoading
+                              ? () {}
+                              : () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    cubit.initializeLoginData(
+                                      emailController.text,
+                                      passwordController.text,
+                                    );
+                                    final success = await cubit.checkAndLogin();
+                                    if (success) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EmailVerification(
+                                                  emailController.text,
+                                                  '',
+                                                  '',
+                                                  '',
+                                                  '',
+                                                  'auth_login'),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                          child: state is LoginLoading
+                              ? const SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AppTextButton(
-                buttonHeight: 48.h,
-                backgroundColor: AppColors.primary,
-                onPressed: state is LoginLoading
-                    ? () {}
-                    : () async {
-                        if (_formKey.currentState!.validate()) {
-                          cubit.initializeLoginData(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                          final success = await cubit.checkAndLogin();
-                          if (success) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EmailVerification(
-                                    emailController.text,
-                                    '',
-                                    '',
-                                    '',
-                                    '',
-                                    'auth_login'),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                child: state is LoginLoading
-                    ? const SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
               ),
             ),
           );

@@ -75,7 +75,7 @@ class UnitsCubit extends Cubit<UnitsState> {
     return await result.fold(
       (failure) {
         emit(CreateRestrictionFailure(failure.message));
-        showToast('Unable to submit your restrction. Please try again shortly.',
+        showToast('Unable to submit your restrction. Property Is Booked.',
             ToastType.error);
         return false;
       },
