@@ -9,7 +9,15 @@ abstract class BalancesState extends Equatable {
 
 class BalancesInitial extends BalancesState {}
 
-class BalancesLoaded extends BalancesState {}
+class BalancesLoaded extends BalancesState {
+  final String selectedUnit;
+  final List<String> unitNumbers;
+  final List<AccountSummary> filteredList;
+
+  const BalancesLoaded(this.selectedUnit, this.unitNumbers, this.filteredList);
+  @override
+  List<Object?> get props => [selectedUnit, unitNumbers, filteredList];
+}
 
 class DownloadAllAccountSummaryPdfLoading extends BalancesState {}
 

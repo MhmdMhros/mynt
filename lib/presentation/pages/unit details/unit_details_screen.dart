@@ -11,6 +11,7 @@ import 'package:mynt/presentation/pages/bottom%20sheets/block_unit_bottom_sheet.
 import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/unit%20details/widgets/monthly_calendar_widget.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class UnitDetailsScreen extends StatefulWidget {
   final Booking booking;
@@ -48,43 +49,43 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<BookedDateModel> bookedDates = [
-    //   BookedDateModel(bookingId: 16, date: "2025-06-01"),
-    //   BookedDateModel(bookingId: 16, date: "2025-06-02"),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-10"),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-11"),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-12"),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-13"),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-09"),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-10"),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-11"),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-12"),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-13"),
-    //   BookedDateModel(bookingId: 23, date: "2025-05-29"),
-    //   BookedDateModel(bookingId: 23, date: "2025-05-30"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-01"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-02"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-03"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-04"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-05"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-06"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-07"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-08"),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-09"),
-    //   BookedDateModel(bookingId: 29, date: "2025-06-04"),
-    //   BookedDateModel(bookingId: 29, date: "2025-06-05"),
-    //   BookedDateModel(bookingId: 30, date: "2025-07-04"),
-    //   BookedDateModel(bookingId: 30, date: "2025-07-05"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-01"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-02"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-03"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-04"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-05"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-06"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-07"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-08"),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-09"),
-    // ];
+    final List<BookedDateModel> bookedDates = [
+      BookedDateModel(bookingId: 16, date: "2025-06-01"),
+      BookedDateModel(bookingId: 16, date: "2025-06-02"),
+      BookedDateModel(bookingId: 17, date: "2025-06-10"),
+      BookedDateModel(bookingId: 17, date: "2025-06-11"),
+      BookedDateModel(bookingId: 17, date: "2025-06-12"),
+      BookedDateModel(bookingId: 17, date: "2025-06-13"),
+      BookedDateModel(bookingId: 21, date: "2025-05-09"),
+      BookedDateModel(bookingId: 21, date: "2025-05-10"),
+      BookedDateModel(bookingId: 21, date: "2025-05-11"),
+      BookedDateModel(bookingId: 21, date: "2025-05-12"),
+      BookedDateModel(bookingId: 21, date: "2025-05-13"),
+      BookedDateModel(bookingId: 23, date: "2025-05-29"),
+      BookedDateModel(bookingId: 23, date: "2025-05-30"),
+      BookedDateModel(bookingId: 27, date: "2025-09-01"),
+      BookedDateModel(bookingId: 27, date: "2025-09-02"),
+      BookedDateModel(bookingId: 27, date: "2025-09-03"),
+      BookedDateModel(bookingId: 27, date: "2025-09-04"),
+      BookedDateModel(bookingId: 27, date: "2025-09-05"),
+      BookedDateModel(bookingId: 27, date: "2025-09-06"),
+      BookedDateModel(bookingId: 27, date: "2025-09-07"),
+      BookedDateModel(bookingId: 27, date: "2025-09-08"),
+      BookedDateModel(bookingId: 27, date: "2025-09-09"),
+      BookedDateModel(bookingId: 29, date: "2025-06-04"),
+      BookedDateModel(bookingId: 29, date: "2025-06-05"),
+      BookedDateModel(bookingId: 30, date: "2025-07-04"),
+      BookedDateModel(bookingId: 30, date: "2025-07-05"),
+      BookedDateModel(bookingId: 31, date: "2025-10-01"),
+      BookedDateModel(bookingId: 31, date: "2025-10-02"),
+      BookedDateModel(bookingId: 31, date: "2025-10-03"),
+      BookedDateModel(bookingId: 31, date: "2025-10-04"),
+      BookedDateModel(bookingId: 31, date: "2025-10-05"),
+      BookedDateModel(bookingId: 31, date: "2025-10-06"),
+      BookedDateModel(bookingId: 31, date: "2025-10-07"),
+      BookedDateModel(bookingId: 31, date: "2025-10-08"),
+      BookedDateModel(bookingId: 31, date: "2025-10-09"),
+    ];
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.background,
@@ -118,27 +119,29 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // 1. Image of the unit
-                    Container(
-                      width: double.infinity,
-                      height: 200.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.r),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.booking.gallery == null ||
-                                  widget.booking.gallery!.isEmpty
-                              ? ''
-                              : widget.booking.gallery!.first,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) => const Center(
-                              child: Icon(Icons.error, color: Colors.red)),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: 200.h,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.r),
+                    //   ),
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(10.r),
+                    //     child: CachedNetworkImage(
+                    //       imageUrl: widget.booking.gallery == null ||
+                    //               widget.booking.gallery!.isEmpty
+                    //           ? ''
+                    //           : widget.booking.gallery!.first,
+                    //       fit: BoxFit.cover,
+                    //       placeholder: (context, url) =>
+                    //           const Center(child: CircularProgressIndicator()),
+                    //       errorWidget: (context, url, error) => const Center(
+                    //           child: Icon(Icons.error, color: Colors.red)),
+                    //     ),
+                    //   ),
+                    // ),
+
+                    _buildNewAds(),
                     SizedBox(height: 20.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,8 +295,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                     // ),
                     SizedBox(height: 10.h),
                     SingleCalendarView(
-                        highlightedDays: groupDatesByYearMonth(
-                            widget.booking.bookedDates ?? [])),
+                        highlightedDays: groupDatesByYearMonth(bookedDates)),
                   ],
                 ),
               ),
@@ -354,15 +356,21 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         label == "Balance"
             ? GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BalancesScreen(
-                          UnitsCubit.get(context).bookingAccountSummaryData!,
+                  final data =
+                      UnitsCubit.get(context).bookingAccountSummaryData;
+
+                  if (data != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BalancesScreen(
+                          data,
                           false,
-                          widget.booking.id.toString()),
-                    ),
-                  );
+                          widget.booking.id.toString(),
+                        ),
+                      ),
+                    );
+                  } else {}
                 },
                 child: Text(
                   value,
@@ -456,5 +464,64 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
     }
 
     return grouped;
+  }
+
+  Widget _buildNewAds() {
+    final PageController pageController = PageController();
+
+    // final List<String> images = [
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    //   "https://s3-alpha-sig.figma.com/img/639c/a1b5/e3f3d145eb29b908bedb581ed0b1413a?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=SWyLvoOPvmWnuSY6iiMJLOz~b-KzYfIlZ2f5BI5EMPzNXwrhMVMjysrMJj4uMWLRz-kN393jEKL1h4ZkzN6ZhIAGBzVoIX90PywrcQqbqgAJ6VM9V6FDQzaQOXZrcxBH4krXG6mJC~zJvVYu66zIer0kaz3xrgU62JL60swRuUS3iGtsLYYCWUVJDgHs1dGZWNTZ5PVvvyXbvJd6iIhn4VVUAWxp0d9oJrgQEBkzxdcsrfZBndS1Ysv0W6OJznuO5hB~uVqx3R0Ck~uKqfht~H6RQHxanw426C5sla-IHm0iZbVfOkOvkJHiwQRHN459768lkyFEwO-2ipc3bM~GCg__",
+    // ];
+
+    return Column(
+      children: [
+        Container(
+          height: 160.h,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF0F4F5),
+            borderRadius: BorderRadius.circular(10.r),
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5)],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.r),
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: widget.booking.gallery?.length ?? 0,
+              itemBuilder: (context, index) {
+                return CachedNetworkImage(
+                  imageUrl: widget.booking.gallery?.elementAt(index) ?? '',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  placeholder: (context, url) => Container(
+                    color: Colors.grey[300],
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.grey[300],
+                    child: Center(
+                      child: Icon(Icons.error, color: Colors.red, size: 30.w),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        SizedBox(height: 16.h),
+        SmoothPageIndicator(
+          controller: pageController,
+          count: widget.booking.gallery?.length ?? 0,
+          effect: JumpingDotEffect(
+            dotHeight: 10.h,
+            dotWidth: 10.w,
+            activeDotColor:
+                AppColors.primary, // Replace with AppColors.primary if defined
+            dotColor: const Color.fromARGB(255, 218, 216, 216),
+          ),
+        ),
+      ],
+    );
   }
 }

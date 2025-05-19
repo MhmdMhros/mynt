@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -321,7 +323,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           CircleAvatar(
                             radius: 24.r,
                             backgroundImage: CachedNetworkImageProvider(
-                              booking.gallery?.first ?? '',
+                              booking.gallery?.length == 0
+                                  ? ''
+                                  : booking.gallery?.first ?? '',
                             ),
                           ),
                           SizedBox(width: 10.w),

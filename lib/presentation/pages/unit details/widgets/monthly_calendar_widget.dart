@@ -69,6 +69,8 @@ class _SingleCalendarViewState extends State<SingleCalendarView> {
               widget.highlightedDays[year]?[month]?.contains(day) ?? false;
 
           return Container(
+            width: 40.w,
+            height: 40.h,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: isHighlighted

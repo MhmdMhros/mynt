@@ -37,10 +37,12 @@ class PrivacySecurityScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              "assets/images/mynt.svg",
-              width: 140.w,
-              height: 140.h,
+            Center(
+              child: SvgPicture.asset(
+                "assets/images/mynt.svg",
+                width: 140.w,
+                height: 140.h,
+              ),
             ),
             SizedBox(height: 30.h),
             Text(

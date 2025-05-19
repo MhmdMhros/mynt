@@ -59,6 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 24.h),
                       Center(
@@ -68,7 +69,42 @@ class _SignInScreenState extends State<SignInScreen> {
                           width: 120.w,
                         ),
                       ),
+                      SizedBox(height: 14.h),
+                      Center(
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.text1,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 16.h),
+                      Center(
+                        child: Text(
+                          'Welcome to Mynt Hospitality\n Choose your Experience',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.text2,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      Text(
+                        'Email',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.text1,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                      SizedBox(height: 6.h),
                       AppTextFormField(
                         controller: emailController,
                         hintText: "Email",
@@ -82,6 +118,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         },
                       ),
                       SizedBox(height: 16.h),
+                      Text(
+                        'Password',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.text1,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                      SizedBox(height: 6.h),
                       AppTextFormField(
                         controller: passwordController,
                         hintText: "Password",

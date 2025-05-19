@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/widgets/simple_toast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -198,28 +199,55 @@ enum ToastType { success, error, warning, info }
 
 void showToast(String message, ToastType type) {
   Color bgColor;
+  IconData icon;
+
   switch (type) {
     case ToastType.success:
       bgColor = Colors.green;
+      icon = Icons.check_circle;
       break;
     case ToastType.error:
       bgColor = Colors.red;
+      icon = Icons.error;
       break;
     case ToastType.warning:
       bgColor = Colors.orange;
+      icon = Icons.warning;
       break;
     case ToastType.info:
       bgColor = Colors.blue;
+      icon = Icons.info;
       break;
   }
 
-  Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: bgColor,
-    textColor: Colors.white,
-    fontSize: 16.0,
+  showToastWidget(
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 75),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            height: 24,
+            width: 24,
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    ),
+    duration: const Duration(seconds: 3),
+    position: ToastPosition.bottom,
   );
 }
 

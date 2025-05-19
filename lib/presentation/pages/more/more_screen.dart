@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/about%20us/about_us_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/log_out_bottom_sheet.dart';
-import 'package:mynt/presentation/pages/contact%20us/contact_us_screen.dart';
 import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/more/widgets/more_widget.dart';
 import 'package:mynt/presentation/pages/my%20profile/my_profile_screen.dart';
@@ -88,26 +87,26 @@ class MoreScreen extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: 16.h),
-              MoreWidget(
-                icon: Icons.phone_outlined,
-                title: 'Contact Us',
-                onTap: () {
-                  Navigator.of(context).push(
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const ContactUsScreen(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
+              // SizedBox(height: 16.h),
+              // MoreWidget(
+              //   icon: Icons.phone_outlined,
+              //   title: 'Contact Us',
+              //   onTap: () {
+              //     Navigator.of(context).push(
+              //       PageRouteBuilder(
+              //         pageBuilder: (context, animation, secondaryAnimation) =>
+              //             const ContactUsScreen(),
+              //         transitionsBuilder:
+              //             (context, animation, secondaryAnimation, child) {
+              //           return FadeTransition(
+              //             opacity: animation,
+              //             child: child,
+              //           );
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
               SizedBox(height: 16.h),
               MoreWidget(
                 icon: Icons.info_outline,

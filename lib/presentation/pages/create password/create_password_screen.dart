@@ -106,7 +106,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         color: AppColors.text1,
                       ),
                     ),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       controller: _passwordController,
                       hintText: "Password",
@@ -114,7 +114,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       isObscureText: !_isPasswordVisible,
                       prefixIcon: Icon(
                         Icons.lock_clock_outlined,
-                        size: 24.sp,
+                        size: 22.sp,
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -148,7 +148,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         color: AppColors.text1,
                       ),
                     ),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 8.h),
                     AppTextFormField(
                       controller: _confirmPasswordController,
                       hintText: "Confirm Password",
@@ -156,14 +156,14 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       isObscureText: !_isConfirmPasswordVisible,
                       prefixIcon: Icon(
                         Icons.lock_clock_outlined,
-                        size: 20.sp,
+                        size: 22.sp,
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _isConfirmPasswordVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          size: 24.sp,
+                          size: 20.sp,
                         ),
                         onPressed: () {
                           setState(() {

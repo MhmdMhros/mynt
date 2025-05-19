@@ -19,6 +19,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late TextEditingController phoneController;
   late TextEditingController nameController;
   late TextEditingController genderController;
+  int selectedGender = 0;
 
   @override
   void initState() {
@@ -30,8 +31,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     nameController =
         TextEditingController(text: LayoutCubit.get(context).user?.name ?? '');
     genderController = TextEditingController(
-      text: LayoutCubit.get(context).user?.gender == 1 ? 'Male' : 'Female',
+      text: LayoutCubit.get(context).user?.gender == 1
+          ? 'Male'
+          : LayoutCubit.get(context).user?.gender == 2
+              ? 'Female'
+              : 'Nothing',
     );
+    selectedGender = LayoutCubit.get(context).user?.gender == 1
+        ? 1
+        : LayoutCubit.get(context).user?.gender == 2
+            ? 2
+            : 0;
   }
 
   @override
@@ -189,23 +199,83 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         }
       };
     } else if (type == 'data') {
-      buttonText = 'Edit Data';
-      onPressed = () async {
-        final success =
-            await LayoutCubit.get(context).sendOtp(emailController.text);
-        if (success) {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => EmailVerification(emailController.text, '',
-                  nameController.text, genderController.text, '', 'edit_data'),
+      return Padding(
+        padding: EdgeInsets.only(bottom: 16.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                color: AppColors.text1,
+              ),
             ),
-          );
-          if (result != null) {
-            LayoutCubit.get(context).editData();
-          }
-        }
-      };
+            SizedBox(height: 8.h),
+            DropdownButtonFormField<int>(
+              value: selectedGender,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  icon,
+                  color: AppColors.text1,
+                  size: 20.sp,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              items: const [
+                DropdownMenuItem(value: 0, child: Text('Nothing')),
+                DropdownMenuItem(value: 1, child: Text('Male')),
+                DropdownMenuItem(value: 2, child: Text('Female')),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedGender = value!;
+                  genderController.text = value == 1
+                      ? 'Male'
+                      : value == 2
+                          ? 'Female'
+                          : 'Nothing';
+                });
+              },
+            ),
+            SizedBox(height: 10.h),
+            _buildEditButton(
+              'Edit Data',
+              Colors.white,
+              AppColors.primary,
+              () async {
+                final success = await LayoutCubit.get(context)
+                    .sendOtp(emailController.text);
+                if (success) {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EmailVerification(
+                        emailController.text,
+                        '',
+                        nameController.text,
+                        selectedGender.toString(),
+                        '',
+                        'edit_data',
+                      ),
+                    ),
+                  );
+                  if (result != null) {
+                    LayoutCubit.get(context).editData();
+                  }
+                }
+              },
+            ),
+          ],
+        ),
+      );
     }
 
     return Padding(

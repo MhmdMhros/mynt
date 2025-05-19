@@ -51,7 +51,7 @@ class BalancesCubit extends Cubit<BalancesState> {
     filteredList = data.accountSummary;
     unitNumbers = allUnits;
 
-    emit(BalancesLoaded());
+    emit(BalancesLoaded(selectedUnit, unitNumbers, filteredList));
   }
 
   void filterByUnit(AccountSummaryData data, String unit) {
@@ -69,7 +69,7 @@ class BalancesCubit extends Cubit<BalancesState> {
     selectedUnit = unit;
     filteredList = filtered;
     unitNumbers = allUnits;
-    emit(BalancesLoaded());
+    emit(BalancesLoaded(selectedUnit, unitNumbers, filteredList));
   }
 
   Future<void> downloadAllAccountSummaryPdf() async {

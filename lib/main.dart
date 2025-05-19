@@ -13,6 +13,7 @@ import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/splash&onboarding/splash_screen.dart';
 import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
+import 'package:oktoast/oktoast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(const MyApp());
+  runApp(const OKToast(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
