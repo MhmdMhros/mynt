@@ -31,7 +31,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         builder: (context) {
           return DRServiceTypeBottomSheet(
             onSubmit: (id, title) {
-              showToast(id ?? '', ToastType.success);
+              // showToast(id ?? '', ToastType.success);
               RequestServiceCubit.get(context)
                   .updateServiceTitleId(id ?? '', title ?? '');
             },
@@ -49,7 +49,7 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         builder: (context) {
           return UnitNumberBottomSheet(
             onSubmit: (text) {
-              showToast(text ?? '', ToastType.success);
+              // showToast(text ?? '', ToastType.success);
               RequestServiceCubit.get(context).updateUnitId(text ?? '');
             },
           );

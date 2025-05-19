@@ -88,7 +88,7 @@ class LayoutCubit extends Cubit<LayoutState> {
     return await res.fold(
       (l) {
         emit(GetUserFailure(l.message));
-        showToast(l.code.toString(), ToastType.info);
+        // showToast(l.code.toString(), ToastType.info);
         return l.code;
       },
       (user) {
@@ -123,7 +123,7 @@ class LayoutCubit extends Cubit<LayoutState> {
       await getIt<UserSecureStorage>().upsertUserInfo(
         email: user!.email,
       );
-      showToast('Doneeeeeeeeeeeeeeeeeeeeee.', ToastType.success);
+      // showToast('Doneeeeeeeeeeeeeeeeeeeeee.', ToastType.success);
     }
   }
 

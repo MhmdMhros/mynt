@@ -218,7 +218,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                           otp);
                       if (success) {
                         if (widget.type == 'auth_login') {
-                          showToast("Login successfully!!!", ToastType.success);
+                          showToast(
+                              "You’ve just joined Mynt! 🎉", ToastType.success);
                           await isUserLogged();
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -232,8 +233,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                               newPassword: widget.newPassword,
                               confirmPassword: widget.newPassword);
                           if (resetSuccess) {
-                            showToast(
-                                "Login successfully!!!", ToastType.success);
+                            showToast("You’ve just joined Mynt! 🎉",
+                                ToastType.success);
                             await isUserLogged();
                             Navigator.pushAndRemoveUntil(
                               context,
