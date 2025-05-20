@@ -343,28 +343,37 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   Widget _buildInfoRow(String title, String value) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              fontFamily: "Montserrat",
-              color: Colors.black54,
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Montserrat",
+                  color: Colors.black54,
+                ),
+              ),
             ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              fontFamily: "Montserrat",
-              color: Colors.black,
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Text(
+                value,
+                maxLines: 2,
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Montserrat",
+                  color: Colors.black,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

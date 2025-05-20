@@ -136,14 +136,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 // ),
                 // SizedBox(height: 20.h), // Space between image and text fields
                 // Profile Information Widgets
-                _buildInfoWidget("Email", Icons.email, "email"),
-                _buildInfoWidget("Phone Number", Icons.phone, "phone"),
                 _buildInfoWidget("Name", Icons.person, "name"),
                 _buildInfoWidget(
                   "Gender",
                   cubit.user!.gender == 1 ? Icons.male : Icons.female,
                   "data",
                 ),
+                _buildInfoWidget("Email", Icons.email, "email"),
+                _buildInfoWidget("Phone Number", Icons.phone, "phone"),
               ],
             ),
           ),

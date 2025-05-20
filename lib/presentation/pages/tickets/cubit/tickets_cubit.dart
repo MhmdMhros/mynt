@@ -91,8 +91,8 @@ class TicketsCubit extends Cubit<TicketsState> {
     return await result.fold(
       (failure) {
         emit(CreateReviewFailure(failure.message));
-        showToast('Unable to submit your review. Please try again shortly.',
-            ToastType.error);
+        // showToast('Unable to submit your review. Please try again shortly.',
+        //     ToastType.error);
         return false;
       },
       (success) {

@@ -235,7 +235,6 @@ extension GetItInjectableX on _i1.GetIt {
 
     gh.factory<_i2004.DashboardCubit>(() => _i2004.DashboardCubit(
           gh<_i1013.GetHomeDataUsecase>(),
-          gh<_i1020.GetUnReadNotificationsCountUsecase>(),
           gh<_i1021.GetAllAccountSummaryUsecase>(),
         ));
 

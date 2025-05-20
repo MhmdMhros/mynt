@@ -50,43 +50,43 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<BookedDateModel> bookedDates = [
-      BookedDateModel(bookingId: 16, date: "2025-06-01"),
-      BookedDateModel(bookingId: 16, date: "2025-06-02"),
-      BookedDateModel(bookingId: 17, date: "2025-06-10"),
-      BookedDateModel(bookingId: 17, date: "2025-06-11"),
-      BookedDateModel(bookingId: 17, date: "2025-06-12"),
-      BookedDateModel(bookingId: 17, date: "2025-06-13"),
-      BookedDateModel(bookingId: 21, date: "2025-05-09"),
-      BookedDateModel(bookingId: 21, date: "2025-05-10"),
-      BookedDateModel(bookingId: 21, date: "2025-05-11"),
-      BookedDateModel(bookingId: 21, date: "2025-05-12"),
-      BookedDateModel(bookingId: 21, date: "2025-05-13"),
-      BookedDateModel(bookingId: 23, date: "2025-05-29"),
-      BookedDateModel(bookingId: 23, date: "2025-05-30"),
-      BookedDateModel(bookingId: 27, date: "2025-09-01"),
-      BookedDateModel(bookingId: 27, date: "2025-09-02"),
-      BookedDateModel(bookingId: 27, date: "2025-09-03"),
-      BookedDateModel(bookingId: 27, date: "2025-09-04"),
-      BookedDateModel(bookingId: 27, date: "2025-09-05"),
-      BookedDateModel(bookingId: 27, date: "2025-09-06"),
-      BookedDateModel(bookingId: 27, date: "2025-09-07"),
-      BookedDateModel(bookingId: 27, date: "2025-09-08"),
-      BookedDateModel(bookingId: 27, date: "2025-09-09"),
-      BookedDateModel(bookingId: 29, date: "2025-06-04"),
-      BookedDateModel(bookingId: 29, date: "2025-06-05"),
-      BookedDateModel(bookingId: 30, date: "2025-07-04"),
-      BookedDateModel(bookingId: 30, date: "2025-07-05"),
-      BookedDateModel(bookingId: 31, date: "2025-10-01"),
-      BookedDateModel(bookingId: 31, date: "2025-10-02"),
-      BookedDateModel(bookingId: 31, date: "2025-10-03"),
-      BookedDateModel(bookingId: 31, date: "2025-10-04"),
-      BookedDateModel(bookingId: 31, date: "2025-10-05"),
-      BookedDateModel(bookingId: 31, date: "2025-10-06"),
-      BookedDateModel(bookingId: 31, date: "2025-10-07"),
-      BookedDateModel(bookingId: 31, date: "2025-10-08"),
-      BookedDateModel(bookingId: 31, date: "2025-10-09"),
-    ];
+    // final List<BookedDateModel> bookedDates = [
+    //   BookedDateModel(bookingId: 16, date: "2025-06-01"),
+    //   BookedDateModel(bookingId: 16, date: "2025-06-02"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-10"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-11"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-12"),
+    //   BookedDateModel(bookingId: 17, date: "2025-06-13"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-09"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-10"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-11"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-12"),
+    //   BookedDateModel(bookingId: 21, date: "2025-05-13"),
+    //   BookedDateModel(bookingId: 23, date: "2025-05-29"),
+    //   BookedDateModel(bookingId: 23, date: "2025-05-30"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-01"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-02"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-03"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-04"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-05"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-06"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-07"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-08"),
+    //   BookedDateModel(bookingId: 27, date: "2025-09-09"),
+    //   BookedDateModel(bookingId: 29, date: "2025-06-04"),
+    //   BookedDateModel(bookingId: 29, date: "2025-06-05"),
+    //   BookedDateModel(bookingId: 30, date: "2025-07-04"),
+    //   BookedDateModel(bookingId: 30, date: "2025-07-05"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-01"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-02"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-03"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-04"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-05"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-06"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-07"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-08"),
+    //   BookedDateModel(bookingId: 31, date: "2025-10-09"),
+    // ];
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.background,
@@ -147,19 +147,26 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.booking.title ?? '',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Montserrat",
-                            color: AppColors.text1,
+                        // Title
+                        Expanded(
+                          child: Text(
+                            widget.booking.title ?? '',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Montserrat",
+                              color: AppColors.text1,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
+
+                        // Unit Number
                         Row(
                           children: [
                             Text(
-                              "Unit ID: ",
+                              "Unit Number: ",
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
@@ -168,7 +175,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                               ),
                             ),
                             Text(
-                              '#${widget.booking.bookingId.toString()}',
+                              '#${widget.booking.propertyNumber ?? ''}',
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
@@ -296,7 +303,8 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                     // ),
                     SizedBox(height: 10.h),
                     SingleCalendarView(
-                        highlightedDays: groupDatesByYearMonth(bookedDates)),
+                        highlightedDays: groupDatesByYearMonth(
+                            widget.booking.bookedDates ?? [])),
                   ],
                 ),
               ),
@@ -410,7 +418,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
               Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      const RequestServiceScreen(),
+                      RequestServiceScreen(widget.booking.id.toString()),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return FadeTransition(

@@ -77,6 +77,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       );
 
       if (imageIds.isEmpty) return;
+      showToast('$imageIds', ToastType.success);
 
       // Create the ticket
       final createResult = await _createTicketUsecase(
@@ -95,8 +96,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
           serviceId = '';
           serviceTitle = '';
           emit(SubmitTicketFailure(failure.message));
-          showToast('Failed to request service, please try again later.',
-              ToastType.error);
+          // showToast('Failed to request service, please try again later.',
+          //     ToastType.error);
         },
         (success) {
           selectedImages = [];

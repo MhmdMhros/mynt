@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/di.dart';
 
@@ -26,6 +27,13 @@ class AppInterceptors extends Interceptor {
     super.onRequest(options, handler);
   }
 
+  // @override
+  // void onResponse(Response response, ResponseInterceptorHandler handler) {
+  //   log('✅ RESPONSE --> STATUS: ${response.statusCode}');
+  //   log('Data: ${response.data['message']}');
+  //   handler.next(response);
+  // }
+
   @override
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
@@ -33,6 +41,9 @@ class AppInterceptors extends Interceptor {
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
     if (err.response?.statusCode == 401) {
       // await showDialogForLoginAgain();
+    }
+    if (err.response?.statusCode == 400) {
+      showToast('${err.response?.data['message']}', ToastType.error);
     }
     super.onError(err, handler);
   }

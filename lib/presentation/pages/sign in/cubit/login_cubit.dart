@@ -58,8 +58,8 @@ class LoginCubit extends Cubit<LoginState> {
       CheckAccountRequest(login: userName),
     );
     return await checkResult.fold((failure) {
-      showToast('No account found with this email. Please check and try again.',
-          ToastType.error);
+      // showToast('No account found with this email. Please check and try again.',
+      //     ToastType.error);
       emit(LoginError(failure.message));
       return false;
     }, (success) {
@@ -73,8 +73,8 @@ class LoginCubit extends Cubit<LoginState> {
       SendOtpRequest(identifier: userName),
     );
     return await sendSuccess.fold((failure) {
-      showToast('Failed to send verification code. Please try again later.',
-          ToastType.error);
+      // showToast('Failed to send verification code. Please try again later.',
+      //     ToastType.error);
       emit(LoginError(failure.message));
       return false;
     }, (success) {
@@ -93,9 +93,9 @@ class LoginCubit extends Cubit<LoginState> {
 
     return await checkResult.fold(
       (failure) {
-        showToast(
-            'No account found with this email. Please check and try again.',
-            ToastType.error);
+        // showToast(
+        //     'No account found with this email. Please check and try again.',
+        //     ToastType.error);
         emit(LoginError(failure.message));
         return false;
       },
@@ -111,9 +111,9 @@ class LoginCubit extends Cubit<LoginState> {
 
         return await loginResult.fold(
           (failure) {
-            showToast(
-                'Login failed. The email or password you entered is incorrect.',
-                ToastType.error);
+            // showToast(
+            //     'Login failed. The email or password you entered is incorrect.',
+            //     ToastType.error);
 
             emit(LoginError(failure.message));
             return false;
@@ -127,9 +127,9 @@ class LoginCubit extends Cubit<LoginState> {
 
             return await sendOtpResult.fold(
               (failure) {
-                showToast(
-                    'Failed to send verification code. Please try again later.',
-                    ToastType.error);
+                // showToast(
+                //     'Failed to send verification code. Please try again later.',
+                // ToastType.error);
 
                 emit(LoginError(failure.message));
                 return false;

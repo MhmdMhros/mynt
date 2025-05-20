@@ -3,6 +3,8 @@ part of '../../core/models/responses.dart';
 @JsonSerializable(createToJson: false)
 class BookingResponse extends Equatable implements DataResponse<Booking> {
   final int? id;
+  @JsonKey(name: 'property_number')
+  final String? propertyNumber;
   final String? checkin;
   final String? checkout;
   @JsonKey(name: 'booking_id')
@@ -28,6 +30,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
 
   const BookingResponse({
     required this.id,
+    required this.propertyNumber,
     required this.checkin,
     required this.checkout,
     required this.bookingId,
@@ -48,6 +51,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
   Booking toDomain() {
     return Booking(
       id: id.orZero(),
+      propertyNumber: propertyNumber.orEmpty(),
       checkin: checkin.orEmpty(),
       checkout: checkout.orEmpty(),
       bookingId: bookingId.orZero(),
@@ -68,6 +72,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
   @override
   List<Object?> get props => [
         id,
+        propertyNumber,
         checkin,
         checkout,
         bookingId,

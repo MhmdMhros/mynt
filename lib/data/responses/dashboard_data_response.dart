@@ -8,6 +8,7 @@ class DashboardDataResponse extends Equatable
   final List<TicketResponse>? tickets;
   final List<ArticleResponse>? articles;
   final String? balance;
+  final int? unReadNotificationCount;
 
   const DashboardDataResponse({
     required this.banners,
@@ -15,6 +16,7 @@ class DashboardDataResponse extends Equatable
     required this.tickets,
     required this.articles,
     required this.balance,
+    required this.unReadNotificationCount,
   });
 
   @override
@@ -25,6 +27,7 @@ class DashboardDataResponse extends Equatable
       tickets: tickets?.map((e) => e.toDomain()).toList() ?? [],
       articles: articles?.map((e) => e.toDomain()).toList() ?? [],
       balance: balance.orEmpty(),
+      unReadNotificationCount: unReadNotificationCount.orZero(),
     );
   }
 
@@ -35,6 +38,7 @@ class DashboardDataResponse extends Equatable
         tickets,
         articles,
         balance,
+        unReadNotificationCount,
       ];
 
   factory DashboardDataResponse.fromJson(Map<String, dynamic> json) =>

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/common/pagination/list_page.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/domain/entities/account_summary_data.dart';
@@ -75,8 +74,8 @@ class UnitsCubit extends Cubit<UnitsState> {
     return await result.fold(
       (failure) {
         emit(CreateRestrictionFailure(failure.message));
-        showToast('Unable to submit your restrction. Property Is Booked.',
-            ToastType.error);
+        // showToast('Unable to submit your restrction. Property Is Booked.',
+        //     ToastType.error);
         return false;
       },
       (success) {

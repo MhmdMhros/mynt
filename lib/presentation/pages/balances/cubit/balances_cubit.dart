@@ -79,8 +79,8 @@ class BalancesCubit extends Cubit<BalancesState> {
       (failure) {
         emit(DownloadAllAccountSummaryPdfFailure(
             "Failed to download PDF: ${failure.message}"));
-        showToast(
-            "Failed to download PDF: ${failure.message}", ToastType.error);
+        // showToast(
+        //     "Failed to download PDF: ${failure.message}", ToastType.error);
       },
       (success) async {
         await downloadToDocuments(
@@ -99,8 +99,8 @@ class BalancesCubit extends Cubit<BalancesState> {
       (failure) {
         emit(DownloadAllAccountSummaryExcelFailure(
             "Failed to download Excel: ${failure.message}"));
-        showToast(
-            "Failed to download Excel: ${failure.message}", ToastType.error);
+        // showToast(
+        //     "Failed to download Excel: ${failure.message}", ToastType.error);
       },
       (success) async {
         await downloadToDocuments(
@@ -122,8 +122,8 @@ class BalancesCubit extends Cubit<BalancesState> {
       (failure) {
         emit(DownloadbookingAccountSummaryPdfFailure(
             "Failed to download PDF: ${failure.message}"));
-        showToast(
-            "Failed to download PDF: ${failure.message}", ToastType.error);
+        // showToast(
+        //     "Failed to download PDF: ${failure.message}", ToastType.error);
       },
       (success) async {
         await downloadToDocuments(
@@ -145,8 +145,8 @@ class BalancesCubit extends Cubit<BalancesState> {
       (failure) {
         emit(DownloadbookingAccountSummaryExcelFailure(
             "Failed to download Excel: ${failure.message}"));
-        showToast(
-            "Failed to download Excel: ${failure.message}", ToastType.error);
+        // showToast(
+        //     "Failed to download Excel: ${failure.message}", ToastType.error);
       },
       (success) async {
         await downloadToDocuments(

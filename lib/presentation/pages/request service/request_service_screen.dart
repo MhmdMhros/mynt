@@ -11,7 +11,8 @@ import 'package:mynt/presentation/pages/bottom%20sheets/unit_number_bottom_sheet
 import 'package:mynt/presentation/pages/request%20service/cubit/request_service_cubit.dart';
 
 class RequestServiceScreen extends StatefulWidget {
-  const RequestServiceScreen({super.key});
+  final String unitId;
+  const RequestServiceScreen(this.unitId, {super.key});
 
   @override
   State<RequestServiceScreen> createState() => _RequestServiceScreenState();
@@ -20,6 +21,13 @@ class RequestServiceScreen extends StatefulWidget {
 class _RequestServiceScreenState extends State<RequestServiceScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    RequestServiceCubit.get(context).updateUnitId(widget.unitId);
+  }
+
   @override
   Widget build(BuildContext context) {
     void showServiceTypeBottomSheet(BuildContext context) {
@@ -126,13 +134,32 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        _buildDropdownField(
-                          title: "Unit number",
-                          hint: "Choose Unit Number",
-                          selectedValue:
-                              cubit.unitId == '' ? null : cubit.unitId,
-                          onTap: () => showUnitNumBottomSheet(context),
-                        ),
+                        widget.unitId == ''
+                            ? _buildDropdownField(
+                                title: "Unit id",
+                                hint: "Choose Unit Number",
+                                selectedValue:
+                                    cubit.unitId == '' ? null : cubit.unitId,
+                                onTap: () => showUnitNumBottomSheet(context),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: TextField(
+                                  controller: TextEditingController(
+                                      text: widget.unitId),
+                                  readOnly: true,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Unit id',
+                                    labelStyle: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Montserrat",
+                                    ),
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
                         SizedBox(height: 15.h),
                         _buildDropdownField(
                           title: "Service type",

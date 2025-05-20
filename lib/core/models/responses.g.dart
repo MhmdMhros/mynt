@@ -187,6 +187,7 @@ BookedDateResponse _$BookedDateResponseFromJson(Map<String, dynamic> json) =>
 BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>
     BookingResponse(
       id: json['id'] as int?,
+      propertyNumber: json['property_number'] as String?,
       checkin: json['checkin'] as String?,
       checkout: json['checkout'] as String?,
       bookingId: json['booking_id'] as int?,
@@ -236,20 +237,20 @@ BannerResponse _$BannerResponseFromJson(Map<String, dynamic> json) =>
 DashboardDataResponse _$DashboardDataResponseFromJson(
         Map<String, dynamic> json) =>
     DashboardDataResponse(
-      banners: (json['banners'] as List<dynamic>?)
-          ?.map((e) => BannerResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      bookings: (json['bookings'] as List<dynamic>?)
-          ?.map((e) => BookingResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      tickets: (json['tickets'] as List<dynamic>?)
-          ?.map((e) => TicketResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      articles: (json['articles'] as List<dynamic>?)
-          ?.map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      balance: json['balance'] as String?,
-    );
+        banners: (json['banners'] as List<dynamic>?)
+            ?.map((e) => BannerResponse.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        bookings: (json['bookings'] as List<dynamic>?)
+            ?.map((e) => BookingResponse.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        tickets: (json['tickets'] as List<dynamic>?)
+            ?.map((e) => TicketResponse.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        articles: (json['articles'] as List<dynamic>?)
+            ?.map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        balance: json['balance'] as String?,
+        unReadNotificationCount: json['unReadNotificationCount'] as int?);
 
 NotificationResponse _$NotificationResponseFromJson(
         Map<String, dynamic> json) =>

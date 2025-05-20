@@ -9,6 +9,7 @@ class DashboardData {
   final List<Ticket>? tickets;
   final List<Article>? articles;
   final String? balance;
+  final int? unReadNotificationCount;
 
   const DashboardData({
     required this.banners,
@@ -16,5 +17,6 @@ class DashboardData {
     required this.tickets,
     required this.articles,
     required this.balance,
+    required this.unReadNotificationCount,
   });
 }

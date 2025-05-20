@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
@@ -105,8 +104,8 @@ class LayoutCubit extends Cubit<LayoutState> {
     );
     return await result.fold(
       (failure) {
-        showToast('Failed to send verification code. Please try again later.',
-            ToastType.error);
+        // showToast('Failed to send verification code. Please try again later.',
+        //     ToastType.error);
         emit(SendOtpError(failure.message));
         return false;
       },

@@ -926,25 +926,41 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(createTicketRequest.toJson());
+
+    // نستخدم FormData بدلاً من Map عادي
+    final formData = FormData();
+
+    // إضافة الحقول العادية
+    formData.fields.addAll([
+      MapEntry('property_id', createTicketRequest.propertyId.toString()),
+      MapEntry('title_id', createTicketRequest.titleId.toString()),
+      MapEntry('description', createTicketRequest.description),
+    ]);
+
+    // إضافة مرفقات الصور كمفاتيح مكررة
+    for (var id in createTicketRequest.attachments) {
+      formData.fields.add(MapEntry('attachment[gallery][]', id.toString()));
+    }
+
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<CreateTicketSuccessResponse>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
+      _setStreamType<HttpResponse<CreateTicketSuccessResponse>>(
+        Options(
+          method: 'POST',
+          headers: _headers,
+          extra: _extra,
+        )
             .compose(
               _dio.options,
               Constants.createTicketPath,
               queryParameters: queryParameters,
-              data: _data,
+              data: formData, // هنا نرسل FormData
             )
             .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+              baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+            ),
+      ),
+    );
+
     final value = CreateTicketSuccessResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

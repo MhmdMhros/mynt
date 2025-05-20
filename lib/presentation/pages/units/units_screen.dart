@@ -162,7 +162,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                       Row(
                         children: [
                           Text(
-                            "Unit ID: ",
+                            "Unit Number: ",
                             style: TextStyle(
                               color: Colors.grey[800],
                               fontSize: 10.sp,
@@ -171,7 +171,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            '#${unit.bookingId.toString()}',
+                            '#${unit.propertyNumber ?? ''}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 12.sp,
