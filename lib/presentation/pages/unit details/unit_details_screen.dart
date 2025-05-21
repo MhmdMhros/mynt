@@ -476,12 +476,24 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
       List<BookedDateModel> bookedDates) {
     final Map<int, Map<int, List<int>>> grouped = {};
 
-    for (var dateModel in bookedDates) {
-      if (dateModel.date != null) {
-        DateTime parsed = DateTime.parse(dateModel.date!);
-        grouped.putIfAbsent(parsed.year, () => {});
-        grouped[parsed.year]!.putIfAbsent(parsed.month, () => []);
-        grouped[parsed.year]![parsed.month]!.add(parsed.day);
+    if (bookedDates.isEmpty) {
+      final now = DateTime.now();
+      final currentYear = now.year;
+      final currentMonth = now.month;
+
+      // Add months from currentMonth to December
+      for (int month = currentMonth; month <= 12; month++) {
+        grouped.putIfAbsent(currentYear, () => {});
+        grouped[currentYear]![month] = [];
+      }
+    } else {
+      for (var dateModel in bookedDates) {
+        if (dateModel.date != null) {
+          DateTime parsed = DateTime.parse(dateModel.date!);
+          grouped.putIfAbsent(parsed.year, () => {});
+          grouped[parsed.year]!.putIfAbsent(parsed.month, () => []);
+          grouped[parsed.year]![parsed.month]!.add(parsed.day);
+        }
       }
     }
 
