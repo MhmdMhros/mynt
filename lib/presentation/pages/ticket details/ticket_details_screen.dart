@@ -16,364 +16,208 @@ class TicketDetailsScreen extends StatefulWidget {
 }
 
 class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
-  int? selectedRate;
-  String feedback = '';
-
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
-      builder: (context) {
-        return RatingBottomSheet(widget.ticket.id!);
-      },
+      builder: (context) => RatingBottomSheet(widget.ticket.id!),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TicketsCubit, TicketsState>(builder: (context, state) {
-      var cubit = TicketsCubit.get(context);
-      return Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: Padding(
-            padding: EdgeInsets.only(left: 30.w),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
-              onPressed: () => Navigator.pop(context),
+    return BlocBuilder<TicketsCubit, TicketsState>(
+      builder: (context, state) {
+        var cubit = TicketsCubit.get(context);
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: Padding(
+              padding: EdgeInsets.only(left: 30.w),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: AppColors.text1),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
-          ),
-          title: Text(
-            "Ticket Details",
-            style: TextStyle(
-              fontFamily: "Montserrat",
-              fontWeight: FontWeight.w600,
-              fontSize: 16.sp,
-              color: AppColors.text1,
+            title: Text(
+              "Ticket Details",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
+                color: AppColors.text1,
+              ),
             ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Container with Text
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: (widget.ticket.statusText == "REJECTED" ||
-                                widget.ticket.statusText == "CANCELED")
-                            ? const Color(0xFFFFE8E5)
-                            : const Color(0xFFEDF8EE),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Text(
-                        (widget.ticket.statusText == "REJECTED" ||
-                                widget.ticket.statusText == "CANCELED")
-                            ? "This ticket has been rejected by the team."
-                            : "Ticket is being processed by the team.",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.w600,
-                          color: (widget.ticket.statusText == "REJECTED" ||
-                                  widget.ticket.statusText == "CANCELED")
-                              ? const Color(0xFFBF4C43)
-                              : const Color(0xFF328039),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildStatusContainer(),
+                        SizedBox(height: 10.h),
+                        _buildInfoContainer(
+                          "Ticket #${widget.ticket.id}",
+                          [
+                            _buildInfoRow("Title", widget.ticket.title ?? ''),
+                            _buildInfoRow(
+                                "Date", widget.ticket.creationDate ?? ''),
+                            _buildInfoRow(
+                                "Time", widget.ticket.creationTime ?? ''),
+                          ],
+                        ),
+                        SizedBox(height: 10.h),
+                        _buildDescriptionContainer(),
+                        SizedBox(height: 10.h),
+                        _buildInfoContainer("Unit Details", [
+                          _buildInfoRow(
+                              "Title", widget.ticket.propertyTitle ?? ''),
+                          _buildInfoRow(
+                              "Number", widget.ticket.propertyNumber ?? ''),
+                          _buildInfoRow(
+                              "Building", widget.ticket.propertyBuilding ?? ''),
+                        ]),
+                        SizedBox(height: 10.h),
+                        _buildResponsiblePersonSection(cubit),
+                        SizedBox(height: 30.h),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
-                    ),
-
-                    SizedBox(height: 10.h),
-                    // Container(
-                    //   padding: EdgeInsets.all(16.w),
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(10.r),
-                    //   ),
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Text(
-                    //         "Reject Reason",
-                    //         style: TextStyle(
-                    //           fontSize: 14.sp,
-                    //           fontWeight: FontWeight.w600,
-                    //           fontFamily: "Montserrat",
-                    //           color: const Color(0xFFBF4C43),
-                    //         ),
-                    //       ),
-                    //       Divider(thickness: 1, color: Colors.grey[300]),
-                    //       Text(
-                    //         "This is a detailed description of the maintenance service required.",
-                    //         style: TextStyle(
-                    //             fontSize: 14.sp,
-                    //             fontFamily: "Montserrat",
-                    //             fontWeight: FontWeight.w500,
-                    //             color: Colors.black87),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SizedBox(height: 10.h),
-
-                    _buildInfoContainer(
-                        "Ticket #${widget.ticket.id.toString()}", [
-                      _buildInfoRow("Title", widget.ticket.title ?? ''),
-                      _buildInfoRow("Date", widget.ticket.creationDate ?? ''),
-                      _buildInfoRow("Time", widget.ticket.creationTime ?? ''),
-                    ]),
-                    SizedBox(height: 10.h),
-
-                    Container(
-                      padding: EdgeInsets.all(16.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
+                      icon: const Icon(Icons.star, color: Colors.white),
+                      label: Text(
+                        "Rate",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Montserrat",
+                          color: Colors.white,
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Ticket Description",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Montserrat",
-                              color: Colors.black,
-                            ),
-                          ),
-                          Divider(thickness: 1, color: Colors.grey[300]),
-                          Text(
-                            widget.ticket.description ?? '',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontFamily: "Montserrat",
-                                color: Colors.black87),
-                          ),
-                          SizedBox(height: 10.h),
-                          _buildImageRow(widget.ticket.gallery ?? []),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-
-                    _buildInfoContainer("Unit Details", [
-                      _buildInfoRow("Title", widget.ticket.propertyTitle ?? ''),
-                      _buildInfoRow(
-                          "Number", widget.ticket.propertyNumber ?? ''),
-                      _buildInfoRow(
-                          "Building", widget.ticket.propertyBuilding ?? ''),
-                    ]),
-                    SizedBox(height: 10.h),
-
-                    // Container with Column
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text
-                          Text(
-                            "Responsible Person",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Montserrat",
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-
-                          // Row (Image + Name)
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25.r,
-                                backgroundImage: const AssetImage(
-                                    'assets/images/personImage.png'),
-                              ),
-                              SizedBox(width: 10.w),
-                              Column(
-                                children: [
-                                  Text(
-                                    widget.ticket.customerName ?? '',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xFF262626),
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.ticket.customerPhone ?? '',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w500,
-                                      color: const Color(0xFF262626),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.h),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primary,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 12.h),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                  ),
-                                  icon: const Icon(Icons.call,
-                                      color: Colors.white),
-                                  label: Text(
-                                    "Call",
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Montserrat",
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    await cubit.callNumber(
-                                        widget.ticket.customerPhone ?? '');
-                                  },
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primary,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 12.h),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                  ),
-                                  icon: const Icon(Icons.chat,
-                                      color: Colors.white),
-                                  label: Text(
-                                    "Chat",
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Montserrat",
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    await cubit.openWhatsAppChat(
-                                        widget.ticket.customerPhone ?? '');
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 30.h),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r),
+                      onPressed: () => showBottomSheet(context),
                     ),
                   ),
-                  icon: const Icon(Icons.star,
-                      color: Colors.white), // Add star icon for rating
-                  label: Text(
-                    "Rate",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Montserrat",
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    showBottomSheet(context);
-                  },
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildStatusContainer() {
+    final isRejected = widget.ticket.statusText == "REJECTED" ||
+        widget.ticket.statusText == "CANCELED";
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: isRejected ? const Color(0xFFFFE8E5) : const Color(0xFFEDF8EE),
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Text(
+        isRejected
+            ? "This ticket has been rejected by the team."
+            : "Ticket is being processed by the team.",
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+          fontFamily: "Montserrat",
+          color: isRejected ? const Color(0xFFBF4C43) : const Color(0xFF328039),
         ),
-      );
-    });
+      ),
+    );
+  }
+
+  Widget _buildDescriptionContainer() {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Ticket Description",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              fontFamily: "Montserrat",
+              color: Colors.black,
+            ),
+          ),
+          Divider(thickness: 1, color: Colors.grey[300]),
+          Text(
+            widget.ticket.description ?? '',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontFamily: "Montserrat",
+              color: Colors.black87,
+            ),
+          ),
+          SizedBox(height: 10.h),
+          _buildImageRow(widget.ticket.gallery ?? []),
+        ],
+      ),
+    );
   }
 
   Widget _buildInfoRow(String title, String value) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4.h),
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Montserrat",
-                  color: Colors.black54,
-                ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Montserrat",
+                color: Colors.black54,
               ),
             ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Text(
-                value,
-                maxLines: 2,
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "Montserrat",
-                  color: Colors.black,
-                ),
+          ),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Text(
+              value,
+              maxLines: 2,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Montserrat",
+                color: Colors.black,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -444,6 +288,120 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                 ),
               ))
           .toList(),
+    );
+  }
+
+  Widget _buildResponsiblePersonSection(TicketsCubit cubit) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Responsible Person",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              fontFamily: "Montserrat",
+              color: AppColors.primary,
+            ),
+          ),
+          SizedBox(height: 10.h),
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 25.r,
+                backgroundImage:
+                    const AssetImage('assets/images/personImage.png'),
+              ),
+              SizedBox(width: 10.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.ticket.customerName ?? '',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Montserrat",
+                      color: const Color(0xFF262626),
+                    ),
+                  ),
+                  Text(
+                    widget.ticket.customerPhone ?? '',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Montserrat",
+                      color: const Color(0xFF262626),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 15.h),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
+                  icon: const Icon(Icons.call, color: Colors.white),
+                  label: Text(
+                    "Call",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Montserrat",
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () async {
+                    await cubit.callNumber(widget.ticket.customerPhone ?? '');
+                  },
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
+                  icon: const Icon(Icons.chat, color: Colors.white),
+                  label: Text(
+                    "Chat",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Montserrat",
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () async {
+                    await cubit
+                        .openWhatsAppChat(widget.ticket.customerPhone ?? '');
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

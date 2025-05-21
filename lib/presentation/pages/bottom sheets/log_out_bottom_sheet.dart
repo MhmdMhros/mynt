@@ -107,7 +107,7 @@ class LogOutBottomSheet extends StatelessWidget {
         children: [
           Expanded(
             child: _buildButton(
-              "Delete",
+              "Logout",
               Colors.white,
               const Color(0xFFBF4C43),
               () async {
@@ -117,18 +117,11 @@ class LogOutBottomSheet extends StatelessWidget {
                     await getIt<UserSecureStorage>().getUserEmail();
                 if (success && context.mounted) {
                   await resetIsInMainLayout();
-                  Navigator.of(context).pushReplacement(
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          SignInScreen(userName ?? ''),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                    ),
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SignInScreen(userName ?? '')),
+                    (route) => false,
                   );
                 } else {
                   showToast('Failed during logout, please try again.',

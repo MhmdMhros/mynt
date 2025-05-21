@@ -418,7 +418,8 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
               Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      RequestServiceScreen(widget.booking.id.toString()),
+                      RequestServiceScreen(widget.booking.id.toString(),
+                          widget.booking.title ?? ''),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return FadeTransition(

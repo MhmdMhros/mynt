@@ -132,6 +132,7 @@ Future<void> downloadToDocuments(String url, String fileName) async {
 
     showToast("Downloaded to: $savePath", ToastType.success);
   } catch (e) {
+    print(e);
     showToast("Download error: $e", ToastType.error);
   }
 }

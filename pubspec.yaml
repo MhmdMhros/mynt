@@ -52,7 +52,6 @@ dependencies:
   equatable: ^2.0.7
   file_picker: ^8.3.2
   flutter_keyboard_visibility: ^6.0.0
-  flutter_local_notifications: ^19.1.0
   flutter_secure_storage: ^9.2.4
   flutter_spinkit: ^5.2.1
   fluttertoast: ^8.2.12
@@ -90,9 +89,7 @@ dependencies:
   syncfusion_flutter_charts: ^29.1.38
   hexagon: ^0.2.0
   mocktail: ^1.0.4
-  chewie: ^1.8.7
   flutter_cached_pdfview: ^0.4.3
-  audioplayers: ^6.4.0
   firebase_messaging: ^15.2.5
   firebase_core: ^3.13.0
   permission_handler: ^11.3.1

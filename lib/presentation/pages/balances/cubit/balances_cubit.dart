@@ -83,10 +83,7 @@ class BalancesCubit extends Cubit<BalancesState> {
         //     "Failed to download PDF: ${failure.message}", ToastType.error);
       },
       (success) async {
-        await downloadToDocuments(
-          success.url,
-          'account_summary.xlsx',
-        );
+        await downloadToDocuments(success.url, success.url.split('/').last);
         emit(DownloadAllAccountSummaryPdfSuccess());
       },
     );
@@ -103,10 +100,7 @@ class BalancesCubit extends Cubit<BalancesState> {
         //     "Failed to download Excel: ${failure.message}", ToastType.error);
       },
       (success) async {
-        await downloadToDocuments(
-          success.url,
-          'account_summary.xlsx',
-        );
+        await downloadToDocuments(success.url, success.url.split('/').last);
         emit(DownloadAllAccountSummaryExcelSuccess());
       },
     );
@@ -126,10 +120,7 @@ class BalancesCubit extends Cubit<BalancesState> {
         //     "Failed to download PDF: ${failure.message}", ToastType.error);
       },
       (success) async {
-        await downloadToDocuments(
-          success.url,
-          'account_summary.xlsx',
-        );
+        await downloadToDocuments(success.url, success.url.split('/').last);
         emit(DownloadbookingAccountSummaryPdfSuccess());
       },
     );
@@ -149,10 +140,7 @@ class BalancesCubit extends Cubit<BalancesState> {
         //     "Failed to download Excel: ${failure.message}", ToastType.error);
       },
       (success) async {
-        await downloadToDocuments(
-          success.url,
-          'account_summary.xlsx',
-        );
+        await downloadToDocuments(success.url, success.url.split('/').last);
         emit(DownloadbookingAccountSummaryExcelSuccess());
       },
     );

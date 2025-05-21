@@ -69,6 +69,16 @@ class NewsDetailsScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Text(
+                article.title ?? '',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.text1,
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Text(
                 article.description ?? '',
                 style: TextStyle(
                   fontSize: 14.sp,

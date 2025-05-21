@@ -12,7 +12,8 @@ import 'package:mynt/presentation/pages/request%20service/cubit/request_service_
 
 class RequestServiceScreen extends StatefulWidget {
   final String unitId;
-  const RequestServiceScreen(this.unitId, {super.key});
+  final String unitTitle;
+  const RequestServiceScreen(this.unitId, this.unitTitle, {super.key});
 
   @override
   State<RequestServiceScreen> createState() => _RequestServiceScreenState();
@@ -146,7 +147,8 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                                 padding: const EdgeInsets.only(top: 20),
                                 child: TextField(
                                   controller: TextEditingController(
-                                      text: widget.unitId),
+                                      text:
+                                          '${widget.unitId}: ${widget.unitTitle}'),
                                   readOnly: true,
                                   decoration: const InputDecoration(
                                     labelText: 'Unit id',

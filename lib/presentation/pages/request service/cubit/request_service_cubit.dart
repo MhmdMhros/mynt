@@ -60,24 +60,24 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
   Future<void> submitTicket({required String description}) async {
     emit(SubmitTicketLoading());
+    List<String> imageIds = [];
     try {
-      // Upload images first
-      final uploadResult = await _uploadTicketImagesUsecase(
-        UploadImagesRequest(name: "gallery", files: selectedImages),
-      );
+      if (selectedImages.isNotEmpty) {
+        // Upload images first
+        final uploadResult = await _uploadTicketImagesUsecase(
+          UploadImagesRequest(name: "gallery", files: selectedImages),
+        );
 
-      final List<String> imageIds = uploadResult.fold(
-        (failure) {
-          emit(SubmitTicketFailure(failure.message));
-          return [];
-        },
-        (imagesData) => imagesData.uploadedImagesData
-            .map((img) => img.id.toString())
-            .toList(),
-      );
-
-      if (imageIds.isEmpty) return;
-      showToast('$imageIds', ToastType.success);
+        imageIds = uploadResult.fold(
+          (failure) {
+            emit(SubmitTicketFailure(failure.message));
+            return [];
+          },
+          (imagesData) => imagesData.uploadedImagesData
+              .map((img) => img.id.toString())
+              .toList(),
+        );
+      }
 
       // Create the ticket
       final createResult = await _createTicketUsecase(
@@ -92,7 +92,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       createResult.fold(
         (failure) {
           selectedImages = [];
-          unitId = '';
           serviceId = '';
           serviceTitle = '';
           emit(SubmitTicketFailure(failure.message));
@@ -101,7 +100,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         },
         (success) {
           selectedImages = [];
-          unitId = '';
           serviceId = '';
           serviceTitle = '';
           emit(SubmitTicketSuccess(success.message));

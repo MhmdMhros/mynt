@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 
 class PrivacySecurityScreen extends StatelessWidget {
-  final String privacyContentText;
-  const PrivacySecurityScreen(this.privacyContentText, {super.key});
+  final String privacyContent;
+  const PrivacySecurityScreen(this.privacyContent, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +46,11 @@ class PrivacySecurityScreen extends StatelessWidget {
             ),
             SizedBox(height: 30.h),
             Text(
-              privacyContentText,
+              privacyContent,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontFamily: "Montserrat",
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 color: AppColors.text1,
               ),
             ),

@@ -48,9 +48,9 @@ class AboutUsScreen extends StatelessWidget {
             Text(
               aboutUsContentText,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontFamily: "Montserrat",
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 color: AppColors.text1,
               ),
             ),

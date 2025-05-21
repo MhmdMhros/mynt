@@ -42,7 +42,7 @@ class AppInterceptors extends Interceptor {
     if (err.response?.statusCode == 401) {
       // await showDialogForLoginAgain();
     }
-    if (err.response?.statusCode == 400) {
+    if (err.response?.statusCode == 400 || err.response?.statusCode == 422) {
       showToast('${err.response?.data['message']}', ToastType.error);
     }
     super.onError(err, handler);

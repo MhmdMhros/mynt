@@ -103,4 +103,6 @@ class TicketsCubit extends Cubit<TicketsState> {
       },
     );
   }
+
+  openWhatsApp(String s) {}
 }

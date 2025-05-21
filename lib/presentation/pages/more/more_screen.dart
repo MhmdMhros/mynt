@@ -75,7 +75,7 @@ class MoreScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const RequestServiceScreen(''),
+                          const RequestServiceScreen('', ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(
@@ -116,7 +116,7 @@ class MoreScreen extends StatelessWidget {
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
                           AboutUsScreen(
-                              cubit.settingsData?.aboutUsContentText ?? ''),
+                              cubit.settingsData?.aboutUsContent ?? ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(
@@ -137,7 +137,7 @@ class MoreScreen extends StatelessWidget {
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
                           PrivacySecurityScreen(
-                              cubit.settingsData?.privacyContentText ?? ''),
+                              cubit.settingsData?.privacyContent ?? ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return FadeTransition(
