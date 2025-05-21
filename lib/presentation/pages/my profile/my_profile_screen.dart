@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
@@ -20,6 +21,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late TextEditingController nameController;
   late TextEditingController genderController;
   int selectedGender = 0;
+  IconData selectedIcon = Icons.person;
 
   @override
   void initState() {
@@ -42,6 +44,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         : LayoutCubit.get(context).user?.gender == 2
             ? 2
             : 0;
+    selectedIcon = LayoutCubit.get(context).user?.gender == 1
+        ? Icons.male
+        : LayoutCubit.get(context).user?.gender == 2
+            ? Icons.female
+            : Icons.person;
   }
 
   @override
@@ -218,7 +225,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               value: selectedGender,
               decoration: InputDecoration(
                 prefixIcon: Icon(
-                  icon,
+                  selectedIcon,
                   color: AppColors.text1,
                   size: 20.sp,
                 ),
@@ -237,6 +244,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               onChanged: (value) {
                 setState(() {
                   selectedGender = value!;
+                  selectedIcon = value == 1
+                      ? Icons.male
+                      : value == 2
+                          ? Icons.female
+                          : Icons.person;
                   genderController.text = value == 1
                       ? 'Male'
                       : value == 2
@@ -254,20 +266,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 final success = await LayoutCubit.get(context)
                     .sendOtp(emailController.text);
                 if (success) {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => EmailVerification(
-                        emailController.text,
-                        '',
-                        nameController.text,
-                        selectedGender.toString(),
-                        '',
-                        'edit_data',
-                      ),
-                    ),
-                  );
-                  if (result != null) {
+                  final editSuccess = await LayoutCubit.get(context)
+                      .editAccountData(
+                          nameController.text, selectedGender.toString());
+                  if (editSuccess) {
                     LayoutCubit.get(context).editData();
                   }
                 }

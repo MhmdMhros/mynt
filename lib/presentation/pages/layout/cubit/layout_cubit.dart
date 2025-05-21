@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/base_usecase.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/di.dart';
 import 'package:mynt/domain/entities/dashboard_data.dart';
 import 'package:mynt/domain/entities/user.dart';
+import 'package:mynt/domain/usecases/edit_account_data_usecase.dart';
 import 'package:mynt/domain/usecases/get_user_usecase.dart';
 import 'package:mynt/domain/usecases/refresh_token_usecase.dart';
 import 'package:mynt/domain/usecases/send_otp_usecase.dart';
@@ -22,15 +24,13 @@ part 'layout_state.dart';
 
 @injectable
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit(
-    this._getUserUseCase,
-    this._refreshTokenUsecase,
-    this._sendOtpUsecase,
-  ) : super(LayoutInitial());
+  LayoutCubit(this._getUserUseCase, this._refreshTokenUsecase,
+      this._sendOtpUsecase, this._editAccountDataUsecase)
+      : super(LayoutInitial());
   final GetUserUseCase _getUserUseCase;
   final RefreshTokenUsecase _refreshTokenUsecase;
-
   final SendOtpUsecase _sendOtpUsecase;
+  final EditAccountDataUsecase _editAccountDataUsecase;
 
   static LayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -143,5 +143,25 @@ class LayoutCubit extends Cubit<LayoutState> {
       isConnected = false;
       emit(LayoutConnectivityChanged(isConnected));
     }
+  }
+
+  Future<bool> editAccountData(String name, String gender) async {
+    emit(EditAccountDataLoading());
+
+    final result = await _editAccountDataUsecase(
+        EditAccountDataRequest(name: name, gender: gender));
+    return await result.fold(
+      (failure) {
+        // showToast('Failed to update account data, please try again.',
+        //     ToastType.error);
+        emit(EditAccountDataFailure(failure.message));
+        return false;
+      },
+      (success) {
+        showToast('Account data updated successfully.', ToastType.success);
+        emit(EditAccountDataSuccess());
+        return true;
+      },
+    );
   }
 }

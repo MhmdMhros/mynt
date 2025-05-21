@@ -48,3 +48,15 @@ class LayoutConnectivityChanged extends LayoutState {
   @override
   List<Object> get props => [isConnected];
 }
+
+class EditAccountDataLoading extends LayoutState {}
+
+class EditAccountDataSuccess extends LayoutState {}
+
+class EditAccountDataFailure extends LayoutState {
+  final String message;
+  const EditAccountDataFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

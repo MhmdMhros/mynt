@@ -231,6 +231,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i1005.GetUserUseCase>(),
           gh<_i1006.RefreshTokenUsecase>(),
           gh<_i1003.SendOtpUsecase>(),
+          gh<_i1010.EditAccountDataUsecase>(),
         ));
 
     gh.factory<_i2004.DashboardCubit>(() => _i2004.DashboardCubit(
