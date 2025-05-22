@@ -215,6 +215,7 @@ class _BlockUnitBottomSheetState extends State<BlockUnitBottomSheet> {
                 );
                 if (success) {
                   showSuccessRequestBottomSheet(context);
+                  Navigator.pop(context);
                 }
               }
             }),

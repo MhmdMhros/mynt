@@ -19,6 +19,8 @@ class TicketResponse extends Equatable implements DataResponse<Ticket> {
   final String? ownerPhone;
   final String? title;
   final String? description;
+  @JsonKey(name: 'status_id')
+  final int? statusId;
   @JsonKey(name: 'status_text')
   final String? statusText;
   @JsonKey(name: 'creation_date')
@@ -38,6 +40,7 @@ class TicketResponse extends Equatable implements DataResponse<Ticket> {
     required this.ownerPhone,
     required this.title,
     required this.description,
+    required this.statusId,
     required this.statusText,
     required this.creationDate,
     required this.creationTime,
@@ -57,6 +60,7 @@ class TicketResponse extends Equatable implements DataResponse<Ticket> {
       ownerPhone: ownerPhone.orEmpty(),
       title: title.orEmpty(),
       description: description.orEmpty(),
+      statusId: statusId.orZero(),
       statusText: statusText.orEmpty(),
       creationDate: creationDate.orEmpty(),
       creationTime: creationTime.orEmpty(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
@@ -45,15 +46,13 @@ class PrivacySecurityScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.h),
-            Text(
-              privacyContent,
-              style: TextStyle(
-                fontSize: 15.sp,
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w500,
-                color: AppColors.text1,
-              ),
-            ),
+            Html(
+              data: """
+    <p style="font-family: Montserrat; font-size: ${15.sp}px; font-weight: 500; color: ${AppColors.text1.value.toRadixString(16)};">
+      $privacyContent
+    </p>
+  """,
+            )
           ],
         ),
       ),

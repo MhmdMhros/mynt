@@ -5,7 +5,7 @@ import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/presentation/pages/request%20service/cubit/request_service_cubit.dart';
 
 class UnitNumberBottomSheet extends StatefulWidget {
-  final Function(String?) onSubmit;
+  final Function(String?, String?) onSubmit;
 
   const UnitNumberBottomSheet({super.key, required this.onSubmit});
 
@@ -101,7 +101,7 @@ class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          widget.onSubmit(unitNum);
+          widget.onSubmit(unitNum, unitTitle);
           Navigator.pop(context);
         });
       },
@@ -121,7 +121,7 @@ class _UnitNumberBottomSheetState extends State<UnitNumberBottomSheet> {
           children: [
             Expanded(
               child: Text(
-                '$unitNum: $unitTitle',
+                unitTitle,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,

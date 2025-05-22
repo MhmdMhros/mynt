@@ -305,7 +305,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 Navigator.of(context).push(
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        UnitDetailsScreen(booking),
+                        UnitDetailsScreen(booking.id ?? 0),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return FadeTransition(
@@ -333,9 +333,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           CircleAvatar(
                             radius: 24.r,
                             backgroundImage: CachedNetworkImageProvider(
-                              booking.gallery?.length == 0
-                                  ? ''
-                                  : booking.gallery?.first ?? '',
+                              booking.gallery?.isNotEmpty == true
+                                  ? booking.gallery!.first.s ?? ''
+                                  : '',
                             ),
                           ),
                           SizedBox(width: 10.w),
@@ -646,7 +646,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Widget _buildTicketCard(BuildContext context) {
     var cubit = DashboardCubit.get(context);
-    final status = cubit.dashboardData?.tickets?.last.statusText ?? '';
+    final statusId = cubit.dashboardData?.tickets?.last.statusId ?? 0;
+    final statusText = cubit.dashboardData?.tickets?.last.statusText ?? '';
     final ticket = cubit.dashboardData?.tickets?.last;
     if (ticket == null) {
       return const SizedBox();
@@ -750,14 +751,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                     decoration: BoxDecoration(
-                      color: getStatusBackgroundColor(status),
+                      color: getStatusBackgroundColorById(statusId),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
-                      status,
+                      statusText,
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: getStatusTextColor(status),
+                        color: getStatusTextColorById(statusId),
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
                       ),
@@ -831,10 +832,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               child: Text(
-                article.description ?? '',
+                article.title ?? '',
                 style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
                   fontFamily: "Montserrat", // Apply Montserrat font
                 ),
                 maxLines: 2,

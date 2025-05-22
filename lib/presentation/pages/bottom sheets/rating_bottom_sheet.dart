@@ -183,6 +183,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
               );
               if (success) {
                 showSuccessRequestBottomSheet(context);
+                Navigator.pop(context);
               }
             }),
           ),

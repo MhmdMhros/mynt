@@ -13,7 +13,7 @@ class Booking {
   final int? projectId;
   final String? projectTitle;
   final String? projectAddress;
-  final List<String>? gallery;
+  final List<GalleryModel>? gallery;
   final List<BookedDateModel>? bookedDates;
 
   const Booking({
@@ -33,6 +33,16 @@ class Booking {
     required this.projectAddress,
     required this.gallery,
     required this.bookedDates,
+  });
+}
+
+class GalleryModel {
+  final String? s;
+  final String? m;
+
+  const GalleryModel({
+    required this.s,
+    required this.m,
   });
 }
 

@@ -26,7 +26,8 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
   @override
   void initState() {
     super.initState();
-    RequestServiceCubit.get(context).updateUnitId(widget.unitId);
+    RequestServiceCubit.get(context)
+        .updateUnitIdAndTitle(widget.unitId, widget.unitTitle);
   }
 
   @override
@@ -57,9 +58,10 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
         ),
         builder: (context) {
           return UnitNumberBottomSheet(
-            onSubmit: (text) {
+            onSubmit: (unitNum, unitTitle) {
               // showToast(text ?? '', ToastType.success);
-              RequestServiceCubit.get(context).updateUnitId(text ?? '');
+              RequestServiceCubit.get(context)
+                  .updateUnitIdAndTitle(unitNum ?? '', unitTitle ?? '');
             },
           );
         },
@@ -137,18 +139,18 @@ class _RequestServiceScreenState extends State<RequestServiceScreen> {
                       children: [
                         widget.unitId == ''
                             ? _buildDropdownField(
-                                title: "Unit id",
-                                hint: "Choose Unit Number",
-                                selectedValue:
-                                    cubit.unitId == '' ? null : cubit.unitId,
+                                title: "Unit Title",
+                                hint: "Choose Unit Title",
+                                selectedValue: cubit.unitTitle == ''
+                                    ? null
+                                    : cubit.unitTitle,
                                 onTap: () => showUnitNumBottomSheet(context),
                               )
                             : Padding(
                                 padding: const EdgeInsets.only(top: 20),
                                 child: TextField(
                                   controller: TextEditingController(
-                                      text:
-                                          '${widget.unitId}: ${widget.unitTitle}'),
+                                      text: widget.unitTitle),
                                   readOnly: true,
                                   decoration: const InputDecoration(
                                     labelText: 'Unit id',

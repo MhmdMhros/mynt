@@ -37,3 +37,17 @@ class GetBookingAccountSummaryFailure extends UnitsState {
 
   const GetBookingAccountSummaryFailure(this.error);
 }
+
+class BookingDetailsLoading extends UnitsState {}
+
+class BookingDetailsLoaded extends UnitsState {
+  final Booking booking;
+
+  const BookingDetailsLoaded(this.booking);
+}
+
+class BookingDetailsError extends UnitsState {
+  final String message;
+
+  const BookingDetailsError(this.message);
+}

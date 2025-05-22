@@ -266,37 +266,45 @@ String normalizeEgyptianPhoneNumber(String phoneNumber) {
 }
 
 // Helper functions to get colors based on status
-Color getStatusBackgroundColor(String status) {
-  switch (status) {
-    case "OPEN":
+Color getStatusBackgroundColorById(int statusId) {
+  switch (statusId) {
+    case 0: // Assuming 0 = OPEN
       return const Color(0xFFE9F9FB);
-    case "PENDING":
+    case 1: // PENDING
       return const Color(0xFFFFF8E5);
-    case "IN PROGRESS":
-      return const Color(0xFFEDF8EE);
-    case "CANCELED":
-      return const Color(0xFFF0F0F0);
-    case "REJECTED":
+    case 2: // TAKEN (you had TAKEN = 2)
+      return Colors.blue.shade100;
+    case 3: // SOLVED (3)
+      return Colors.green.shade100;
+    case 4: // REJECTED
       return const Color(0xFFFFE8E5);
+    case 5: // IN PROGRESS (if applicable)
+      return const Color(0xFFEDF8EE);
+    case 6: // CANCELED
+      return const Color(0xFFF0F0F0);
     default:
-      return Colors.grey[200]!; // Default background color
+      return Colors.grey[200]!;
   }
 }
 
-Color getStatusTextColor(String status) {
-  switch (status) {
-    case "OPEN":
+Color getStatusTextColorById(int statusId) {
+  switch (statusId) {
+    case 0: // OPEN
       return AppColors.primary;
-    case "PENDING":
+    case 1: // PENDING
       return const Color(0xFFCC9D00);
-    case "IN PROGRESS":
-      return const Color(0xFF328039);
-    case "CANCELED":
-      return const Color(0xFF666666);
-    case "REJECTED":
+    case 2: // TAKEN
+      return Colors.blue.shade800;
+    case 3: // SOLVED
+      return Colors.green.shade800;
+    case 4: // REJECTED
       return const Color(0xFFBF4C43);
+    case 5: // IN PROGRESS
+      return const Color(0xFF328039);
+    case 6: // CANCELED
+      return const Color(0xFF666666);
     default:
-      return Colors.black; // Default text color
+      return Colors.black;
   }
 }
 

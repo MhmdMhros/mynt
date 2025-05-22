@@ -55,7 +55,7 @@ class NewsWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               child: Text(
-                item.description ?? '',
+                item.title ?? '',
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: AppColors.text1,

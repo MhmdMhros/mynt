@@ -109,14 +109,14 @@ class TicketWidget extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                     decoration: BoxDecoration(
-                      color: getStatusBackgroundColor(ticket.statusText ?? ''),
+                      color: getStatusBackgroundColorById(ticket.statusId ?? 0),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
                       ticket.statusText ?? '',
                       style: TextStyle(
                         fontSize: 12.sp,
-                        color: getStatusTextColor(ticket.statusText ?? ''),
+                        color: getStatusTextColorById(ticket.statusId ?? 0),
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat",
                       ),

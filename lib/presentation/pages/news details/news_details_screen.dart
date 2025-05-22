@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/article.dart';
@@ -78,14 +79,12 @@ class NewsDetailsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              Text(
-                article.description ?? '',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.text1,
-                ),
+              Html(
+                data: """
+    <p style="font-family: Montserrat; font-size: ${14.sp}px; font-weight: 500; color: ${AppColors.text1.value.toRadixString(16)};">
+      ${article.description ?? ''}
+    </p>
+  """,
               ),
               SizedBox(height: 10.h),
               // Text(

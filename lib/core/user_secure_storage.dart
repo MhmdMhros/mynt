@@ -79,6 +79,19 @@ class UserSecureStorage {
     ]);
   }
 
+  Future<void> setAccessToken(String accessToken) async {
+    await _secureStorage.write(key: _accessTokenKey, value: accessToken);
+    // Optionally update token_saved_at if you want to track the time
+    await _secureStorage.write(
+      key: _tokenSavedAt,
+      value: DateTime.now().toIso8601String(),
+    );
+  }
+
+  Future<void> setRefreshToken(String refreshToken) async {
+    await _secureStorage.write(key: _refreshToken, value: refreshToken);
+  }
+
   Future<void> deleteUserInfo() => Future.wait([
         _secureStorage.delete(key: _userId),
         _secureStorage.delete(key: _accessTokenKey),

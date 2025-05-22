@@ -91,7 +91,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                UnitDetailsScreen(unit),
+                UnitDetailsScreen(unit.id ?? 0),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(
@@ -117,9 +117,10 @@ class _UnitsScreenState extends State<UnitsScreen> {
                 CircleAvatar(
                   radius: 24.r,
                   backgroundImage: CachedNetworkImageProvider(
-                      unit.gallery == null || unit.gallery!.isEmpty
-                          ? ''
-                          : unit.gallery!.first),
+                    unit.gallery != null && unit.gallery!.isNotEmpty
+                        ? unit.gallery!.first.s ?? ''
+                        : '',
+                  ),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(

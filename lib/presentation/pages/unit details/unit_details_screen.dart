@@ -15,8 +15,8 @@ import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class UnitDetailsScreen extends StatefulWidget {
-  final Booking booking;
-  const UnitDetailsScreen(this.booking, {super.key});
+  final int bookingId;
+  const UnitDetailsScreen(this.bookingId, {super.key});
 
   @override
   State<UnitDetailsScreen> createState() => _UnitDetailsScreenState();
@@ -31,7 +31,8 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return BlockUnitBottomSheet(widget.booking.id ?? 0);
+        return BlockUnitBottomSheet(
+            UnitsCubit.get(context).bookingDetails.id ?? 0);
       },
     );
   }
@@ -46,6 +47,12 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         return const ServiceTypeBottomSheet();
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    UnitsCubit.get(context).getBookingDetails(widget.bookingId.toString());
   }
 
   @override
@@ -88,6 +95,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
     //   BookedDateModel(bookingId: 31, date: "2025-10-09"),
     // ];
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
+      var cubit = UnitsCubit.get(context);
       return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -119,29 +127,6 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 1. Image of the unit
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: 200.h,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(10.r),
-                    //   ),
-                    //   child: ClipRRect(
-                    //     borderRadius: BorderRadius.circular(10.r),
-                    //     child: CachedNetworkImage(
-                    //       imageUrl: widget.booking.gallery == null ||
-                    //               widget.booking.gallery!.isEmpty
-                    //           ? ''
-                    //           : widget.booking.gallery!.first,
-                    //       fit: BoxFit.cover,
-                    //       placeholder: (context, url) =>
-                    //           const Center(child: CircularProgressIndicator()),
-                    //       errorWidget: (context, url, error) => const Center(
-                    //           child: Icon(Icons.error, color: Colors.red)),
-                    //     ),
-                    //   ),
-                    // ),
-
                     _buildNewAds(),
                     SizedBox(height: 20.h),
                     Row(
@@ -150,7 +135,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                         // Title
                         Expanded(
                           child: Text(
-                            widget.booking.title ?? '',
+                            cubit.bookingDetails.title ?? '',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
@@ -175,7 +160,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                               ),
                             ),
                             Text(
-                              '#${widget.booking.propertyNumber ?? ''}',
+                              '#${cubit.bookingDetails.propertyNumber ?? ''}',
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
@@ -194,7 +179,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                             color: AppColors.primary, size: 20.w),
                         Expanded(
                           child: Text(
-                            widget.booking.projectAddress ?? '',
+                            cubit.bookingDetails.projectAddress ?? '',
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontFamily: "Montserrat",
@@ -211,100 +196,30 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                         _buildRow(
                             Icons.person_outline_outlined,
                             "Current Tennent",
-                            widget.booking.customerName ?? ''),
+                            cubit.bookingDetails.customerName ?? ''),
                         SizedBox(height: 10.h),
                         _buildRow(
                             Icons.bookmark_border_rounded,
                             "Booking Duration",
-                            widget.booking.checkin!.isEmpty
+                            cubit.bookingDetails.checkin!.isEmpty
                                 ? '--'
-                                : '${widget.booking.checkin} - ${widget.booking.checkout}'),
+                                : '${cubit.bookingDetails.checkin} - ${cubit.bookingDetails.checkout}'),
                         SizedBox(height: 10.h),
                         _buildRow(
                             Icons.balance_rounded,
                             "Balance",
-                            widget.booking.checkin!.isEmpty
+                            cubit.bookingDetails.checkin!.isEmpty
                                 ? '--'
-                                : 'EGP ${widget.booking.balance ?? ''}',
+                                : 'EGP ${cubit.bookingDetails.balance ?? ''}',
                             Colors.red),
                       ],
                     ),
                     SizedBox(height: 20.h),
                     Divider(color: Colors.grey.shade300, thickness: 1),
                     SizedBox(height: 10.h),
-                    // Container(
-                    //   width: double.infinity,
-                    //   padding: EdgeInsets.all(12.w),
-                    //   decoration: BoxDecoration(
-                    //     color: const Color(0xFFF0F4F5),
-                    //     borderRadius: BorderRadius.circular(10.r),
-                    //   ),
-                    //   child: Row(
-                    //     children: [
-                    //       Expanded(
-                    //         child: MaterialButton(
-                    //           color: index == 0
-                    //               ? AppColors.primary
-                    //               : const Color(0xFFF0F4F5),
-                    //           padding: EdgeInsets.symmetric(vertical: 12.h),
-                    //           elevation: 0, // Removes any shadow
-                    //           shape: RoundedRectangleBorder(
-                    //             borderRadius: BorderRadius.circular(16.r),
-                    //           ),
-                    //           onPressed: () {
-                    //             setState(() {
-                    //               index = 0;
-                    //             });
-                    //           },
-                    //           child: Text(
-                    //             "Year",
-                    //             style: TextStyle(
-                    //               fontSize: 14.sp,
-                    //               fontWeight: FontWeight.w600,
-                    //               fontFamily: "Montserrat",
-                    //               color: index == 0
-                    //                   ? Colors.white
-                    //                   : const Color(0xFF666666),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       SizedBox(width: 10.w),
-                    //       Expanded(
-                    //         child: MaterialButton(
-                    //           color: index == 1
-                    //               ? AppColors.primary
-                    //               : const Color(0xFFF0F4F5),
-                    //           padding: EdgeInsets.symmetric(vertical: 12.h),
-                    //           elevation: 0, // Removes any shadow
-                    //           shape: RoundedRectangleBorder(
-                    //             borderRadius: BorderRadius.circular(16.r),
-                    //           ),
-                    //           onPressed: () {
-                    //             setState(() {
-                    //               index = 1;
-                    //             });
-                    //           },
-                    //           child: Text(
-                    //             "Month",
-                    //             style: TextStyle(
-                    //               fontSize: 14.sp,
-                    //               fontWeight: FontWeight.w600,
-                    //               fontFamily: "Montserrat",
-                    //               color: index == 1
-                    //                   ? Colors.white
-                    //                   : const Color(0xFF666666),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    SizedBox(height: 10.h),
                     SingleCalendarView(
                         highlightedDays: groupDatesByYearMonth(
-                            widget.booking.bookedDates ?? [])),
+                            cubit.bookingDetails.bookedDates ?? [])),
                   ],
                 ),
               ),
@@ -375,7 +290,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                         builder: (context) => BalancesScreen(
                           data,
                           false,
-                          widget.booking.id.toString(),
+                          UnitsCubit.get(context).bookingDetails.id.toString(),
                         ),
                       ),
                     );
@@ -418,8 +333,9 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
               Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      RequestServiceScreen(widget.booking.id.toString(),
-                          widget.booking.title ?? ''),
+                      RequestServiceScreen(
+                          UnitsCubit.get(context).bookingDetails.id!.toString(),
+                          UnitsCubit.get(context).bookingDetails.title ?? ''),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return FadeTransition(
@@ -522,10 +438,16 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
             borderRadius: BorderRadius.circular(10.r),
             child: PageView.builder(
               controller: pageController,
-              itemCount: widget.booking.gallery?.length ?? 0,
+              itemCount:
+                  UnitsCubit.get(context).bookingDetails.gallery?.length ?? 0,
               itemBuilder: (context, index) {
                 return CachedNetworkImage(
-                  imageUrl: widget.booking.gallery?.elementAt(index) ?? '',
+                  imageUrl: UnitsCubit.get(context)
+                          .bookingDetails
+                          .gallery
+                          ?.elementAt(index)
+                          .m ??
+                      '',
                   fit: BoxFit.cover,
                   width: double.infinity,
                   placeholder: (context, url) => Container(
@@ -546,7 +468,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         SizedBox(height: 16.h),
         SmoothPageIndicator(
           controller: pageController,
-          count: widget.booking.gallery?.length ?? 0,
+          count: UnitsCubit.get(context).bookingDetails.gallery?.length ?? 0,
           effect: JumpingDotEffect(
             dotHeight: 10.h,
             dotWidth: 10.w,

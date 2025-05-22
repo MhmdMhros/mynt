@@ -41,12 +41,13 @@ class SubmitTicketFailure extends RequestServiceState {
   const SubmitTicketFailure(this.error);
 }
 
-class UpdateUnitIdState extends RequestServiceState {
+class UpdateUnitIdAndTitleState extends RequestServiceState {
   final String unitId;
+  final String unitTitle;
 
-  const UpdateUnitIdState(this.unitId);
+  const UpdateUnitIdAndTitleState(this.unitId, this.unitTitle);
   @override
-  List<Object?> get props => [unitId];
+  List<Object?> get props => [unitId, unitTitle];
 }
 
 class UpdateServiceTitleIdState extends RequestServiceState {

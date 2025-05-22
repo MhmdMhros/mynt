@@ -10,6 +10,7 @@ import 'package:mynt/domain/entities/account_summary_data.dart';
 import 'package:mynt/domain/entities/booking.dart';
 import 'package:mynt/domain/usecases/create_restriction_usecase.dart';
 import 'package:mynt/domain/usecases/get_booking_account_summary_usecase.dart';
+import 'package:mynt/domain/usecases/get_booking_details_usecase.dart';
 import 'package:mynt/domain/usecases/get_bookings_data_usecase.dart';
 
 part 'units_state.dart';
@@ -17,11 +18,12 @@ part 'units_state.dart';
 @injectable
 class UnitsCubit extends Cubit<UnitsState> {
   UnitsCubit(this._getBookingsDataUsecase, this._createRestrictionUsecase,
-      this._getBookingAccountSummaryUsecase)
+      this._getBookingAccountSummaryUsecase, this._getBookingDetailsUsecase)
       : super(UnitsInitial());
   final GetBookingsDataUsecase _getBookingsDataUsecase;
   final CreateRestrictionUsecase _createRestrictionUsecase;
   final GetBookingAccountSummaryUsecase _getBookingAccountSummaryUsecase;
+  final GetBookingDetailsUsecase _getBookingDetailsUsecase;
 
   static UnitsCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -31,6 +33,24 @@ class UnitsCubit extends Cubit<UnitsState> {
   );
   int total = 0;
   AccountSummaryData? bookingAccountSummaryData;
+  Booking bookingDetails = const Booking(
+    id: 0,
+    propertyNumber: "",
+    checkin: "",
+    checkout: "",
+    bookingId: 0,
+    accountId: 0,
+    netTotal: "",
+    balance: "",
+    customerName: "",
+    title: "",
+    description: "",
+    projectId: 0,
+    projectTitle: "",
+    projectAddress: "",
+    gallery: [],
+    bookedDates: [],
+  );
 
   Future<ListPage<Booking>> getUnits(int page, int limit) async {
     emit(GetUnitsLoading());
@@ -99,6 +119,20 @@ class UnitsCubit extends Cubit<UnitsState> {
       (data) {
         emit(GetBookingAccountSummarySuccess());
         bookingAccountSummaryData = data;
+      },
+    );
+  }
+
+  Future<void> getBookingDetails(String bookingId) async {
+    emit(BookingDetailsLoading());
+
+    final result = await _getBookingDetailsUsecase(bookingId);
+
+    result.fold(
+      (failure) => emit(BookingDetailsError(failure.message)),
+      (booking) {
+        bookingDetails = booking;
+        emit(BookingDetailsLoaded(booking));
       },
     );
   }

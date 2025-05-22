@@ -24,7 +24,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
   final String? projectTitle;
   @JsonKey(name: 'project_address')
   final String? projectAddress;
-  final List<String>? gallery;
+  final List<GalleryResponse>? gallery;
   @JsonKey(name: 'booked_dates')
   final List<BookedDateResponse>? bookedDates;
 
@@ -64,7 +64,7 @@ class BookingResponse extends Equatable implements DataResponse<Booking> {
       projectId: projectId.orZero(),
       projectTitle: projectTitle.orEmpty(),
       projectAddress: projectAddress.orEmpty(),
-      gallery: gallery ?? [],
+      gallery: gallery?.map((e) => e.toDomain()).toList() ?? [],
       bookedDates: bookedDates?.map((e) => e.toDomain()).toList() ?? [],
     );
   }
@@ -118,4 +118,29 @@ class BookedDateResponse extends Equatable
 
   factory BookedDateResponse.fromJson(Map<String, dynamic> json) =>
       _$BookedDateResponseFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class GalleryResponse extends Equatable implements DataResponse<GalleryModel> {
+  final String? s;
+  final String? m;
+
+  const GalleryResponse({
+    required this.s,
+    required this.m,
+  });
+
+  @override
+  GalleryModel toDomain() {
+    return GalleryModel(
+      s: s.orEmpty(),
+      m: m.orEmpty(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [s, m];
+
+  factory GalleryResponse.fromJson(Map<String, dynamic> json) =>
+      _$GalleryResponseFromJson(json);
 }

@@ -178,6 +178,11 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String?,
     );
 
+GalleryResponse _$GalleryResponseFromJson(Map<String, dynamic> json) =>
+    GalleryResponse(
+      s: json['s'] as String?,
+      m: json['m'] as String?,
+    );
 BookedDateResponse _$BookedDateResponseFromJson(Map<String, dynamic> json) =>
     BookedDateResponse(
       bookingId: json['booking_id'] as int?,
@@ -200,8 +205,9 @@ BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>
       projectId: json['project_id'] as int?,
       projectTitle: json['project_title'] as String?,
       projectAddress: json['project_address'] as String?,
-      gallery:
-          (json['gallery'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      gallery: (json['gallery'] as List<dynamic>?)
+          ?.map((e) => GalleryResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
       bookedDates: (json['booked_dates'] as List<dynamic>?)
           ?.map((e) => BookedDateResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -219,6 +225,7 @@ TicketResponse _$TicketResponseFromJson(Map<String, dynamic> json) =>
       ownerPhone: json['owner_phone'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
+      statusId: json['status_id'] as int?,
       statusText: json['status_text'] as String?,
       creationDate: json['creation_date'] as String?,
       creationTime: json['creation_time'] as String?,

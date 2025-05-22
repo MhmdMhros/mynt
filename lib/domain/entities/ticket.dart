@@ -9,6 +9,7 @@ class Ticket {
   final String? ownerPhone;
   final String? title;
   final String? description;
+  final int? statusId;
   final String? statusText;
   final String? creationDate;
   final String? creationTime;
@@ -25,6 +26,7 @@ class Ticket {
     required this.ownerPhone,
     required this.title,
     required this.description,
+    required this.statusId,
     required this.statusText,
     required this.creationDate,
     required this.creationTime,

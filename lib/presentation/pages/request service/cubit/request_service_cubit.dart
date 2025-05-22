@@ -29,6 +29,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   List<File> selectedImages = [];
   RequestServiceData? requestServiceData;
   String unitId = '';
+  String unitTitle = '';
   String serviceId = '';
   String serviceTitle = '';
 
@@ -111,9 +112,10 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     }
   }
 
-  void updateUnitId(String unitId) {
+  void updateUnitIdAndTitle(String unitId, String unitTitle) {
     this.unitId = unitId;
-    emit(UpdateUnitIdState(unitId));
+    this.unitTitle = unitTitle;
+    emit(UpdateUnitIdAndTitleState(unitId, unitTitle));
   }
 
   void updateServiceTitleId(String serviceId, String serviceTitle) {
