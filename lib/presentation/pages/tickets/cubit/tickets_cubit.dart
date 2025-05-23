@@ -4,13 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/common/pagination/list_page.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/domain/entities/ticket.dart';
 import 'package:mynt/domain/usecases/create_review_usecase.dart';
 import 'package:mynt/domain/usecases/get_tickets_data_usecase.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 part 'tickets_state.dart';
 
@@ -49,28 +47,6 @@ class TicketsCubit extends Cubit<TicketsState> {
         );
       },
     );
-  }
-
-  Future<void> callNumber(String phoneNumber) async {
-    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
-    if (await canLaunchUrl(phoneUri)) {
-      await launchUrl(phoneUri);
-    } else {
-      showToast('Cannot launch call with this phone number', ToastType.error);
-      emit(const CallPhoneFailure("Cannot launch phone call"));
-    }
-  }
-
-  Future<void> openWhatsAppChat(String phoneNumber) async {
-    if (phoneNumber.isNotEmpty) {
-      final String correctPhoneNumber =
-          normalizeEgyptianPhoneNumber(phoneNumber);
-      final url = Uri.parse("https://wa.me/$correctPhoneNumber");
-      await launchUrl(url);
-    } else {
-      showToast('Cannot launch chat with this phone number', ToastType.error);
-      emit(const ChatPhoneFailure("Cannot launch phone chat"));
-    }
   }
 
   Future<bool> createReview({

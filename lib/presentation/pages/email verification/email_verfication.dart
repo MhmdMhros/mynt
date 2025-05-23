@@ -156,7 +156,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'Please enter the verification code sent to\n ${widget.phoneNumber == '' ? widget.email : widget.phoneNumber}',
+                    'Please enter the verification code sent to\n ${widget.email}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14.sp,
@@ -212,11 +212,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                       decoration: submittedPinDecoration,
                     ),
                     onCompleted: (otp) async {
-                      final success = await cubit.verifyOtp(
-                          widget.phoneNumber == ''
-                              ? widget.email
-                              : widget.phoneNumber,
-                          otp);
+                      final success = await cubit.verifyOtp(widget.email, otp);
                       if (success) {
                         if (widget.type == 'auth_login') {
                           showToast(

@@ -15,6 +15,7 @@ import 'package:mynt/domain/entities/send_otp.dart';
 
 import 'package:dio/dio.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
+import 'package:mynt/domain/entities/settings_data_without_slug.dart';
 import 'package:mynt/domain/entities/tickets_data.dart';
 import 'package:mynt/domain/entities/un_read_notifications_count.dart';
 
@@ -314,6 +315,15 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, SettingsData>> settingsData() async {
     return _repositoryHelpers.callApi<SettingsData>(
       () => _appServiceClient.settingsData(),
+      statusCode: 200,
+    );
+  }
+
+  @override
+  Future<Either<Failure, SettingsDataWithoutSlug>>
+      settingsDataWithoutSlugs() async {
+    return _repositoryHelpers.callApi<SettingsDataWithoutSlug>(
+      () => _appServiceClient.settingsDataWithoutSlugs(),
       statusCode: 200,
     );
   }

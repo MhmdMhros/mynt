@@ -36,6 +36,10 @@ abstract class AppServiceClient {
   @GET(Constants.settingsPath)
   Future<HttpResponse<SettingsDataResponse>> settingsData();
 
+  @GET(Constants.settingsWithoutSlugsPath)
+  Future<HttpResponse<SettingsDataWithoutSlugsResponse>>
+      settingsDataWithoutSlugs();
+
   @POST(Constants.signupPath)
   Future<HttpResponse<SignupSuccessResponse>> signup(
     @Body() SignupRequest signupRequest,

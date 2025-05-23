@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 
 class ContactUsScreen extends StatelessWidget {
-  const ContactUsScreen({super.key});
+  final String phoneNumber;
+  final String email;
+  final String facebookUrl;
+  final String twitterUrl;
+  final String youtubeUrl;
+  const ContactUsScreen(this.phoneNumber, this.email, this.facebookUrl,
+      this.twitterUrl, this.youtubeUrl,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,36 +41,72 @@ class ContactUsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 50.h),
             // SVG Image
             SvgPicture.asset(
               "assets/images/contact_us.svg",
               width: 120.w,
               height: 122.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildContactItem(Icons.phone, "Phone"),
-                SizedBox(
-                  width: 5.w,
-                ),
-                _buildContactItem(Icons.email, "Email"),
-                SizedBox(
-                  width: 5.w,
-                ),
-                _buildContactItem(Icons.location_on, "Location"),
-                SizedBox(
-                  width: 5.w,
-                ),
-                _buildContactItem(Icons.support_agent, "Support"),
-              ],
+            SizedBox(height: 50.h),
+            SingleChildScrollView(
+              child: Wrap(
+                spacing: 10.w,
+                runSpacing: 15.h,
+                alignment: WrapAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: InkWell(
+                      onTap: () async => await callNumber(phoneNumber),
+                      child: _buildContactItem(FontAwesomeIcons.phone, "Phone"),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100.w,
+                    child: InkWell(
+                      onTap: () async => await launchEmail(
+                          toEmail: email, body: '', subject: ''),
+                      child: _buildContactItem(
+                          FontAwesomeIcons.solidEnvelope, "Email"),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100.w,
+                    child: InkWell(
+                      onTap: () async => await launchURL(
+                          url: facebookUrl, isSocialMedia: true),
+                      child: _buildContactItem(
+                          FontAwesomeIcons.facebook, "Facebook"),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100.w,
+                    child: InkWell(
+                      onTap: () async =>
+                          await launchURL(url: twitterUrl, isSocialMedia: true),
+                      child: _buildContactItem(
+                          FontAwesomeIcons.twitter, "Twitter"),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100.w,
+                    child: InkWell(
+                      onTap: () async =>
+                          await launchURL(url: youtubeUrl, isSocialMedia: true),
+                      child: _buildContactItem(
+                          FontAwesomeIcons.youtube, "Youtube"),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            buildTextField("Description", "Write your comment here..."),
+            // buildTextField("Description", "Write your comment here..."),
           ],
         ),
       ),
@@ -77,7 +122,7 @@ class ContactUsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(icon, size: 30.r, color: AppColors.text1),
+          Icon(icon, size: 25.r, color: AppColors.text1),
           SizedBox(height: 8.h),
           Text(
             label,

@@ -15,6 +15,7 @@ import 'package:mynt/domain/entities/send_otp.dart';
 import 'package:mynt/domain/entities/settings_data.dart';
 import 'package:mynt/domain/entities/tickets_data.dart';
 import 'package:mynt/domain/entities/un_read_notifications_count.dart';
+import 'package:mynt/domain/entities/settings_data_without_slug.dart';
 
 import '../../core/models/no_data.dart';
 import '../entities/user.dart';
@@ -66,6 +67,8 @@ abstract class Repository {
   );
 
   Future<Either<Failure, SettingsData>> settingsData();
+
+  Future<Either<Failure, SettingsDataWithoutSlug>> settingsDataWithoutSlugs();
 
   Future<Either<Failure, DashboardData>> dashboardData();
 

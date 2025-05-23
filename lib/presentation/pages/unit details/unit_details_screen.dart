@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/booking.dart';
+import 'package:mynt/domain/entities/calender_data.dart';
 import 'package:mynt/presentation/pages/balances/balances_screen.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/block_unit_bottom_sheet.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/service_type_bottom_sheet.dart';
@@ -59,6 +60,8 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
   Widget build(BuildContext context) {
     // final List<BookedDateModel> bookedDates = [
     //   BookedDateModel(bookingId: 16, date: "2025-06-01"),
+    //   BookedDateModel(bookingId: 16, date: "2025-04-01"),
+    //   BookedDateModel(bookingId: 16, date: "2026-04-02"),
     //   BookedDateModel(bookingId: 16, date: "2025-06-02"),
     //   BookedDateModel(bookingId: 17, date: "2025-06-10"),
     //   BookedDateModel(bookingId: 17, date: "2025-06-11"),
@@ -218,7 +221,7 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                     Divider(color: Colors.grey.shade300, thickness: 1),
                     SizedBox(height: 10.h),
                     SingleCalendarView(
-                        highlightedDays: groupDatesByYearMonth(
+                        calendarData: groupDatesWithCalendarData(
                             cubit.bookingDetails.bookedDates ?? [])),
                   ],
                 ),
@@ -388,32 +391,70 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
     );
   }
 
-  Map<int, Map<int, List<int>>> groupDatesByYearMonth(
-      List<BookedDateModel> bookedDates) {
+  CalendarData groupDatesWithCalendarData(List<BookedDateModel> bookedDates) {
     final Map<int, Map<int, List<int>>> grouped = {};
+    late DateTime firstDay;
+    late DateTime lastDay;
+    late DateTime focusedDay;
 
     if (bookedDates.isEmpty) {
       final now = DateTime.now();
       final currentYear = now.year;
       final currentMonth = now.month;
 
-      // Add months from currentMonth to December
       for (int month = currentMonth; month <= 12; month++) {
         grouped.putIfAbsent(currentYear, () => {});
         grouped[currentYear]![month] = [];
       }
+
+      firstDay = DateTime(currentYear, currentMonth, 1);
+      lastDay = DateTime(currentYear, 12, 31);
+      focusedDay = firstDay;
     } else {
+      bookedDates.sort((a, b) {
+        final aDate = DateTime.parse(a.date!);
+        final bDate = DateTime.parse(b.date!);
+        return aDate.compareTo(bDate);
+      });
+
+      final firstDate = DateTime.parse(bookedDates.first.date!);
+      final lastDate = DateTime.parse(bookedDates.last.date!);
+
+      final startYear = firstDate.year;
+      final startMonth = firstDate.month;
+      final endYear = lastDate.year;
+      final endMonth = lastDate.month;
+
+      // تعبئة الشهور ما بين التاريخين
+      for (int year = startYear; year <= endYear; year++) {
+        final int fromMonth = (year == startYear) ? startMonth : 1;
+        final int toMonth = (year == endYear) ? endMonth : 12;
+
+        for (int month = fromMonth; month <= toMonth; month++) {
+          grouped.putIfAbsent(year, () => {});
+          grouped[year]![month] = [];
+        }
+      }
+
+      // ملء الأيام
       for (var dateModel in bookedDates) {
         if (dateModel.date != null) {
-          DateTime parsed = DateTime.parse(dateModel.date!);
-          grouped.putIfAbsent(parsed.year, () => {});
-          grouped[parsed.year]!.putIfAbsent(parsed.month, () => []);
+          final parsed = DateTime.parse(dateModel.date!);
           grouped[parsed.year]![parsed.month]!.add(parsed.day);
         }
       }
+
+      firstDay = DateTime(startYear, startMonth, 1);
+      lastDay = DateTime(endYear, 12, 31);
+      focusedDay = firstDay;
     }
 
-    return grouped;
+    return CalendarData(
+      grouped: grouped,
+      firstDay: firstDay,
+      lastDay: lastDay,
+      focusedDay: focusedDay,
+    );
   }
 
   Widget _buildNewAds() {

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/domain/entities/ticket.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/rating_bottom_sheet.dart';
@@ -128,24 +129,21 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   }
 
   Widget _buildStatusContainer() {
-    final isRejected = widget.ticket.statusText == "REJECTED" ||
-        widget.ticket.statusText == "CANCELED";
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: isRejected ? const Color(0xFFFFE8E5) : const Color(0xFFEDF8EE),
+        color: getStatusBackgroundColorById(widget.ticket.statusId ?? 0),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Text(
-        isRejected
-            ? "This ticket has been rejected by the team."
-            : "Ticket is being processed by the team.",
+        getTicketStatusDescription(
+            widget.ticket.statusId ?? 0, widget.ticket.statusText ?? ''),
         style: TextStyle(
           fontSize: 14.sp,
           fontWeight: FontWeight.w600,
           fontFamily: "Montserrat",
-          color: isRejected ? const Color(0xFFBF4C43) : const Color(0xFF328039),
+          color: getStatusTextColorById(widget.ticket.statusId ?? 0),
         ),
       ),
     );
@@ -368,7 +366,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    await cubit.callNumber(widget.ticket.customerPhone ?? '');
+                    await callNumber(widget.ticket.customerPhone ?? '');
                   },
                 ),
               ),
@@ -393,8 +391,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    await cubit
-                        .openWhatsAppChat(widget.ticket.customerPhone ?? '');
+                    await openWhatsAppChat(widget.ticket.customerPhone ?? '');
                   },
                 ),
               ),

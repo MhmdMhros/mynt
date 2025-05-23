@@ -51,7 +51,9 @@ class MyApp extends StatelessWidget {
             create: (_) => getIt<TicketsCubit>(),
           ),
           BlocProvider<MoreCubit>(
-            create: (_) => getIt<MoreCubit>()..getSettingsData(),
+            create: (_) => getIt<MoreCubit>()
+              ..getSettingsData()
+              ..getSettingsDataWithoutSlugs(),
           ),
           BlocProvider<NotificationsCubit>(
             create: (_) => getIt<NotificationsCubit>(),

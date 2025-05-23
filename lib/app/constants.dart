@@ -46,6 +46,7 @@ class Constants {
   static const String verifyResetPasswordOtpPath = 'auth/verify-reset-password';
   static const String editAccountPath = 'owner/account/edit';
   static const String settingsPath = 'settings-management?slug=pages';
+  static const String settingsWithoutSlugsPath = 'settings-management';
 
   static const String getUserPath = 'owner/data';
   static const String getHomeDataPath = 'owner/home-page';

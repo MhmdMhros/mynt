@@ -71,9 +71,7 @@ class AccountSummaryDetailsScreen extends StatelessWidget {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      entry.value.toString().length > 30
-                          ? '${entry.value.toString().substring(0, 30)}...'
-                          : entry.value.toString(),
+                      entry.value.toString(),
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,

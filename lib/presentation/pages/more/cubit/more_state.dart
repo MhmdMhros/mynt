@@ -19,6 +19,15 @@ class GetSettingsDataFailure extends MoreState {
   const GetSettingsDataFailure(this.message);
 }
 
+class GetSettingsDataWithoutSlugsLoading extends MoreState {}
+
+class GetSettingsDataWithoutSlugsSuccess extends MoreState {}
+
+class GetSettingsDataWithoutSlugsFailure extends MoreState {
+  final String message;
+  const GetSettingsDataWithoutSlugsFailure(this.message);
+}
+
 class LogoutLoading extends MoreState {}
 
 class LogoutSuccess extends MoreState {}

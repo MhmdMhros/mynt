@@ -37,6 +37,7 @@ import '../../domain/entities/uploaded_image_data.dart';
 import '../../domain/entities/images_data.dart';
 import '../../domain/entities/download_pdf_success.dart';
 import '../../domain/entities/download_excel_success.dart';
+import '../../domain/entities/settings_data_without_slug.dart';
 
 // ignore: unused_import
 import '../../app/extensions.dart';
@@ -124,6 +125,8 @@ part '../../data/responses/images_data_response.dart';
 part '../../data/responses/download_pdf_success_response.dart';
 
 part '../../data/responses/download_excel_success_response.dart';
+
+part '../../data/responses/settings_data_without_slugs_response.dart';
 
 abstract class DataResponse<T> {
   T toDomain();

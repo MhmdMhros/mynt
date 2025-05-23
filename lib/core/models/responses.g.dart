@@ -155,6 +155,73 @@ SettingsDataResponse _$SettingsDataResponseFromJson(
       paymentTermsContentText: json['payment_terms_content_text'] as String?,
     );
 
+SettingsDataWithoutSlugsResponse _$SettingsDataWithoutSlugsResponseFromJson(
+        Map<String, dynamic> json) =>
+    SettingsDataWithoutSlugsResponse(
+      general: json['general'] == null
+          ? null
+          : GeneralInfoResponse.fromJson(
+              json['general'] as Map<String, dynamic>),
+      socialMedia: json['social_media'] == null
+          ? null
+          : SocialMediaResponse.fromJson(
+              json['social_media'] as Map<String, dynamic>),
+      customers: json['customers'] == null
+          ? null
+          : CustomersResponse.fromJson(
+              json['customers'] as Map<String, dynamic>),
+      socialAuth: json['social_auth'] == null
+          ? null
+          : SocialAuthResponse.fromJson(
+              json['social_auth'] as Map<String, dynamic>),
+      drivers: json['drivers'] == null
+          ? null
+          : DriversResponse.fromJson(json['drivers'] as Map<String, dynamic>),
+    );
+
+GeneralInfoResponse _$GeneralInfoResponseFromJson(Map<String, dynamic> json) =>
+    GeneralInfoResponse(
+      appName: json['app_name'] as String?,
+      address: json['address'] as String?,
+      email: json['email'] as String?,
+      phone: json['phone'] as String?,
+      hotline: json['hotline'] as String?,
+      whatsapp: json['whatsapp'] as String?,
+      customerHotline: json['customer_hotline'] as String?,
+      ownerHotline: json['owner_hotline'] as String?,
+      customerWhatsapp: json['customer_whatsapp'] as String?,
+      ownerWhatsapp: json['owner_whatsapp'] as String?,
+      callPolice: json['call_police'] as String?,
+      callAmbulance: json['call_ambulance'] as String?,
+      downloadCustomerAppUrl: json['download_customer_app_url'] as String?,
+      downloadOwnerAppUrl: json['download_owner_app_url'] as String?,
+    );
+
+SocialMediaResponse _$SocialMediaResponseFromJson(Map<String, dynamic> json) =>
+    SocialMediaResponse(
+      twitterUrl: json['twitter_url'] as String?,
+      facebookUrl: json['facebook_url'] as String?,
+      youtubeUrl: json['youtube_url'] as String?,
+      instagramUrl: json['instagram_url'] as String?,
+    );
+
+SocialAuthResponse _$SocialAuthResponseFromJson(Map<String, dynamic> json) =>
+    SocialAuthResponse(
+      facebookStatus: json['facebook_status'] as String?,
+      googleStatus: json['google_status'] as String?,
+      appleStatus: json['apple_status'] as String?,
+    );
+
+DriversResponse _$DriversResponseFromJson(Map<String, dynamic> json) =>
+    DriversResponse(
+      enablePhoneOtp: json['enable_phone_otp'] as String?,
+    );
+
+CustomersResponse _$CustomersResponseFromJson(Map<String, dynamic> json) =>
+    CustomersResponse(
+      enablePhoneOtp: json['enable_phone_otp'] as String?,
+    );
+
 CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
     CategoryResponse(
       id: json['id'] as int?,

@@ -7,7 +7,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
-import 'package:mynt/presentation/widgets/simple_toast.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,17 +15,45 @@ Future<void> launchURL({
   required String url,
   bool isSocialMedia = false,
 }) async {
-  if (!url.startsWith("https")) {
+  if (!url.startsWith("http")) {
     url = "https://$url";
   }
   var uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
+  await launchUrl(uri);
+}
+
+Future<void> callNumber(String phoneNumber) async {
+  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+  if (await canLaunchUrl(phoneUri)) {
+    await launchUrl(phoneUri);
   } else {
-    SimpleToast.show(
-      msg:
-          isSocialMedia ? "something went wrong try again" : "enter valid link",
-    );
+    showToast('Cannot launch call with this phone number', ToastType.error);
+  }
+}
+
+Future<void> launchEmail({
+  required String toEmail,
+  String subject = '',
+  String body = '',
+}) async {
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: toEmail,
+    queryParameters: {
+      'subject': subject,
+      'body': body,
+    },
+  );
+  await launchUrl(emailUri);
+}
+
+Future<void> openWhatsAppChat(String phoneNumber) async {
+  if (phoneNumber.isNotEmpty) {
+    final String correctPhoneNumber = normalizeEgyptianPhoneNumber(phoneNumber);
+    final url = Uri.parse("https://wa.me/$correctPhoneNumber");
+    await launchUrl(url);
+  } else {
+    showToast('Cannot launch chat with this phone number', ToastType.error);
   }
 }
 
@@ -305,6 +332,21 @@ Color getStatusTextColorById(int statusId) {
       return const Color(0xFF666666);
     default:
       return Colors.black;
+  }
+}
+
+String getTicketStatusDescription(int statusId, String statusText) {
+  switch (statusId) {
+    case 1:
+      return 'is currently $statusText review by the team.';
+    case 2:
+      return 'has been $statusText and is in progress by the team.';
+    case 3:
+      return 'has been successfully $statusText by the team.';
+    case 4:
+      return 'has been reviewed and $statusText by the team.';
+    default:
+      return 'has an unknown status.';
   }
 }
 

@@ -54,4 +54,8 @@ class BookedDateModel {
     required this.bookingId,
     required this.date,
   });
+  @override
+  String toString() {
+    return 'BookedDateModel(bookingId: $bookingId, date: $date)';
+  }
 }

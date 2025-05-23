@@ -195,8 +195,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => EmailVerification(
-                  '', phoneController.text, '', '', '', 'edit_phone'),
+              builder: (_) => EmailVerification(emailController.text,
+                  phoneController.text, '', '', '', 'edit_phone'),
             ),
           );
 
