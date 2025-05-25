@@ -35,17 +35,21 @@ class SingleCalendarView extends StatelessWidget {
           final month = date.month;
           final day = date.day;
 
-          final isHighlighted =
-              calendarData.grouped[year]?[month]?.contains(day) ?? false;
+          final platform = calendarData.grouped[year]?[month]?[day];
+
+          Color? bgColor;
+          if (platform == 1) {
+            bgColor = const Color.fromARGB(255, 129, 195, 204);
+          } else if (platform == 2) {
+            bgColor = Colors.red[200];
+          }
 
           return Container(
             width: 40.w,
             height: 40.h,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isHighlighted
-                  ? const Color.fromARGB(255, 129, 195, 204)
-                  : Colors.transparent,
+              color: bgColor ?? Colors.transparent,
               shape: BoxShape.circle,
             ),
             child: Text(

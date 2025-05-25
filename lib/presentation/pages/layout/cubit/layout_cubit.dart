@@ -90,8 +90,9 @@ class LayoutCubit extends Cubit<LayoutState> {
         // showToast(l.code.toString(), ToastType.info);
         return l.code;
       },
-      (user) {
-        this.user = user;
+      (userData) {
+        user = userData;
+        print(user?.email);
         emit(GetUserSuccess());
         return 200;
       },

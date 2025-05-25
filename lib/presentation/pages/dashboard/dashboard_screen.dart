@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/app/functions.dart';
+import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/di.dart';
 import 'package:mynt/domain/entities/article.dart';
 import 'package:mynt/presentation/pages/balances/balances_Screen.dart';
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
@@ -19,6 +21,7 @@ import 'package:mynt/presentation/pages/news/news_screen.dart';
 import 'package:mynt/presentation/pages/notifications/notifications_screen.dart';
 import 'package:mynt/presentation/pages/ticket%20details/ticket_details_screen.dart';
 import 'package:mynt/presentation/pages/unit%20details/unit_details_screen.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -35,34 +38,62 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     _handleHomeLogic();
   }
 
+  Future<void> resetIsInMainLayout() async {
+    await getIt<AppPreferences>().resetIsUserLogin();
+    await getIt<AppPreferences>().saveIsOnBoardingScreenViewed();
+  }
+
   void _handleHomeLogic() async {
     final cubit = DashboardCubit.get(context);
     final homeFetched = await cubit.getHomeData();
     if (homeFetched) {
       await cubit.getAllAccountSummary();
     } else {
+      _showLoginPopup();
       showToast('Error to fetch data!!!.', ToastType.error);
     }
+  }
+
+  void _showLoginPopup() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => AlertDialog(
+          title: const Text("Session Expired"),
+          content: const Text("Please login again."),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                await resetIsInMainLayout();
+                Restart.restartApp();
+              },
+              child: const Text("Login"),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   // ✅ FIXED WIDGET TREE
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardCubit, DashboardState>(
-      builder: (context, state) {
-        final cubit = DashboardCubit.get(context);
-        if (state is GetHomeDataSuccess ||
-            state is GetUnreadNotificationsCountSuccess ||
-            state is GetAccountSummarySuccess ||
-            state is DecreamentUnreadNotificationsCountSuccess) {
-          return Scaffold(
-            backgroundColor: Colors.grey[200],
-            body: LayoutBuilder(builder: (context, constraints) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  _handleHomeLogic();
-                },
-                child: SingleChildScrollView(
+    return RefreshIndicator(
+      onRefresh: () async {
+        _handleHomeLogic();
+      },
+      child: BlocBuilder<DashboardCubit, DashboardState>(
+        builder: (context, state) {
+          final cubit = DashboardCubit.get(context);
+          if (state is GetHomeDataSuccess ||
+              state is GetUnreadNotificationsCountSuccess ||
+              state is GetAccountSummarySuccess ||
+              state is DecreamentUnreadNotificationsCountSuccess) {
+            return Scaffold(
+              backgroundColor: Colors.grey[200],
+              body: LayoutBuilder(builder: (context, constraints) {
+                return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: ConstrainedBox(
                     constraints:
@@ -227,18 +258,18 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       ],
                     ),
                   ),
-                ),
-              );
-            }),
-          );
-        } else {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-      },
+                );
+              }),
+            );
+          } else {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -646,12 +677,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Widget _buildTicketCard(BuildContext context) {
     var cubit = DashboardCubit.get(context);
-    final statusId = cubit.dashboardData?.tickets?.last.statusId ?? 0;
-    final statusText = cubit.dashboardData?.tickets?.last.statusText ?? '';
-    final ticket = cubit.dashboardData?.tickets?.last;
-    if (ticket == null) {
+    final tickets = cubit.dashboardData?.tickets ?? [];
+
+    if (tickets.isEmpty) {
       return const SizedBox();
     }
+
+    final ticket = tickets.last;
+    final statusId = ticket.statusId ?? 0;
+    final statusText = ticket.statusText ?? '';
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -663,7 +698,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               return FadeTransition(
                 opacity: animation,
                 child: child,
-              ); // Uses a smoother transition
+              );
             },
           ),
         );
@@ -709,7 +744,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   Text(
-                    "${ticket.creationDate} ${ticket.creationTime}",
+                    "${ticket.creationDate ?? ''} ${ticket.creationTime ?? ''}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -720,9 +755,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+              SizedBox(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -737,7 +770,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         ),
                       ),
                       Text(
-                        '#${ticket.id.toString()}',
+                        '#${ticket.id?.toString() ?? ''}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,

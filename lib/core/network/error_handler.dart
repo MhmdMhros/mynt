@@ -29,8 +29,10 @@ class ErrorHandler implements Exception {
             error.response?.statusMessage != null) {
           return Failure(
             code: error.response!.statusCode!,
-            message: error.response!.data?['message'] ??
-                error.response!.statusMessage,
+            message: error.response?.statusCode != 400
+                ? 'error'
+                : error.response!.data?['message'] ??
+                    error.response!.statusMessage,
           );
         } else {
           return DataSource.defaultt.getFailure();

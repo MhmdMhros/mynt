@@ -20,20 +20,20 @@ class BlockUnitBottomSheet extends StatefulWidget {
 class _BlockUnitBottomSheetState extends State<BlockUnitBottomSheet> {
   TextEditingController checkInController = TextEditingController();
   TextEditingController checkOutController = TextEditingController();
-  void showSuccessRequestBottomSheet(BuildContext context) {
+  void showSuccessRequestBottomSheet(BuildContext context, String message) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return const SuccessRequestBottomSheet(
-            'You request has been successfully  sent to the administration, and they will review it and respond');
+        return SuccessRequestBottomSheet(message);
       },
     );
 
     // Delay navigation by 4 seconds
     Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pop(context);
       Navigator.pop(context);
     });
   }
@@ -208,13 +208,15 @@ class _BlockUnitBottomSheetState extends State<BlockUnitBottomSheet> {
                     ToastType.error);
                 return;
               } else {
-                final success = await UnitsCubit.get(context).createRestriction(
+                final result = await UnitsCubit.get(context).createRestriction(
                   propertyId: widget.unitId.toString(),
                   dateFrom: checkInController.text,
                   dateTo: checkOutController.text,
                 );
-                if (success) {
-                  showSuccessRequestBottomSheet(context);
+                if (result['isSuccess']) {
+                  showSuccessRequestBottomSheet(context, result['message']);
+                } else {
+                  showToast(result['message'], ToastType.error);
                   Navigator.pop(context);
                 }
               }

@@ -180,7 +180,7 @@ class _BuildPagedListViewState<T> extends State<BuildPagedListView> {
       firstPageErrorIndicatorBuilder: (context) => StateRenderer(
         stateRendererType: StateRendererType.fullScreenErrorState,
         retryActionFunction: _pagingController.refresh,
-        message: _pagingController.error,
+        message: _pagingController.error.toString(),
       ),
       newPageErrorIndicatorBuilder: (context) => InkWell(
         onTap: () {

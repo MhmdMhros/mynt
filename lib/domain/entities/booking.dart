@@ -49,13 +49,15 @@ class GalleryModel {
 class BookedDateModel {
   final int? bookingId;
   final String? date;
+  final int? bookingPlatform;
 
   const BookedDateModel({
     required this.bookingId,
     required this.date,
+    required this.bookingPlatform,
   });
   @override
   String toString() {
-    return 'BookedDateModel(bookingId: $bookingId, date: $date)';
+    return 'BookedDateModel(bookingId: $bookingId, date: $date, bookingPlatform: $bookingPlatform)';
   }
 }

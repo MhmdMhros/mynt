@@ -29,39 +29,39 @@ class MoreCubit extends Cubit<MoreState> {
   SettingsDataWithoutSlug? settingsDataWithoutSlug;
 
   Future<bool> getSettingsData() async {
-    emit(GetSettingsDataLoading());
+    if (!isClosed) emit(GetSettingsDataLoading());
     final res = await _settingsDataUsecase(NoParams());
     return res.fold(
       (l) {
-        emit(GetSettingsDataFailure(l.message));
+        if (!isClosed) emit(GetSettingsDataFailure(l.message));
         return false;
       },
       (settingsData) {
         this.settingsData = settingsData;
-        emit(GetSettingsDataSuccess());
+        if (!isClosed) emit(GetSettingsDataSuccess());
         return true;
       },
     );
   }
 
   Future<bool> getSettingsDataWithoutSlugs() async {
-    emit(GetSettingsDataWithoutSlugsLoading());
+    if (!isClosed) emit(GetSettingsDataWithoutSlugsLoading());
     final res = await _settingsDataWithoutSlugsUsecase(NoParams());
     return res.fold(
       (l) {
-        emit(GetSettingsDataWithoutSlugsFailure(l.message));
+        if (!isClosed) emit(GetSettingsDataWithoutSlugsFailure(l.message));
         return false;
       },
       (settingsDataWithoutSlug) {
         this.settingsDataWithoutSlug = settingsDataWithoutSlug;
-        emit(GetSettingsDataWithoutSlugsSuccess());
+        if (!isClosed) emit(GetSettingsDataWithoutSlugsSuccess());
         return true;
       },
     );
   }
 
   Future<bool> logout() async {
-    emit(LogoutLoading());
+    if (!isClosed) emit(LogoutLoading());
     final deviceToken = await getIt<UserSecureStorage>().getDeviceToken();
     final deviceType = await getIt<UserSecureStorage>().getDeviceType();
 
@@ -69,12 +69,12 @@ class MoreCubit extends Cubit<MoreState> {
         LogoutRequest(deviceToken: deviceToken!, deviceType: deviceType!));
     return await res.fold(
       (l) {
-        emit(LogoutFailure(l.message));
+        if (!isClosed) emit(LogoutFailure(l.message));
         return false;
       },
       (r) async {
         await getIt<UserSecureStorage>().deleteUserInfo();
-        emit(LogoutSuccess());
+        if (!isClosed) emit(LogoutSuccess());
         return true;
       },
     );

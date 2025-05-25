@@ -49,7 +49,7 @@ class TicketsCubit extends Cubit<TicketsState> {
     );
   }
 
-  Future<bool> createReview({
+  Future<Map<String, dynamic>> createReview({
     required String ticketId,
     required String comment,
     required String score,
@@ -64,21 +64,21 @@ class TicketsCubit extends Cubit<TicketsState> {
       ),
     );
 
-    return await result.fold(
+    return result.fold(
       (failure) {
         emit(CreateReviewFailure(failure.message));
-        // showToast('Unable to submit your review. Please try again shortly.',
-        //     ToastType.error);
-        return false;
+        return {
+          'isSuccess': false,
+          'message': failure.message,
+        };
       },
       (success) {
         emit(CreateReviewSuccess());
-        // showToast(
-        //     'Your rate has been submitted successfully.', ToastType.success);
-        return true;
+        return {
+          'isSuccess': true,
+          'message': success.message,
+        };
       },
     );
   }
-
-  openWhatsApp(String s) {}
 }

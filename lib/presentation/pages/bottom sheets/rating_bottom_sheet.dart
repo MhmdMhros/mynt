@@ -19,20 +19,20 @@ class RatingBottomSheet extends StatefulWidget {
 class _RatingBottomSheetState extends State<RatingBottomSheet> {
   int? selectedRate;
   TextEditingController feedbackController = TextEditingController();
-  void showSuccessRequestBottomSheet(BuildContext context) {
+  void showSuccessRequestBottomSheet(BuildContext context, String message) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
-        return const SuccessRequestBottomSheet(
-            'Your rate has been submitted successfully.');
+        return SuccessRequestBottomSheet(message);
       },
     );
 
     // Delay navigation by 4 seconds
     Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pop(context);
       Navigator.pop(context);
     });
   }
@@ -176,13 +176,15 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
                 return;
               }
               // Call cubit
-              final success = await TicketsCubit.get(context).createReview(
+              final result = await TicketsCubit.get(context).createReview(
                 ticketId: widget.ticketId.toString(),
                 comment: feedbackController.text.trim(),
                 score: selectedRate.toString(),
               );
-              if (success) {
-                showSuccessRequestBottomSheet(context);
+              if (result['isSuccess']) {
+                showSuccessRequestBottomSheet(context, result['message']);
+              } else {
+                showToast(result['message'], ToastType.error);
                 Navigator.pop(context);
               }
             }),

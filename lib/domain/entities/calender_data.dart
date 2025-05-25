@@ -1,5 +1,5 @@
 class CalendarData {
-  final Map<int, Map<int, List<int>>> grouped;
+  final Map<int, Map<int, Map<int, int>>> grouped;
   final DateTime firstDay;
   final DateTime lastDay;
   final DateTime focusedDay;

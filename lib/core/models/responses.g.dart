@@ -254,6 +254,7 @@ BookedDateResponse _$BookedDateResponseFromJson(Map<String, dynamic> json) =>
     BookedDateResponse(
       bookingId: json['booking_id'] as int?,
       date: json['date'] as String?,
+      bookingPlatform: json['booking_platform'] as int?,
     );
 
 BookingResponse _$BookingResponseFromJson(Map<String, dynamic> json) =>

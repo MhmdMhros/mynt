@@ -38,11 +38,11 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     );
     return res.fold(
       (l) {
-        emit(GetNotificationsFailure(l.message));
+        if (!isClosed) emit(GetNotificationsFailure(l.message));
         throw l.message;
       },
       (r) {
-        emit(GetNotificationsSuccess());
+        if (!isClosed) emit(GetNotificationsSuccess());
         return ListPage(
           grandTotalCount: r.total,
           itemList: r.notifications,
@@ -52,16 +52,16 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   }
 
   Future<bool> readNtification(String notificationId) async {
-    emit(ReadNotificationLoading());
+    if (!isClosed) emit(ReadNotificationLoading());
     final res = await _readNotificationUsecase(notificationId);
 
     return await res.fold(
       (f) {
-        emit(ReadNotificationFailure(f.message));
+        if (!isClosed) emit(ReadNotificationFailure(f.message));
         return false;
       },
       (s) {
-        emit(ReadNotificationSuccess());
+        if (!isClosed) emit(ReadNotificationSuccess());
         // تعديل العنصر داخل PagingController
         final currentItems = pagingController.itemList;
         if (currentItems == null) return true;

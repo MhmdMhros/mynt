@@ -76,7 +76,7 @@ class UnitsCubit extends Cubit<UnitsState> {
     );
   }
 
-  Future<bool> createRestriction({
+  Future<Map<String, dynamic>> createRestriction({
     required String propertyId,
     required String dateFrom,
     required String dateTo,
@@ -91,16 +91,20 @@ class UnitsCubit extends Cubit<UnitsState> {
       ),
     );
 
-    return await result.fold(
+    return result.fold(
       (failure) {
         emit(CreateRestrictionFailure(failure.message));
-        // showToast('Unable to submit your restrction. Property Is Booked.',
-        //     ToastType.error);
-        return false;
+        return {
+          'isSuccess': false,
+          'message': failure.message,
+        };
       },
       (success) {
         emit(CreateRestrictionSuccess());
-        return true;
+        return {
+          'isSuccess': true,
+          'message': success.message,
+        };
       },
     );
   }
@@ -134,6 +138,27 @@ class UnitsCubit extends Cubit<UnitsState> {
         bookingDetails = booking;
         emit(BookingDetailsLoaded(booking));
       },
+    );
+  }
+
+  void clearBookingData() {
+    bookingDetails = const Booking(
+      id: 0,
+      propertyNumber: "",
+      checkin: "",
+      checkout: "",
+      bookingId: 0,
+      accountId: 0,
+      netTotal: "",
+      balance: "",
+      customerName: "",
+      title: "",
+      description: "",
+      projectId: 0,
+      projectTitle: "",
+      projectAddress: "",
+      gallery: [],
+      bookedDates: [],
     );
   }
 }

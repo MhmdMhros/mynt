@@ -99,10 +99,12 @@ class BookedDateResponse extends Equatable
   @JsonKey(name: 'booking_id')
   final int? bookingId;
   final String? date;
+  final int? bookingPlatform;
 
   const BookedDateResponse({
     required this.bookingId,
     required this.date,
+    required this.bookingPlatform,
   });
 
   @override
@@ -110,6 +112,7 @@ class BookedDateResponse extends Equatable
     return BookedDateModel(
       bookingId: bookingId.orZero(),
       date: date.orEmpty(),
+      bookingPlatform: bookingPlatform.orZero(),
     );
   }
 

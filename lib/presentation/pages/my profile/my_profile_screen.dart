@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
@@ -25,7 +24,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
   @override
   void initState() {
-    super.initState();
     emailController =
         TextEditingController(text: LayoutCubit.get(context).user?.email ?? '');
     phoneController =
@@ -49,6 +47,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         : LayoutCubit.get(context).user?.gender == 2
             ? Icons.female
             : Icons.person;
+    super.initState();
   }
 
   @override
@@ -146,7 +145,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 _buildInfoWidget("Name", Icons.person, "name"),
                 _buildInfoWidget(
                   "Gender",
-                  cubit.user!.gender == 1 ? Icons.male : Icons.female,
+                  cubit.user?.gender == 1 ? Icons.male : Icons.female,
                   "data",
                 ),
                 _buildInfoWidget("Email", Icons.email, "email"),

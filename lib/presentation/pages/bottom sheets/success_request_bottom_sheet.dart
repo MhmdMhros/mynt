@@ -20,14 +20,17 @@ class SuccessRequestBottomSheet extends StatelessWidget {
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 12.h),
 
-                  SvgPicture.asset(
-                    'assets/images/success_request.svg',
-                    height: 100.h, // Increased height
-                    width: 100.w, // Added width
-                    fit: BoxFit.contain, // Ensures it scales properly
+                  Center(
+                    child: SvgPicture.asset(
+                      'assets/images/success_request.svg',
+                      height: 100.h, // Increased height
+                      width: 100.w, // Added width
+                      fit: BoxFit.contain, // Ensures it scales properly
+                    ),
                   ),
                   SizedBox(height: 16.h),
 

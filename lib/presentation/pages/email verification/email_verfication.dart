@@ -218,10 +218,14 @@ class _EmailVerificationState extends State<EmailVerification> {
                           showToast(
                               "You’ve just joined Mynt! 🎉", ToastType.success);
                           await isUserLogged();
+                          // await CubitManager.disposeAllCubits(context);
+                          // context.read<LayoutCubit>().close();
+                          // context.read<NotificationsCubit>().close();
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LayoutScreen()),
+                              builder: (context) => const LayoutScreen(),
+                            ),
                             (route) => false,
                           );
                         } else if (widget.type == 'auth_reset') {
