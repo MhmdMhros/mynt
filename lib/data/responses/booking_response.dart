@@ -112,7 +112,7 @@ class BookedDateResponse extends Equatable
     return BookedDateModel(
       bookingId: bookingId.orZero(),
       date: date.orEmpty(),
-      bookingPlatform: bookingPlatform.orZero(),
+      bookingPlatform: bookingPlatform ?? 1,
     );
   }
 
