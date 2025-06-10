@@ -96,15 +96,11 @@ class VerificationCubit extends Cubit<VerificationState> {
 
     return await res.fold(
       (failure) {
-        // showToast('Failed to reset password. Please try again later.',
-        //     ToastType.error);
         emit(CreatePasswordError(failure.message));
         return false;
       },
       (_) {
-        showToast(
-            "Your password has been reset successfully. You can now log in with your new password.",
-            ToastType.success);
+        showToast(_.message, ToastType.success);
         emit(CreatePasswordSuccess());
         return true;
       },
@@ -118,8 +114,6 @@ class VerificationCubit extends Cubit<VerificationState> {
         EditAccountDataRequest(name: name, gender: gender));
     return await result.fold(
       (failure) {
-        // showToast('Failed to update account data, please try again.',
-        //     ToastType.error);
         emit(EditAccountDataFailure(failure.message));
         return false;
       },
@@ -137,7 +131,6 @@ class VerificationCubit extends Cubit<VerificationState> {
     final result = await _editEmailUsecase(EditEmailRequest(email: email));
     return await result.fold(
       (failure) {
-        // showToast('Failed to update email, please try again.', ToastType.error);
         emit(EditEmailFailure(failure.message));
         return false;
       },
@@ -156,7 +149,6 @@ class VerificationCubit extends Cubit<VerificationState> {
         await _editPhoneUsecase(EditPhoneRequest(phoneNumber: phoneNumber));
     return await result.fold(
       (failure) {
-        // showToast('Failed to update Phone, please try again.', ToastType.error);
         emit(EditPhoneFailure(failure.message));
         return false;
       },
