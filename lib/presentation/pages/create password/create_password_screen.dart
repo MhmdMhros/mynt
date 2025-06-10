@@ -8,9 +8,12 @@ import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
 import 'package:mynt/presentation/pages/bottom%20sheets/success_pass_bottom_sheet.dart';
+import 'package:mynt/presentation/pages/email%20verification/cubit/verification_cubit.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
+import 'package:mynt/presentation/pages/sign%20in/sign_in_screen.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   final String userName;
@@ -184,30 +187,57 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: AppTextButton(
-                        buttonText: 'Continue',
-                        buttonHeight: 48.h,
-                        backgroundColor: AppColors.primary,
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final success = await LoginCubit.get(context)
-                                .sendOtpRequest(widget.userName);
-                            if (success) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailVerification(
-                                      widget.userName,
-                                      '',
-                                      '',
-                                      '',
-                                      _passwordController.text,
-                                      'auth_reset'),
-                                ),
-                              );
+                          buttonText: 'Continue',
+                          buttonHeight: 48.h,
+                          backgroundColor: AppColors.primary,
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              if (MoreCubit.get(context)
+                                      .settingsDataWithoutSlug
+                                      ?.drivers
+                                      ?.enablePhoneOtp ==
+                                  '0') {
+                                final success = await LoginCubit.get(context)
+                                    .sendOtpRequest(widget.userName);
+                                if (success) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EmailVerification(
+                                          widget.userName,
+                                          '',
+                                          '',
+                                          '',
+                                          _passwordController.text,
+                                          'auth_reset'),
+                                    ),
+                                  );
+                                }
+                              } else if (MoreCubit.get(context)
+                                      .settingsDataWithoutSlug
+                                      ?.drivers
+                                      ?.enablePhoneOtp ==
+                                  '1') {
+                                final resetSuccess =
+                                    await VerificationCubit.get(context)
+                                        .resetPassword(
+                                            email: widget.userName,
+                                            newPassword:
+                                                _passwordController.text,
+                                            confirmPassword:
+                                                _passwordController.text);
+                                if (resetSuccess) {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignInScreen(widget.userName)),
+                                    (route) => false,
+                                  );
+                                }
+                              }
                             }
-                          }
-                        },
-                      ),
+                          }),
                     ),
                   ],
                 ),

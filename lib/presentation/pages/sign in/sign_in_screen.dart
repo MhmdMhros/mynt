@@ -5,10 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/app/functions.dart';
+import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
+import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/create%20password/create_password_screen.dart';
+import 'package:mynt/presentation/pages/layout/layout_screen.dart';
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 import 'package:mynt/presentation/pages/sign%20in/cubit/login_cubit.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 
@@ -34,6 +38,9 @@ class _SignInScreenState extends State<SignInScreen> {
     }
     LoginCubit.get(context).checkLoginConnectivity();
   }
+
+  Future<void> isUserLogged() async =>
+      await getIt<AppPreferences>().saveIsUserLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +213,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                       passwordController.text,
                                     );
                                     final success = await cubit.checkAndLogin();
-                                    if (success) {
+                                    if (success &&
+                                        MoreCubit.get(context)
+                                                .settingsDataWithoutSlug
+                                                ?.drivers
+                                                ?.enablePhoneOtp ==
+                                            '0') {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -219,6 +231,22 @@ class _SignInScreenState extends State<SignInScreen> {
                                                   '',
                                                   'auth_login'),
                                         ),
+                                      );
+                                    } else if (MoreCubit.get(context)
+                                            .settingsDataWithoutSlug
+                                            ?.drivers
+                                            ?.enablePhoneOtp ==
+                                        '1') {
+                                      showToast("You’ve just joined Mynt! 🎉",
+                                          ToastType.success);
+                                      await isUserLogged();
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LayoutScreen(),
+                                        ),
+                                        (route) => false,
                                       );
                                     }
                                   }

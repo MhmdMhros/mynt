@@ -1,4 +1,4 @@
-package com.example.mynt
+package com.mynt.mynt
 
 import io.flutter.embedding.android.FlutterActivity
 

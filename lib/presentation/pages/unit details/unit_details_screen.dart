@@ -136,48 +136,53 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
                   children: [
                     _buildNewAds(),
                     SizedBox(height: 20.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Title
-                        Expanded(
-                          child: Text(
-                            cubit.bookingDetails.title ?? '',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Montserrat",
-                              color: AppColors.text1,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-
-                        // Unit Number
-                        Row(
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Wrap(
+                          spacing: 12.w,
+                          runSpacing: 4.h,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Text(
-                              "Unit Number: ",
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Montserrat",
-                                color: AppColors.text1,
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: constraints.maxWidth * 0.65,
+                              ),
+                              child: Text(
+                                cubit.bookingDetails.title ?? '',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Montserrat",
+                                  color: AppColors.text1,
+                                ),
                               ),
                             ),
-                            Text(
-                              '#${cubit.bookingDetails.propertyNumber ?? ''}',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Montserrat",
-                                color: AppColors.primary,
-                              ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Unit Number: ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "Montserrat",
+                                    color: AppColors.text1,
+                                  ),
+                                ),
+                                Text(
+                                  '#${cubit.bookingDetails.propertyNumber ?? ''}',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Montserrat",
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
                     SizedBox(height: 10.h),
                     Row(
