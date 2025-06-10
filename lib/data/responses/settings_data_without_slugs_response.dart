@@ -86,20 +86,20 @@ class GeneralInfoResponse extends Equatable
   @override
   GeneralInfo toDomain() {
     return GeneralInfo(
-      appName: appName,
-      address: address,
-      email: email,
-      phone: phone,
-      hotline: hotline,
-      whatsapp: whatsapp,
-      customerHotline: customerHotline,
-      ownerHotline: ownerHotline,
-      customerWhatsapp: customerWhatsapp,
-      ownerWhatsapp: ownerWhatsapp,
-      callPolice: callPolice,
-      callAmbulance: callAmbulance,
-      downloadCustomerAppUrl: downloadCustomerAppUrl,
-      downloadOwnerAppUrl: downloadOwnerAppUrl,
+      appName: appName.orEmpty(),
+      address: address.orEmpty(),
+      email: email.orEmpty(),
+      phone: phone.orEmpty(),
+      hotline: hotline.orEmpty(),
+      whatsapp: whatsapp.orEmpty(),
+      customerHotline: customerHotline.orEmpty(),
+      ownerHotline: ownerHotline.orEmpty(),
+      customerWhatsapp: customerWhatsapp.orEmpty(),
+      ownerWhatsapp: ownerWhatsapp.orEmpty(),
+      callPolice: callPolice.orEmpty(),
+      callAmbulance: callAmbulance.orEmpty(),
+      downloadCustomerAppUrl: downloadCustomerAppUrl.orEmpty(),
+      downloadOwnerAppUrl: downloadOwnerAppUrl.orEmpty(),
     );
   }
 
@@ -136,27 +136,31 @@ class SocialMediaResponse extends Equatable
   final String? youtubeUrl;
   @JsonKey(name: 'instagram_url')
   final String? instagramUrl;
+  @JsonKey(name: 'tiktok_url')
+  final String? tiktokUrl;
 
   const SocialMediaResponse({
     required this.twitterUrl,
     required this.facebookUrl,
     required this.youtubeUrl,
     required this.instagramUrl,
+    required this.tiktokUrl,
   });
 
   @override
   SocialMedia toDomain() {
     return SocialMedia(
-      twitterUrl: twitterUrl,
-      facebookUrl: facebookUrl,
-      youtubeUrl: youtubeUrl,
-      instagramUrl: instagramUrl,
+      twitterUrl: twitterUrl.orEmpty(),
+      facebookUrl: facebookUrl.orEmpty(),
+      youtubeUrl: youtubeUrl.orEmpty(),
+      instagramUrl: instagramUrl.orEmpty(),
+      tiktokUrl: tiktokUrl.orEmpty(),
     );
   }
 
   @override
   List<Object?> get props =>
-      [twitterUrl, facebookUrl, youtubeUrl, instagramUrl];
+      [twitterUrl, facebookUrl, youtubeUrl, instagramUrl, tiktokUrl];
 
   factory SocialMediaResponse.fromJson(Map<String, dynamic> json) =>
       _$SocialMediaResponseFromJson(json);
@@ -180,9 +184,9 @@ class SocialAuthResponse extends Equatable implements DataResponse<SocialAuth> {
   @override
   SocialAuth toDomain() {
     return SocialAuth(
-      facebookStatus: facebookStatus,
-      googleStatus: googleStatus,
-      appleStatus: appleStatus,
+      facebookStatus: facebookStatus.orEmpty(),
+      googleStatus: googleStatus.orEmpty(),
+      appleStatus: appleStatus.orEmpty(),
     );
   }
 
@@ -201,7 +205,7 @@ class DriversResponse extends Equatable implements DataResponse<Drivers> {
   const DriversResponse({required this.enablePhoneOtp});
 
   @override
-  Drivers toDomain() => Drivers(enablePhoneOtp: enablePhoneOtp);
+  Drivers toDomain() => Drivers(enablePhoneOtp: enablePhoneOtp.orEmpty());
 
   @override
   List<Object?> get props => [enablePhoneOtp];
@@ -218,7 +222,7 @@ class CustomersResponse extends Equatable implements DataResponse<Customers> {
   const CustomersResponse({required this.enablePhoneOtp});
 
   @override
-  Customers toDomain() => Customers(enablePhoneOtp: enablePhoneOtp);
+  Customers toDomain() => Customers(enablePhoneOtp: enablePhoneOtp.orEmpty());
 
   @override
   List<Object?> get props => [enablePhoneOtp];

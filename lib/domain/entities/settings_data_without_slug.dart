@@ -92,12 +92,14 @@ class SocialMedia {
   final String? facebookUrl;
   final String? youtubeUrl;
   final String? instagramUrl;
+  final String? tiktokUrl;
 
   SocialMedia({
     required this.twitterUrl,
     required this.facebookUrl,
     required this.youtubeUrl,
     required this.instagramUrl,
+    required this.tiktokUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -106,12 +108,13 @@ class SocialMedia {
       'facebook_url': facebookUrl,
       'youtube_url': youtubeUrl,
       'instagram_url': instagramUrl,
+      'tiktok_url': tiktokUrl,
     };
   }
 
   @override
   String toString() {
-    return 'SocialMedia(twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, youtubeUrl: $youtubeUrl, instagramUrl: $instagramUrl)';
+    return 'SocialMedia(twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, youtubeUrl: $youtubeUrl, instagramUrl: $instagramUrl, tiktokUrl: $tiktokUrl)';
   }
 }
 

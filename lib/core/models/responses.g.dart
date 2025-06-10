@@ -203,6 +203,7 @@ SocialMediaResponse _$SocialMediaResponseFromJson(Map<String, dynamic> json) =>
       facebookUrl: json['facebook_url'] as String?,
       youtubeUrl: json['youtube_url'] as String?,
       instagramUrl: json['instagram_url'] as String?,
+      tiktokUrl: json['tiktok_url'] as String?,
     );
 
 SocialAuthResponse _$SocialAuthResponseFromJson(Map<String, dynamic> json) =>
