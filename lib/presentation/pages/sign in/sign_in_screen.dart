@@ -37,6 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
       emailController.text = widget.email;
     }
     LoginCubit.get(context).checkLoginConnectivity();
+    MoreCubit.get(context);
   }
 
   Future<void> isUserLogged() async =>
@@ -219,6 +220,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                                 ?.drivers
                                                 ?.enablePhoneOtp ==
                                             '0') {
+                                      showToast(
+                                          "Verify your account to complete the login process.",
+                                          ToastType.warning);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

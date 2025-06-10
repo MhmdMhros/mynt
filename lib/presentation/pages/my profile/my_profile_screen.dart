@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:mynt/presentation/pages/email%20verification/cubit/verification_cubit.dart';
 import 'package:mynt/presentation/pages/email%20verification/email_verfication.dart';
 import 'package:mynt/presentation/pages/layout/cubit/layout_cubit.dart';
+import 'package:mynt/presentation/pages/more/cubit/more_cubit.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
@@ -169,18 +171,34 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     if (type == 'email') {
       buttonText = 'Edit Email';
       onPressed = () async {
-        final success =
-            await LayoutCubit.get(context).sendOtp(emailController.text);
-        if (success) {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => EmailVerification(
-                  emailController.text, '', '', '', '', 'edit_email'),
-            ),
-          );
+        if (MoreCubit.get(context)
+                .settingsDataWithoutSlug
+                ?.drivers
+                ?.enablePhoneOtp ==
+            '0') {
+          final success =
+              await LayoutCubit.get(context).sendOtp(emailController.text);
+          if (success) {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EmailVerification(
+                    emailController.text, '', '', '', '', 'edit_email'),
+              ),
+            );
 
-          if (result != null) {
+            if (result != null) {
+              LayoutCubit.get(context).editData();
+            }
+          }
+        } else if (MoreCubit.get(context)
+                .settingsDataWithoutSlug
+                ?.drivers
+                ?.enablePhoneOtp ==
+            '1') {
+          final success = await VerificationCubit.get(context)
+              .editEmail(emailController.text);
+          if (success) {
             LayoutCubit.get(context).editData();
           }
         }
@@ -188,18 +206,34 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     } else if (type == 'phone') {
       buttonText = 'Edit Phone';
       onPressed = () async {
-        final success =
-            await LayoutCubit.get(context).sendOtp(emailController.text);
-        if (success) {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => EmailVerification(emailController.text,
-                  phoneController.text, '', '', '', 'edit_phone'),
-            ),
-          );
+        if (MoreCubit.get(context)
+                .settingsDataWithoutSlug
+                ?.drivers
+                ?.enablePhoneOtp ==
+            '0') {
+          final success =
+              await LayoutCubit.get(context).sendOtp(emailController.text);
+          if (success) {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EmailVerification(emailController.text,
+                    phoneController.text, '', '', '', 'edit_phone'),
+              ),
+            );
 
-          if (result != null) {
+            if (result != null) {
+              LayoutCubit.get(context).editData();
+            }
+          }
+        } else if (MoreCubit.get(context)
+                .settingsDataWithoutSlug
+                ?.drivers
+                ?.enablePhoneOtp ==
+            '1') {
+          final success = await VerificationCubit.get(context)
+              .editPhone(phoneController.text);
+          if (success) {
             LayoutCubit.get(context).editData();
           }
         }

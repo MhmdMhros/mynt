@@ -123,7 +123,6 @@ class LayoutCubit extends Cubit<LayoutState> {
       await getIt<UserSecureStorage>().upsertUserInfo(
         email: user!.email,
       );
-      // showToast('Doneeeeeeeeeeeeeeeeeeeeee.', ToastType.success);
     }
   }
 
