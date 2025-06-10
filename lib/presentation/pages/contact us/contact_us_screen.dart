@@ -11,8 +11,10 @@ class ContactUsScreen extends StatelessWidget {
   final String facebookUrl;
   final String twitterUrl;
   final String youtubeUrl;
+  final String instagramUrl;
+  final String tiktokUrl;
   const ContactUsScreen(this.phoneNumber, this.email, this.facebookUrl,
-      this.twitterUrl, this.youtubeUrl,
+      this.twitterUrl, this.youtubeUrl, this.instagramUrl, this.tiktokUrl,
       {super.key});
 
   @override
@@ -85,22 +87,40 @@ class ContactUsScreen extends StatelessWidget {
                           FontAwesomeIcons.facebook, "Facebook"),
                     ),
                   ),
+                  // SizedBox(
+                  //   width: 100.w,
+                  //   child: InkWell(
+                  //     onTap: () async =>
+                  //         await launchURL(url: twitterUrl, isSocialMedia: true),
+                  //     child: _buildContactItem(
+                  //         FontAwesomeIcons.twitter, "Twitter"),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 100.w,
+                  //   child: InkWell(
+                  //     onTap: () async =>
+                  //         await launchURL(url: youtubeUrl, isSocialMedia: true),
+                  //     child: _buildContactItem(
+                  //         FontAwesomeIcons.youtube, "Youtube"),
+                  //   ),
+                  // ),
                   SizedBox(
                     width: 100.w,
                     child: InkWell(
-                      onTap: () async =>
-                          await launchURL(url: twitterUrl, isSocialMedia: true),
+                      onTap: () async => await launchURL(
+                          url: instagramUrl, isSocialMedia: true),
                       child: _buildContactItem(
-                          FontAwesomeIcons.twitter, "Twitter"),
+                          FontAwesomeIcons.instagram, "Instagram"),
                     ),
                   ),
                   SizedBox(
                     width: 100.w,
                     child: InkWell(
                       onTap: () async =>
-                          await launchURL(url: youtubeUrl, isSocialMedia: true),
-                      child: _buildContactItem(
-                          FontAwesomeIcons.youtube, "Youtube"),
+                          await launchURL(url: tiktokUrl, isSocialMedia: true),
+                      child:
+                          _buildContactItem(FontAwesomeIcons.tiktok, "Tiktok"),
                     ),
                   ),
                 ],
