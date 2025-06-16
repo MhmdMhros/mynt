@@ -322,103 +322,120 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Widget _buildRentedUnitsList() {
     var cubit = DashboardCubit.get(context);
+    final bookings = cubit.dashboardData?.bookings ?? [];
+
+    if (bookings.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              "assets/images/empty.svg",
+              height: 80.h,
+            ),
+          ],
+        ),
+      );
+    }
+
     return SizedBox(
       height: 140.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: cubit.dashboardData?.bookings?.length ?? 0,
+        itemCount: bookings.length,
         itemBuilder: (context, index) {
-          final booking = cubit.dashboardData?.bookings?[index];
-          if (booking != null) {
-            return InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        UnitDetailsScreen(booking.id ?? 0),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ); // Uses a smoother transition
-                    },
-                  ),
-                );
-              },
-              child: IntrinsicWidth(
-                child: Container(
-                  margin: EdgeInsets.only(right: 10.w),
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 24.r,
-                            backgroundImage: CachedNetworkImageProvider(
-                              booking.gallery?.isNotEmpty == true
-                                  ? booking.gallery!.first.s ?? ''
-                                  : '',
-                            ),
+          final booking = bookings[index];
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      UnitDetailsScreen(booking.id ?? 0),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+            child: IntrinsicWidth(
+              child: Container(
+                margin: EdgeInsets.only(right: 10.w),
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 24.r,
+                          backgroundImage: CachedNetworkImageProvider(
+                            booking.gallery?.isNotEmpty == true
+                                ? booking.gallery!.first.s ?? ''
+                                : '',
                           ),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  booking.title ?? '',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12.sp,
-                                      fontFamily: "Montserrat"),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.location_on_outlined,
-                                        size: 18.sp, color: Colors.grey),
-                                    SizedBox(width: 4.w),
-                                    Expanded(
-                                      child: Text(
-                                        booking.projectAddress ?? '',
-                                        style: TextStyle(
-                                            color: Colors.grey[800],
-                                            fontSize: 10.sp,
-                                            fontFamily: "Montserrat"),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                booking.title ?? '',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12.sp,
+                                    fontFamily: "Montserrat"),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.location_on_outlined,
+                                      size: 18.sp, color: Colors.grey),
+                                  SizedBox(width: 4.w),
+                                  Expanded(
+                                    child: Text(
+                                      booking.projectAddress ?? '',
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontSize: 10.sp,
+                                          fontFamily: "Montserrat"),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 10.h),
-                      _buildRow(
-                          Icons.bookmark_border_rounded,
-                          "Booking Duration",
-                          "${booking.checkin ?? ''} - ${booking.checkout ?? ''}"),
-                      SizedBox(height: 10.h),
-                      _buildRow(Icons.balance_rounded, "Balance",
-                          "EGP ${booking.balance ?? ''}", Colors.red),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    _buildRow(
+                      Icons.bookmark_border_rounded,
+                      "Booking Duration",
+                      "${booking.checkin ?? ''} - ${booking.checkout ?? ''}",
+                    ),
+                    SizedBox(height: 10.h),
+                    _buildRow(
+                      Icons.balance_rounded,
+                      "Balance",
+                      "EGP ${booking.balance ?? ''}",
+                      Colors.red,
+                    ),
+                  ],
                 ),
               ),
-            );
-          } else {
-            return const SizedBox();
-          }
+            ),
+          );
         },
       ),
     );
@@ -808,19 +825,31 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Widget buildProductList(BuildContext context) {
     var cubit = DashboardCubit.get(context);
+    final articles = cubit.dashboardData?.articles ?? [];
+
+    if (articles.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/images/empty.svg',
+              height: 150.h,
+            ),
+          ],
+        ),
+      );
+    }
+
     return SizedBox(
       height: 320.h, // Responsive height
       child: ListView.builder(
         padding: EdgeInsets.only(bottom: 10.h),
         scrollDirection: Axis.horizontal,
-        itemCount: min(cubit.dashboardData?.articles?.length ?? 0, 3),
+        itemCount: min(articles.length, 3),
         itemBuilder: (context, index) {
-          final article = cubit.dashboardData?.articles?[index];
-          if (article != null) {
-            return _buildProductCard(article, context);
-          } else {
-            return const SizedBox();
-          }
+          final article = articles[index];
+          return _buildProductCard(article, context);
         },
       ),
     );

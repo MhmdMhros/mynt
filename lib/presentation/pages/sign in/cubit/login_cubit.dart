@@ -111,10 +111,6 @@ class LoginCubit extends Cubit<LoginState> {
 
         return await loginResult.fold(
           (failure) {
-            // showToast(
-            //     'Login failed. The email or password you entered is incorrect.',
-            //     ToastType.error);
-
             emit(LoginError(failure.message));
             return false;
           },
@@ -127,17 +123,11 @@ class LoginCubit extends Cubit<LoginState> {
 
             return await sendOtpResult.fold(
               (failure) {
-                // showToast(
-                //     'Failed to send verification code. Please try again later.',
-                // ToastType.error);
-
                 emit(LoginError(failure.message));
                 return false;
               },
               (sendOtpSuccess) async {
                 otp = sendOtpSuccess.token;
-                showToast("Verify your account to complete the login process.",
-                    ToastType.warning);
                 return true;
               },
             );

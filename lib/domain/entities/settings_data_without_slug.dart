@@ -3,14 +3,14 @@ class SettingsDataWithoutSlug {
   final SocialMedia? socialMedia;
   final Customers? customers;
   final SocialAuth? socialAuth;
-  final Drivers? drivers;
+  final Owners? owners;
 
   SettingsDataWithoutSlug({
     required this.general,
     required this.socialMedia,
     required this.customers,
     required this.socialAuth,
-    required this.drivers,
+    required this.owners,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,13 +19,13 @@ class SettingsDataWithoutSlug {
       'social_media': socialMedia?.toJson(),
       'customers': customers?.toJson(),
       'social_auth': socialAuth?.toJson(),
-      'drivers': drivers?.toJson(),
+      'owners': owners?.toJson(),
     };
   }
 
   @override
   String toString() {
-    return 'SettingsDataWithoutSlug(general: $general, socialMedia: $socialMedia, customers: $customers, socialAuth: $socialAuth, drivers: $drivers)';
+    return 'SettingsDataWithoutSlug(general: $general, socialMedia: $socialMedia, customers: $customers, socialAuth: $socialAuth, owners: $owners)';
   }
 }
 
@@ -92,12 +92,14 @@ class SocialMedia {
   final String? facebookUrl;
   final String? youtubeUrl;
   final String? instagramUrl;
+  final String? tiktokUrl;
 
   SocialMedia({
     required this.twitterUrl,
     required this.facebookUrl,
     required this.youtubeUrl,
     required this.instagramUrl,
+    required this.tiktokUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -106,12 +108,13 @@ class SocialMedia {
       'facebook_url': facebookUrl,
       'youtube_url': youtubeUrl,
       'instagram_url': instagramUrl,
+      'tiktok_url': tiktokUrl,
     };
   }
 
   @override
   String toString() {
-    return 'SocialMedia(twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, youtubeUrl: $youtubeUrl, instagramUrl: $instagramUrl)';
+    return 'SocialMedia(twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, youtubeUrl: $youtubeUrl, instagramUrl: $instagramUrl, tiktokUrl: $tiktokUrl)';
   }
 }
 
@@ -140,9 +143,9 @@ class SocialAuth {
   }
 }
 
-class Drivers {
+class Owners {
   final String? enablePhoneOtp;
-  Drivers({
+  Owners({
     required this.enablePhoneOtp,
   });
 
@@ -154,7 +157,7 @@ class Drivers {
 
   @override
   String toString() {
-    return 'Drivers(enablePhoneOtp: $enablePhoneOtp)';
+    return 'owners(enablePhoneOtp: $enablePhoneOtp)';
   }
 }
 

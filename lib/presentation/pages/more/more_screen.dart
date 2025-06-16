@@ -109,6 +109,12 @@ class MoreScreen extends StatelessWidget {
                                   '',
                               cubit.settingsDataWithoutSlug?.socialMedia
                                       ?.youtubeUrl ??
+                                  '',
+                              cubit.settingsDataWithoutSlug?.socialMedia
+                                      ?.instagramUrl ??
+                                  '',
+                              cubit.settingsDataWithoutSlug?.socialMedia
+                                      ?.tiktokUrl ??
                                   ''),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {

@@ -9,14 +9,14 @@ class SettingsDataWithoutSlugsResponse extends Equatable
   final CustomersResponse? customers;
   @JsonKey(name: 'social_auth')
   final SocialAuthResponse? socialAuth;
-  final DriversResponse? drivers;
+  final OwnersResponse? owners;
 
   const SettingsDataWithoutSlugsResponse({
     required this.general,
     required this.socialMedia,
     required this.customers,
     required this.socialAuth,
-    required this.drivers,
+    required this.owners,
   });
 
   factory SettingsDataWithoutSlugsResponse.fromJson(
@@ -30,13 +30,13 @@ class SettingsDataWithoutSlugsResponse extends Equatable
       socialMedia: socialMedia?.toDomain(),
       customers: customers?.toDomain(),
       socialAuth: socialAuth?.toDomain(),
-      drivers: drivers?.toDomain(),
+      owners: owners?.toDomain(),
     );
   }
 
   @override
   List<Object?> get props =>
-      [general, socialMedia, customers, socialAuth, drivers];
+      [general, socialMedia, customers, socialAuth, owners];
 }
 
 @JsonSerializable(createToJson: false)
@@ -86,20 +86,20 @@ class GeneralInfoResponse extends Equatable
   @override
   GeneralInfo toDomain() {
     return GeneralInfo(
-      appName: appName,
-      address: address,
-      email: email,
-      phone: phone,
-      hotline: hotline,
-      whatsapp: whatsapp,
-      customerHotline: customerHotline,
-      ownerHotline: ownerHotline,
-      customerWhatsapp: customerWhatsapp,
-      ownerWhatsapp: ownerWhatsapp,
-      callPolice: callPolice,
-      callAmbulance: callAmbulance,
-      downloadCustomerAppUrl: downloadCustomerAppUrl,
-      downloadOwnerAppUrl: downloadOwnerAppUrl,
+      appName: appName.orEmpty(),
+      address: address.orEmpty(),
+      email: email.orEmpty(),
+      phone: phone.orEmpty(),
+      hotline: hotline.orEmpty(),
+      whatsapp: whatsapp.orEmpty(),
+      customerHotline: customerHotline.orEmpty(),
+      ownerHotline: ownerHotline.orEmpty(),
+      customerWhatsapp: customerWhatsapp.orEmpty(),
+      ownerWhatsapp: ownerWhatsapp.orEmpty(),
+      callPolice: callPolice.orEmpty(),
+      callAmbulance: callAmbulance.orEmpty(),
+      downloadCustomerAppUrl: downloadCustomerAppUrl.orEmpty(),
+      downloadOwnerAppUrl: downloadOwnerAppUrl.orEmpty(),
     );
   }
 
@@ -136,27 +136,31 @@ class SocialMediaResponse extends Equatable
   final String? youtubeUrl;
   @JsonKey(name: 'instagram_url')
   final String? instagramUrl;
+  @JsonKey(name: 'tiktok_url')
+  final String? tiktokUrl;
 
   const SocialMediaResponse({
     required this.twitterUrl,
     required this.facebookUrl,
     required this.youtubeUrl,
     required this.instagramUrl,
+    required this.tiktokUrl,
   });
 
   @override
   SocialMedia toDomain() {
     return SocialMedia(
-      twitterUrl: twitterUrl,
-      facebookUrl: facebookUrl,
-      youtubeUrl: youtubeUrl,
-      instagramUrl: instagramUrl,
+      twitterUrl: twitterUrl.orEmpty(),
+      facebookUrl: facebookUrl.orEmpty(),
+      youtubeUrl: youtubeUrl.orEmpty(),
+      instagramUrl: instagramUrl.orEmpty(),
+      tiktokUrl: tiktokUrl.orEmpty(),
     );
   }
 
   @override
   List<Object?> get props =>
-      [twitterUrl, facebookUrl, youtubeUrl, instagramUrl];
+      [twitterUrl, facebookUrl, youtubeUrl, instagramUrl, tiktokUrl];
 
   factory SocialMediaResponse.fromJson(Map<String, dynamic> json) =>
       _$SocialMediaResponseFromJson(json);
@@ -180,9 +184,9 @@ class SocialAuthResponse extends Equatable implements DataResponse<SocialAuth> {
   @override
   SocialAuth toDomain() {
     return SocialAuth(
-      facebookStatus: facebookStatus,
-      googleStatus: googleStatus,
-      appleStatus: appleStatus,
+      facebookStatus: facebookStatus.orEmpty(),
+      googleStatus: googleStatus.orEmpty(),
+      appleStatus: appleStatus.orEmpty(),
     );
   }
 
@@ -194,20 +198,20 @@ class SocialAuthResponse extends Equatable implements DataResponse<SocialAuth> {
 }
 
 @JsonSerializable(createToJson: false)
-class DriversResponse extends Equatable implements DataResponse<Drivers> {
+class OwnersResponse extends Equatable implements DataResponse<Owners> {
   @JsonKey(name: 'enable_phone_otp')
   final String? enablePhoneOtp;
 
-  const DriversResponse({required this.enablePhoneOtp});
+  const OwnersResponse({required this.enablePhoneOtp});
 
   @override
-  Drivers toDomain() => Drivers(enablePhoneOtp: enablePhoneOtp);
+  Owners toDomain() => Owners(enablePhoneOtp: enablePhoneOtp.orEmpty());
 
   @override
   List<Object?> get props => [enablePhoneOtp];
 
-  factory DriversResponse.fromJson(Map<String, dynamic> json) =>
-      _$DriversResponseFromJson(json);
+  factory OwnersResponse.fromJson(Map<String, dynamic> json) =>
+      _$OwnersResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
@@ -218,7 +222,7 @@ class CustomersResponse extends Equatable implements DataResponse<Customers> {
   const CustomersResponse({required this.enablePhoneOtp});
 
   @override
-  Customers toDomain() => Customers(enablePhoneOtp: enablePhoneOtp);
+  Customers toDomain() => Customers(enablePhoneOtp: enablePhoneOtp.orEmpty());
 
   @override
   List<Object?> get props => [enablePhoneOtp];
