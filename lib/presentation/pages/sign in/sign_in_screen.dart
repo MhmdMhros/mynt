@@ -217,7 +217,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     if (success &&
                                         MoreCubit.get(context)
                                                 .settingsDataWithoutSlug
-                                                ?.drivers
+                                                ?.owners
                                                 ?.enablePhoneOtp ==
                                             '0') {
                                       showToast(
@@ -236,11 +236,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                                   'auth_login'),
                                         ),
                                       );
-                                    } else if (MoreCubit.get(context)
-                                            .settingsDataWithoutSlug
-                                            ?.drivers
-                                            ?.enablePhoneOtp ==
-                                        '1') {
+                                    } else if (success) {
                                       showToast("You’ve just joined Mynt! 🎉",
                                           ToastType.success);
                                       await isUserLogged();

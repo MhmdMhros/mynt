@@ -3,14 +3,14 @@ class SettingsDataWithoutSlug {
   final SocialMedia? socialMedia;
   final Customers? customers;
   final SocialAuth? socialAuth;
-  final Drivers? drivers;
+  final Owners? owners;
 
   SettingsDataWithoutSlug({
     required this.general,
     required this.socialMedia,
     required this.customers,
     required this.socialAuth,
-    required this.drivers,
+    required this.owners,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,13 +19,13 @@ class SettingsDataWithoutSlug {
       'social_media': socialMedia?.toJson(),
       'customers': customers?.toJson(),
       'social_auth': socialAuth?.toJson(),
-      'drivers': drivers?.toJson(),
+      'owners': owners?.toJson(),
     };
   }
 
   @override
   String toString() {
-    return 'SettingsDataWithoutSlug(general: $general, socialMedia: $socialMedia, customers: $customers, socialAuth: $socialAuth, drivers: $drivers)';
+    return 'SettingsDataWithoutSlug(general: $general, socialMedia: $socialMedia, customers: $customers, socialAuth: $socialAuth, owners: $owners)';
   }
 }
 
@@ -143,9 +143,9 @@ class SocialAuth {
   }
 }
 
-class Drivers {
+class Owners {
   final String? enablePhoneOtp;
-  Drivers({
+  Owners({
     required this.enablePhoneOtp,
   });
 
@@ -157,7 +157,7 @@ class Drivers {
 
   @override
   String toString() {
-    return 'Drivers(enablePhoneOtp: $enablePhoneOtp)';
+    return 'owners(enablePhoneOtp: $enablePhoneOtp)';
   }
 }
 

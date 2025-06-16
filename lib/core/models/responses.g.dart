@@ -174,9 +174,9 @@ SettingsDataWithoutSlugsResponse _$SettingsDataWithoutSlugsResponseFromJson(
           ? null
           : SocialAuthResponse.fromJson(
               json['social_auth'] as Map<String, dynamic>),
-      drivers: json['drivers'] == null
+      owners: json['owners'] == null
           ? null
-          : DriversResponse.fromJson(json['drivers'] as Map<String, dynamic>),
+          : OwnersResponse.fromJson(json['owners'] as Map<String, dynamic>),
     );
 
 GeneralInfoResponse _$GeneralInfoResponseFromJson(Map<String, dynamic> json) =>
@@ -213,8 +213,8 @@ SocialAuthResponse _$SocialAuthResponseFromJson(Map<String, dynamic> json) =>
       appleStatus: json['apple_status'] as String?,
     );
 
-DriversResponse _$DriversResponseFromJson(Map<String, dynamic> json) =>
-    DriversResponse(
+OwnersResponse _$OwnersResponseFromJson(Map<String, dynamic> json) =>
+    OwnersResponse(
       enablePhoneOtp: json['enable_phone_otp'] as String?,
     );
 
