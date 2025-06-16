@@ -1,12 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class PrivacySecurityScreen extends StatelessWidget {
+class PrivacySecurityScreen extends StatefulWidget {
   final String privacyContent;
   const PrivacySecurityScreen(this.privacyContent, {super.key});
+
+  @override
+  State<PrivacySecurityScreen> createState() => _PrivacySecurityScreenState();
+}
+
+class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.transparent)
+      ..loadHtmlString(_getHtmlContent());
+  }
+
+  String _getHtmlContent() {
+    return '''
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            body {
+              font-family: Montserrat;
+              color: #676767;
+              font-size: 15px;
+              font-weight: 500;
+              padding: 0;
+              margin: 0;
+              background-color: transparent;
+            }
+            h5 {
+              color: #0F525B;
+              font-weight: 500;
+            }
+            img {
+              max-width: 100%;
+              height: auto;
+            }
+          </style>
+        </head>
+        <body>
+          ${widget.privacyContent}
+        </body>
+      </html>
+    ''';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +95,10 @@ class PrivacySecurityScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.h),
-            Html(
-              data: """
-    <p style="font-family: Montserrat; font-size: ${15.sp}px; font-weight: 500; color: ${AppColors.text1.value.toRadixString(16)};">
-      $privacyContent
-    </p>
-  """,
-            )
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 3,
+              child: WebViewWidget(controller: _controller),
+            ),
           ],
         ),
       ),

@@ -97,6 +97,7 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   font_awesome_flutter: ^10.8.0
   restart_app: ^1.2.1
+  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_test:

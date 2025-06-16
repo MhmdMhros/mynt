@@ -173,7 +173,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       onPressed = () async {
         if (MoreCubit.get(context)
                 .settingsDataWithoutSlug
-                ?.drivers
+                ?.owners
                 ?.enablePhoneOtp ==
             '0') {
           final success =
@@ -191,11 +191,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               LayoutCubit.get(context).editData();
             }
           }
-        } else if (MoreCubit.get(context)
-                .settingsDataWithoutSlug
-                ?.drivers
-                ?.enablePhoneOtp ==
-            '1') {
+        } else {
           final success = await VerificationCubit.get(context)
               .editEmail(emailController.text);
           if (success) {
@@ -208,7 +204,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       onPressed = () async {
         if (MoreCubit.get(context)
                 .settingsDataWithoutSlug
-                ?.drivers
+                ?.owners
                 ?.enablePhoneOtp ==
             '0') {
           final success =
@@ -226,11 +222,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               LayoutCubit.get(context).editData();
             }
           }
-        } else if (MoreCubit.get(context)
-                .settingsDataWithoutSlug
-                ?.drivers
-                ?.enablePhoneOtp ==
-            '1') {
+        } else {
           final success = await VerificationCubit.get(context)
               .editPhone(phoneController.text);
           if (success) {

@@ -9,14 +9,14 @@ class SettingsDataWithoutSlugsResponse extends Equatable
   final CustomersResponse? customers;
   @JsonKey(name: 'social_auth')
   final SocialAuthResponse? socialAuth;
-  final DriversResponse? drivers;
+  final OwnersResponse? owners;
 
   const SettingsDataWithoutSlugsResponse({
     required this.general,
     required this.socialMedia,
     required this.customers,
     required this.socialAuth,
-    required this.drivers,
+    required this.owners,
   });
 
   factory SettingsDataWithoutSlugsResponse.fromJson(
@@ -30,13 +30,13 @@ class SettingsDataWithoutSlugsResponse extends Equatable
       socialMedia: socialMedia?.toDomain(),
       customers: customers?.toDomain(),
       socialAuth: socialAuth?.toDomain(),
-      drivers: drivers?.toDomain(),
+      owners: owners?.toDomain(),
     );
   }
 
   @override
   List<Object?> get props =>
-      [general, socialMedia, customers, socialAuth, drivers];
+      [general, socialMedia, customers, socialAuth, owners];
 }
 
 @JsonSerializable(createToJson: false)
@@ -198,20 +198,20 @@ class SocialAuthResponse extends Equatable implements DataResponse<SocialAuth> {
 }
 
 @JsonSerializable(createToJson: false)
-class DriversResponse extends Equatable implements DataResponse<Drivers> {
+class OwnersResponse extends Equatable implements DataResponse<Owners> {
   @JsonKey(name: 'enable_phone_otp')
   final String? enablePhoneOtp;
 
-  const DriversResponse({required this.enablePhoneOtp});
+  const OwnersResponse({required this.enablePhoneOtp});
 
   @override
-  Drivers toDomain() => Drivers(enablePhoneOtp: enablePhoneOtp.orEmpty());
+  Owners toDomain() => Owners(enablePhoneOtp: enablePhoneOtp.orEmpty());
 
   @override
   List<Object?> get props => [enablePhoneOtp];
 
-  factory DriversResponse.fromJson(Map<String, dynamic> json) =>
-      _$DriversResponseFromJson(json);
+  factory OwnersResponse.fromJson(Map<String, dynamic> json) =>
+      _$OwnersResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)

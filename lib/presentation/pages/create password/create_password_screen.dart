@@ -194,7 +194,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                             if (_formKey.currentState!.validate()) {
                               if (MoreCubit.get(context)
                                       .settingsDataWithoutSlug
-                                      ?.drivers
+                                      ?.owners
                                       ?.enablePhoneOtp ==
                                   '0') {
                                 final success = await LoginCubit.get(context)
@@ -213,11 +213,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                     ),
                                   );
                                 }
-                              } else if (MoreCubit.get(context)
-                                      .settingsDataWithoutSlug
-                                      ?.drivers
-                                      ?.enablePhoneOtp ==
-                                  '1') {
+                              } else {
                                 final resetSuccess =
                                     await VerificationCubit.get(context)
                                         .resetPassword(
