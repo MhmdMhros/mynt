@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mynt/core/base_usecase.dart';
+import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/core/user_secure_storage.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/di.dart';
@@ -74,6 +75,7 @@ class MoreCubit extends Cubit<MoreState> {
       },
       (r) async {
         await getIt<UserSecureStorage>().deleteUserInfo();
+        await FirebaseApi().unSubscribeFromTopic();
         if (!isClosed) emit(LogoutSuccess());
         return true;
       },

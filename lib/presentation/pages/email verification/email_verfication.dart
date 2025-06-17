@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
+import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/email%20verification/cubit/verification_cubit.dart';
 import 'package:mynt/presentation/pages/layout/layout_screen.dart';
@@ -212,6 +213,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     final success = await cubit.verifyOtp(widget.email, otp);
                     if (success) {
                       if (widget.type == 'auth_login') {
+                        await FirebaseApi().subscribeToTopic();
                         showToast(
                             "You’ve just joined Mynt! 🎉", ToastType.success);
                         await isUserLogged();
