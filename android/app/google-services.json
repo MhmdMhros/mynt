@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "336171900343",
+    "project_id": "mynt-hospitality",
+    "storage_bucket": "mynt-hospitality.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336171900343:android:4d617692d1e7f6abc4dc32",
+        "android_client_info": {
+          "package_name": "com.mynt.mynt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFCtfeKmNnnd_R34vS-OxWQzk3wLIuMDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

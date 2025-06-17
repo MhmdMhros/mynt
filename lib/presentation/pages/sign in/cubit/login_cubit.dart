@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mynt/app/functions.dart';
+import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/data/requests/requests.dart';
 import 'package:mynt/domain/usecases/check_account_usecase.dart';
 import 'package:mynt/domain/usecases/login_usecase.dart';
@@ -40,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
     if (email != null && password != null) {
       glopalUserName = email;
       glopalPassword = password;
-      glopalDeviceToken = generateRandomToken(9);
+      glopalDeviceToken = FirebaseApi().fCMToken;
       glopalDeviceType = Platform.isAndroid
           ? 'android'
           : Platform.isIOS

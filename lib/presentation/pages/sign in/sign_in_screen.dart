@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
+import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
 import 'package:mynt/core/widgets/app_text_form_field.dart';
@@ -237,6 +238,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                         ),
                                       );
                                     } else if (success) {
+                                      await FirebaseApi().subscribeToTopic();
                                       showToast("You’ve just joined Mynt! 🎉",
                                           ToastType.success);
                                       await isUserLogged();

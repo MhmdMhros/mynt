@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/core/services/BlocObserver.dart';
 import 'package:mynt/di.dart';
 import 'package:mynt/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
@@ -16,9 +18,15 @@ import 'package:mynt/presentation/pages/tickets/cubit/tickets_cubit.dart';
 import 'package:mynt/presentation/pages/units/cubit/units_cubit.dart';
 import 'package:oktoast/oktoast.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseApi().initNotifications();
   await configureDependencies();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
