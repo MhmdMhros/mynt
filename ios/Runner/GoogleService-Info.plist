@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.mynt</string>
+	<string>com.mynt.mynt</string>
 	<key>PROJECT_ID</key>
 	<string>mynt-hospitality</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:336171900343:ios:cdc3dec005d553ddc4dc32</string>
+	<string>1:336171900343:ios:fcf5f4c47568d50dc4dc32</string>
 </dict>
 </plist>

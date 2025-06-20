@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseApi {
+  static final FirebaseApi _instance = FirebaseApi._internal();
+  factory FirebaseApi() => _instance;
+
+  FirebaseApi._internal();
   final _firebaseMessaging = FirebaseMessaging.instance;
   String? fCMToken = '';
   Future<void> initNotifications() async {

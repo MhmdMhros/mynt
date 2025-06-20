@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/firebase_api.dart';
@@ -91,7 +90,7 @@ class LoginCubit extends Cubit<LoginState> {
     final checkResult = await _checkAccountUsecase(
       CheckAccountRequest(login: glopalUserName!),
     );
-
+    showToast(glopalDeviceToken!, ToastType.warning);
     return await checkResult.fold(
       (failure) {
         // showToast(
@@ -103,10 +102,10 @@ class LoginCubit extends Cubit<LoginState> {
       (checkSuccess) async {
         final loginResult = await _loginUseCase(
           LoginRequest(
-            userName: glopalUserName!,
-            password: glopalPassword!,
-            deviceToken: glopalDeviceToken!,
-            deviceType: glopalDeviceType!,
+            userName: glopalUserName ?? '',
+            password: glopalPassword ?? '',
+            deviceToken: glopalDeviceToken ?? '',
+            deviceType: glopalDeviceType ?? '',
           ),
         );
 
@@ -117,7 +116,6 @@ class LoginCubit extends Cubit<LoginState> {
           },
           (loginSuccess) async {
             emit(LoginSuccess());
-
             final sendOtpResult = await _sendOtpUsecase(
               SendOtpRequest(identifier: glopalUserName!),
             );
