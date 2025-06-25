@@ -58,45 +58,45 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<BookedDateModel> bookedDates = [
-    //   BookedDateModel(bookingId: 16, date: "2025-06-01", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 16, date: "2025-04-01", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 16, date: "2026-04-02", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 16, date: "2025-06-02", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-10", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-11", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-12", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 17, date: "2025-06-13", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-09", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-10", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-11", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-12", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 21, date: "2025-05-13", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 23, date: "2025-05-29", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 23, date: "2025-05-30", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-01", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-02", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-03", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-04", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-05", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-06", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-07", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-08", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 27, date: "2025-09-09", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 29, date: "2025-06-04", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 29, date: "2025-06-05", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 30, date: "2025-07-04", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 30, date: "2025-07-05", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-01", bookingPlatform: 2),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-02", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-03", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-04", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-05", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-06", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-07", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-08", bookingPlatform: 1),
-    //   BookedDateModel(bookingId: 31, date: "2025-10-09", bookingPlatform: 1),
-    // ];
+    final List<BookedDateModel> bookedDates = [
+      BookedDateModel(bookingId: 16, date: "2025-06-01", bookingPlatform: 1),
+      BookedDateModel(bookingId: 16, date: "2025-04-01", bookingPlatform: 1),
+      BookedDateModel(bookingId: 16, date: "2026-04-02", bookingPlatform: 2),
+      BookedDateModel(bookingId: 16, date: "2025-06-02", bookingPlatform: 1),
+      BookedDateModel(bookingId: 17, date: "2025-06-10", bookingPlatform: 2),
+      BookedDateModel(bookingId: 17, date: "2025-06-11", bookingPlatform: 1),
+      BookedDateModel(bookingId: 17, date: "2025-06-12", bookingPlatform: 1),
+      BookedDateModel(bookingId: 17, date: "2025-06-13", bookingPlatform: 2),
+      BookedDateModel(bookingId: 21, date: "2025-05-09", bookingPlatform: 1),
+      BookedDateModel(bookingId: 21, date: "2025-05-10", bookingPlatform: 1),
+      BookedDateModel(bookingId: 21, date: "2025-06-11", bookingPlatform: 1),
+      BookedDateModel(bookingId: 21, date: "2025-05-12", bookingPlatform: 1),
+      BookedDateModel(bookingId: 21, date: "2025-05-13", bookingPlatform: 1),
+      BookedDateModel(bookingId: 23, date: "2025-05-29", bookingPlatform: 1),
+      BookedDateModel(bookingId: 23, date: "2025-05-30", bookingPlatform: 2),
+      BookedDateModel(bookingId: 27, date: "2025-09-01", bookingPlatform: 2),
+      BookedDateModel(bookingId: 27, date: "2025-09-02", bookingPlatform: 2),
+      BookedDateModel(bookingId: 27, date: "2025-09-03", bookingPlatform: 1),
+      BookedDateModel(bookingId: 27, date: "2025-09-04", bookingPlatform: 1),
+      BookedDateModel(bookingId: 27, date: "2025-09-05", bookingPlatform: 2),
+      BookedDateModel(bookingId: 27, date: "2025-09-06", bookingPlatform: 1),
+      BookedDateModel(bookingId: 27, date: "2025-09-07", bookingPlatform: 1),
+      BookedDateModel(bookingId: 27, date: "2025-09-08", bookingPlatform: 2),
+      BookedDateModel(bookingId: 27, date: "2025-09-09", bookingPlatform: 1),
+      BookedDateModel(bookingId: 29, date: "2025-06-04", bookingPlatform: 1),
+      BookedDateModel(bookingId: 29, date: "2025-06-05", bookingPlatform: 1),
+      BookedDateModel(bookingId: 30, date: "2025-07-04", bookingPlatform: 2),
+      BookedDateModel(bookingId: 30, date: "2025-07-05", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-01", bookingPlatform: 2),
+      BookedDateModel(bookingId: 31, date: "2025-10-02", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-03", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-04", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-05", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-06", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-07", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-08", bookingPlatform: 1),
+      BookedDateModel(bookingId: 31, date: "2025-10-09", bookingPlatform: 1),
+    ];
 
     return BlocBuilder<UnitsCubit, UnitsState>(builder: (context, state) {
       var cubit = UnitsCubit.get(context);
@@ -417,9 +417,9 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         grouped[currentYear]![month] = {};
       }
 
-      firstDay = DateTime(currentYear, currentMonth, 1);
+      firstDay = DateTime(currentYear, 1, 1);
       lastDay = DateTime(currentYear, 12, 31);
-      focusedDay = firstDay;
+      focusedDay = DateTime(currentYear, currentMonth, 31);
     } else {
       bookedDates.sort((a, b) {
         final aDate = DateTime.parse(a.date!);
@@ -453,9 +453,9 @@ class _UnitDetailsScreenState extends State<UnitDetailsScreen> {
         }
       }
 
-      firstDay = DateTime(startYear, startMonth, 1);
+      firstDay = DateTime(startYear, 1, 1);
       lastDay = DateTime(endYear, 12, 31);
-      focusedDay = firstDay;
+      focusedDay = DateTime(startYear, startMonth, 1);
     }
 
     return CalendarData(
