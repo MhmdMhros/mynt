@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mynt/app/functions.dart';
+// import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/app_prefs/app_prefs.dart';
 import 'package:mynt/core/resources/colors_manager.dart';
 import 'package:mynt/core/widgets/app_text_button.dart';
@@ -22,14 +22,14 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     super.initState();
-    LayoutCubit.get(context).checkLayoutConnectivity();
+    // LayoutCubit.get(context).checkLayoutConnectivity();
     _handleUserLogic();
   }
 
-  Future<void> _initConnectivityAndHandleLogic() async {
-    final bool connect = await initialyConnectivity();
-    if (connect) {}
-  }
+  // Future<void> _initConnectivityAndHandleLogic() async {
+  //   final bool connect = await initialyConnectivity();
+  //   if (connect) {}
+  // }
 
   Future<void> resetIsInMainLayout() async {
     await getIt<AppPreferences>().resetIsUserLogin();
@@ -145,7 +145,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                     buttonHeight: 48.h,
                     backgroundColor: AppColors.primary,
                     onPressed: () {
-                      LayoutCubit.get(context).checkLayoutConnectivity();
+                      // LayoutCubit.get(context).checkLayoutConnectivity();
                     },
                     child: Text(
                       'Retry',

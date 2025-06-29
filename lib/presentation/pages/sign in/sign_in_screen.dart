@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
     if (widget.email != '') {
       emailController.text = widget.email;
     }
-    LoginCubit.get(context).checkLoginConnectivity();
+    // LoginCubit.get(context).checkLoginConnectivity();
     MoreCubit.get(context);
   }
 
@@ -317,7 +317,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       buttonHeight: 48.h,
                       backgroundColor: AppColors.primary,
                       onPressed: () {
-                        LoginCubit.get(context).checkLoginConnectivity();
+                        // LoginCubit.get(context).checkLoginConnectivity();
                       },
                       child: Text(
                         'Retry',
