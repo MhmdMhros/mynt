@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mynt/app/functions.dart';
 import 'package:mynt/core/firebase_api.dart';
 import 'package:mynt/data/requests/requests.dart';
@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool staySignIn = false;
 
-  bool isConnected = false;
+  bool isConnected = true;
 
   void onStaySignInChange(bool staySignIn) => this.staySignIn = staySignIn;
 
@@ -136,22 +136,22 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void checkLoginConnectivity() async {
-    final List<ConnectivityResult> connectivityResult =
-        await (Connectivity().checkConnectivity());
+  // void checkLoginConnectivity() async {
+  //   final List<ConnectivityResult> connectivityResult =
+  //       await (Connectivity().checkConnectivity());
 
-    if (connectivityResult.contains(ConnectivityResult.mobile)) {
-      isConnected = true;
-      emit(LoginConnectivityChanged(isConnected));
-    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
-      isConnected = true;
-      emit(LoginConnectivityChanged(isConnected));
-    } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
-      isConnected = true;
-      emit(LoginConnectivityChanged(isConnected));
-    } else {
-      isConnected = false;
-      emit(LoginConnectivityChanged(isConnected));
-    }
-  }
+  //   if (connectivityResult.contains(ConnectivityResult.mobile)) {
+  //     isConnected = true;
+  //     emit(LoginConnectivityChanged(isConnected));
+  //   } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+  //     isConnected = true;
+  //     emit(LoginConnectivityChanged(isConnected));
+  //   } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+  //     isConnected = true;
+  //     emit(LoginConnectivityChanged(isConnected));
+  //   } else {
+  //     isConnected = false;
+  //     emit(LoginConnectivityChanged(isConnected));
+  //   }
+  // }
 }

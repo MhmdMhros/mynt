@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -36,7 +36,7 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   User? user;
   DashboardData? dashboardData;
-  bool isConnected = false;
+  bool isConnected = true;
 
   int bottomNavIndex = 0;
 
@@ -126,24 +126,24 @@ class LayoutCubit extends Cubit<LayoutState> {
     }
   }
 
-  void checkLayoutConnectivity() async {
-    final List<ConnectivityResult> connectivityResult =
-        await (Connectivity().checkConnectivity());
+  // void checkLayoutConnectivity() async {
+  //   final List<ConnectivityResult> connectivityResult =
+  //       await (Connectivity().checkConnectivity());
 
-    if (connectivityResult.contains(ConnectivityResult.mobile)) {
-      isConnected = true;
-      emit(LayoutConnectivityChanged(isConnected));
-    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
-      isConnected = true;
-      emit(LayoutConnectivityChanged(isConnected));
-    } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
-      isConnected = true;
-      emit(LayoutConnectivityChanged(isConnected));
-    } else {
-      isConnected = false;
-      emit(LayoutConnectivityChanged(isConnected));
-    }
-  }
+  //   if (connectivityResult.contains(ConnectivityResult.mobile)) {
+  //     isConnected = true;
+  //     emit(LayoutConnectivityChanged(isConnected));
+  //   } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+  //     isConnected = true;
+  //     emit(LayoutConnectivityChanged(isConnected));
+  //   } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+  //     isConnected = true;
+  //     emit(LayoutConnectivityChanged(isConnected));
+  //   } else {
+  //     isConnected = false;
+  //     emit(LayoutConnectivityChanged(isConnected));
+  //   }
+  // }
 
   Future<bool> editAccountData(String name, String gender) async {
     emit(EditAccountDataLoading());
