@@ -8,7 +8,7 @@ import '../../core/models/responses.dart';
 import '../../core/network/error_handler.dart';
 import '../../core/network/failure.dart';
 import '../models/no_data.dart';
-// import '../services/check_internet_connection.dart';
+import '../services/check_internet_connection.dart';
 
 class RepositoryHelpers {
   Future<Either<Failure, T>> callApi<T>(
@@ -26,9 +26,9 @@ class RepositoryHelpers {
       'Please provide convertToAppropriateList if you are returning list.',
     );
 
-    // if (!(await isConnected())) {
-    //   return _retrunFailureIfNoInternetConnection<T>();
-    // }
+    if (!(await isConnected())) {
+      return _retrunFailureIfNoInternetConnection<T>();
+    }
 
     try {
       final result = await function();
