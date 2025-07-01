@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-// import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -349,17 +349,17 @@ String getTicketStatusDescription(int statusId, String statusText) {
   }
 }
 
-// Future<bool> initialyConnectivity() async {
-//   final List<ConnectivityResult> connectivityResult =
-//       await (Connectivity().checkConnectivity());
+Future<bool> initialyConnectivity() async {
+  final List<ConnectivityResult> connectivityResult =
+      await (Connectivity().checkConnectivity());
 
-//   if (connectivityResult.contains(ConnectivityResult.mobile)) {
-//     return true;
-//   } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
-//     return true;
-//   } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+  if (connectivityResult.contains(ConnectivityResult.mobile)) {
+    return true;
+  } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+    return true;
+  } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+    return true;
+  } else {
+    return false;
+  }
+}
